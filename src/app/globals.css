@@ -1,26 +1,298 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background-primary: #FFFCF8;
+  --background-secondary: rgb(255 247 237 / 88%);
+  --background-card: #FFFFFF;
+  --background-elevated: #FFF3E7;
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-muted: #78716C;
+  --accent: #D97728;
+  --accent-hover: #B85C17;
+  --border: #E7D9CC;
+  --grid-lines: #F2E6DB;
+  --white-button-bg: #D97728;
+  --white-button-text: #FFFFFF;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --background-primary: #08090B;
+  --background-secondary: rgb(16 18 22 / 74%);
+  --background-card: #14171C;
+  --background-elevated: #1B1F25;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A1A6B0;
+  --text-muted: #737985;
+  --accent: #F09A55;
+  --accent-hover: #F5B274;
+  --border: #292D34;
+  --grid-lines: #1B1F24;
+  --white-button-bg: #F5F5F5;
+  --white-button-text: #08090B;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-card: var(--background-card);
+  --color-background-elevated: var(--background-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-grid-lines: var(--grid-lines);
+  --color-white-button-bg: var(--white-button-bg);
+  --color-white-button-text: var(--white-button-text);
+  --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background-primary);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.site-navbar__logo {
+  display: block;
+}
+
+html:not([data-theme="light"]) .site-navbar__logo {
+  filter: brightness(0) invert(1);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: clamp(1.85rem, 3.8vw, 3.1rem);
+  line-height: 1.14;
+}
+
+h2 {
+  font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+  line-height: 1.18;
+}
+
+.home-hero-title {
+  font-size: clamp(1.65rem, 3.4vw, 2.8rem);
+}
+
+.site-animated-background {
+  position: fixed;
+  inset: -8px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #000000;
+}
+
+html[data-theme="light"] .site-animated-background {
+  background-color: #FFFCF8;
+}
+
+html[data-theme="light"] .text-white:not(.bg-accent) {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="light"] [class~="text-white/80"] {
+  color: var(--text-secondary) !important;
+}
+
+html[data-theme="light"] .hero-dark-surface .text-white:not(.bg-accent) {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .hero-dark-surface [class~="text-white/80"] {
+  color: rgb(255 255 255 / 80%) !important;
+}
+
+html[data-theme="light"] [class~="text-orange-300"],
+html[data-theme="light"] [class~="text-orange-400"] {
+  color: var(--accent) !important;
+}
+
+html[data-theme="light"] [class~="text-blue-400"] {
+  color: #1D4ED8 !important;
+}
+
+html[data-theme="light"] [class~="text-purple-400"] {
+  color: #7E22CE !important;
+}
+
+html[data-theme="light"] [class~="text-amber-300"] {
+  color: #92400E !important;
+}
+
+html[data-theme="light"] [class~="text-gray-400"] {
+  color: var(--text-secondary) !important;
+}
+
+html[data-theme="light"] [class~="hover:text-white"]:hover,
+html[data-theme="light"] .group:hover [class~="group-hover:text-white"] {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="light"] [class~="hover:text-orange-300"]:hover {
+  color: var(--accent-hover) !important;
+}
+
+html[data-theme="light"] .site-navbar__mobile-divider {
+  border-color: var(--border);
+}
+
+html[data-theme="light"] .site-primary-button {
+  background-color: var(--white-button-bg) !important;
+  color: var(--white-button-text) !important;
+}
+
+html[data-theme="light"] .site-primary-button:hover {
+  background-color: var(--accent-hover) !important;
+}
+
+@keyframes scroll-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ambient-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.04;
+  }
+}
+
+.ambient-glow {
+  animation: ambient-breathe 18s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.testimonial-carousel {
+  scrollbar-width: none;
+}
+
+.testimonial-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ambient-glow {
+    animation: none !important;
+  }
+
+}
+
+@supports (animation-timeline: view()) and (overflow: clip) {
+  .overflow-hidden {
+    overflow: clip;
+  }
+
+  main section:not([data-scroll-motion-ignore]) h1,
+  main section:not([data-scroll-motion-ignore]) h2,
+  main article h1,
+  main article h2,
+  main section:not([data-scroll-motion-ignore]) h1 + p,
+  main section:not([data-scroll-motion-ignore]) h2 + p,
+  main section:not([data-scroll-motion-ignore]) .tech-stack-row,
+  main section:not([data-scroll-motion-ignore]) [class*="divide-y"] > div,
+  main section:not([data-scroll-motion-ignore]) ol > li {
+    animation: scroll-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+
+  main section:not([data-scroll-motion-ignore]) article,
+  main section:not([data-scroll-motion-ignore]) a[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]),
+  main section:not([data-scroll-motion-ignore]) div[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]),
+  main > article {
+    animation: scroll-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  main section:not([data-scroll-motion-ignore]) .grid > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  main section:not([data-scroll-motion-ignore]) .grid > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  main section:not([data-scroll-motion-ignore]) .grid > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  @media (hover: hover) {
+    main section:not([data-scroll-motion-ignore]) article:hover,
+    main section:not([data-scroll-motion-ignore]) a[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]):hover,
+    main section:not([data-scroll-motion-ignore]) div[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]):hover,
+    main > article:hover {
+      transform: translate3d(0, -4px, 0) scale(1.01);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    main section h1,
+    main section h2,
+    main section p,
+    main article h1,
+    main article h2,
+    main section .tech-stack-row,
+    main section [class*="divide-y"] > div,
+    main section ol > li,
+    main section article,
+    main section a[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]),
+    main section div[class*="rounded-"][class*="bg-background-card"]:not([data-scroll-motion-ignore]),
+    main > article {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
 }

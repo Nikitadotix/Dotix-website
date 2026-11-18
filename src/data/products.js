@@ -1,0 +1,40 @@
+export const products = [
+  {
+    id: 'duddy',
+    name: 'Duddy',
+    description: 'AI-enabled no-code app builder that creates real native Android, iOS and web applications.',
+    website: 'https://duddy.io',
+    category: 'Product',
+    tags: ['AI', 'No-Code', 'App Builder'],
+  },
+  {
+    id: 'omnibase',
+    name: 'Omnibase',
+    description: 'Backend-as-a-service with database, authentication, file storage, payouts and an admin dashboard.',
+    website: 'https://omnibase.in',
+    category: 'Product',
+    tags: ['Backend', 'BaaS', 'Database'],
+  },
+  {
+    id: 'rewardhub',
+    name: 'RewardHub',
+    description: 'Performance-marketing platform connecting advertisers with real users.',
+    website: 'https://rewardhub.apploft.in',
+    category: 'Product',
+    tags: ['Marketing', 'Rewards', 'Platform'],
+  },
+  {
+    id: 'apploft',
+    name: 'Apploft',
+    description: 'App ecosystem for managing internal applications.',
+    category: 'Product',
+    tags: ['Internal', 'Management'],
+  },
+  {
+    id: 'notix',
+    name: 'Notix',
+    description: 'Central service and API for notification channels.',
+    category: 'Product',
+    tags: ['Notifications', 'API'],
+  },
+];
