@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
@@ -104,13 +103,13 @@ export function TechStack() {
           aria-label="Technologies used by Dotix"
           className="relative min-w-0"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-background-card p-4 shadow-sm sm:p-5 lg:p-6">
+          <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-background-card p-3 shadow-sm sm:p-4 lg:p-5">
 
             {/* Background detail */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.04] via-transparent to-transparent" />
 
             {/* Vertical scrolling columns */}
-            <div className="relative grid h-[360px] grid-cols-4 gap-2 overflow-hidden sm:h-[380px] sm:gap-2.5 lg:h-[390px]">
+            <div className="relative grid h-[400px] grid-cols-4 gap-1 overflow-hidden sm:h-[420px] sm:gap-2.5 lg:h-[430px]">
 
               {columns.map((column, columnIndex) => {
                 const reverse = columnIndex % 2 !== 0;
@@ -152,13 +151,13 @@ export function TechStack() {
                               <div
                                 key={`${technology.name}-${copy}`}
                                 title={technology.name}
-                                className="group mx-auto flex aspect-square w-full max-w-[68px] shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background-elevated p-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-background-primary"
+                                className="group mx-auto flex aspect-square w-full max-w-[80px] shrink-0 items-center justify-center rounded-xl border border-border/60 bg-background-elevated p-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-background-primary"
                               >
                                 {TechnologyIcon ? (
                                   <TechnologyIcon
-                                    size={24}
+                                    size={30}
                                     strokeWidth={1.7}
-                                    className="text-text-primary transition-transform duration-300 group-hover:scale-110 sm:h-6 sm:w-6"
+                                    className="text-text-primary transition-transform duration-300 group-hover:scale-110"
                                     aria-hidden="true"
                                   />
                                 ) : (
@@ -167,9 +166,9 @@ export function TechStack() {
                                     alt={copy === 0 ? technology.name : ''}
                                     aria-hidden={copy === 1 ? true : undefined}
                                     loading="lazy"
-                                    width="50"
-                                    height="50"
-                                    className="h-5 w-5 object-contain transition-transform duration-300 group-hover:scale-110 sm:h-6 sm:w-6"
+                                    width="32"
+                                    height="32"
+                                    className="h-6 w-6 object-contain transition-transform duration-300 group-hover:scale-110 sm:h-7 sm:w-7"
                                   />
                                 )}
                               </div>

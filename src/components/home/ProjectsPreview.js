@@ -145,15 +145,20 @@ const projectsList = [
   },
 ];
 
-const GAP = 22;
+const GAP = 18;
 const AUTOPLAY_DELAY = 4000;
 
 const ease = [0.22, 1, 0.36, 1];
 
+/*
+  Cards per view. Smaller cards = more cards visible.
+  To go back to 3 cards on desktop, delete the `>= 1080` line.
+*/
 function getVisibleCount(width) {
-  if (width < 640) return 1;
-  if (width < 1024) return 2;
-  return 3;
+  if (width < 560) return 1;
+  if (width < 800) return 2;
+  if (width < 1080) return 3;
+  return 4;
 }
 
 /* =========================================
@@ -175,7 +180,7 @@ function ProjectCard({ project, index, caseStudySlugs }) {
         whileHover={
           reducedMotion
             ? undefined
-            : { y: -6 }
+            : { y: -5 }
         }
         transition={{
           duration: 0.3,
@@ -183,7 +188,7 @@ function ProjectCard({ project, index, caseStudySlugs }) {
         }}
         className="h-full"
       >
-        <div className="relative flex h-full min-h-[320px] sm:min-h-[360px] flex-col overflow-hidden border border-border bg-background-card p-5 sm:p-7 transition-all duration-500 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/[0.06]">
+        <div className="relative flex h-full min-h-[250px] sm:min-h-[270px] flex-col overflow-hidden border border-border bg-background-card p-4 sm:p-5 transition-all duration-500 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/[0.06]">
 
           {/* Hover background */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.06] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -194,34 +199,34 @@ function ProjectCard({ project, index, caseStudySlugs }) {
           <div className="relative flex flex-1 flex-col">
 
             {/* Top row */}
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
 
               {/* Logo */}
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden border border-border bg-background-elevated">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden border border-border bg-background-elevated">
                 {project.logo ? (
                   <Image
                     src={project.logo}
                     alt={`${project.name} logo`}
-                    width={36}
-                    height={36}
-                    className="h-8 w-8 object-contain"
+                    width={28}
+                    height={28}
+                    className="h-6 w-6 object-contain"
                   />
                 ) : (
                   <Layers3
-                    className="h-5 w-5 text-text-muted transition-colors duration-300 group-hover:text-accent"
+                    className="h-4 w-4 text-text-muted transition-colors duration-300 group-hover:text-accent"
                     strokeWidth={1.5}
                   />
                 )}
               </div>
 
               {/* Project number */}
-              <span className="font-mono text-[10px] tracking-[0.16em] text-text-muted">
+              <span className="font-mono text-[9px] tracking-[0.14em] text-text-muted">
                 PROJECT / {String(index + 1).padStart(2, '0')}
               </span>
             </div>
 
             {/* Category */}
-            <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.17em] text-accent">
+            <span className="mb-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-accent">
               {project.category}
             </span>
 
@@ -230,37 +235,37 @@ function ProjectCard({ project, index, caseStudySlugs }) {
               href={projectHref}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noopener noreferrer' : undefined}
-              className="mb-3 inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-text-primary transition-colors duration-300 hover:text-accent sm:text-2xl"
+              className="mb-2 inline-flex w-fit items-center gap-1.5 text-base font-semibold tracking-tight text-text-primary transition-colors duration-300 hover:text-accent sm:text-lg"
             >
               {project.name}
 
               <ArrowUpRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
             </ProjectLink>
 
             {/* Description */}
-            <p className="max-w-md text-sm leading-[1.8] text-text-secondary">
+            <p className="max-w-md text-[13px] leading-relaxed text-text-secondary">
               {project.description}
             </p>
 
             {/* Bottom section */}
-            <div className="mt-auto pt-5">
+            <div className="mt-auto pt-3">
 
               {/* Website link - just above divider */}
-              <div className="mb-4 min-h-[18px]">
+              <div className="mb-3 min-h-[16px]">
                 {project.website && (
                   <a
                     href={project.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit ${project.name} website`}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary transition-colors duration-300 hover:text-accent"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-medium text-text-secondary transition-colors duration-300 hover:text-accent"
                   >
                     {project.domain}
 
                     <ExternalLink
-                      size={12}
+                      size={11}
                       className="transition-transform duration-300 group-hover:translate-x-0.5"
                     />
                   </a>
@@ -271,17 +276,17 @@ function ProjectCard({ project, index, caseStudySlugs }) {
               <div className="border-t border-border" />
 
               {/* Read Case Study button */}
-              <div className="flex items-center justify-between pt-5">
+              <div className="flex items-center justify-between pt-3.5">
                 <ProjectLink
                   href={projectHref}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noopener noreferrer' : undefined}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-xs font-semibold text-white transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/20"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[11px] font-semibold text-white transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/20"
                 >
                   {hasCaseStudy ? 'Read Case Study' : 'View Project'}
 
                   <ArrowUpRight
-                    size={14}
+                    size={12}
                     className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </ProjectLink>
@@ -308,8 +313,8 @@ export function ProjectsPreview({ caseStudySlugs = [] }) {
   const timerRef = useRef(null);
 
   const [containerWidth, setContainerWidth] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const [currentIndex, setCurrentIndex] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [currentIndex, setCurrentIndex] = useState(4);
   const [isPaused, setIsPaused] = useState(false);
   const [skipAnimation, setSkipAnimation] = useState(false);
 

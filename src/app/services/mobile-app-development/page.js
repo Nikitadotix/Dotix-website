@@ -260,7 +260,7 @@ function Ic({ n, s = 16, w = 1.8 }) {
   );
 }
 
-/* Small Web / iOS / Android icons for the hero row and app cards */
+/* Small Web / iOS / Android icons for the app cards */
 function PlatIcon({ n }) {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
@@ -615,22 +615,13 @@ export default function MobileAppDevelopmentPage() {
           <div className="ma-hero-copy">
             <h1 className="ma-in" style={{ animationDelay: '80ms' }}>
               One product.
-              <span>Web, iOS and Android.</span>
+              <span>Every platform</span>
             </h1>
             <p className="ma-lead ma-in" style={{ animationDelay: '160ms' }}>
               We design and build web, iOS and Android apps, from first prototype to store release and beyond.
             </p>
 
-            <div className="ma-platrow ma-in" style={{ animationDelay: '200ms' }}>
-              {[['web', 'Web'], ['ios', 'iOS'], ['android', 'Android']].map(([k, l]) => (
-                <span key={k}>
-                  <PlatIcon n={k} />
-                  {l}
-                </span>
-              ))}
-            </div>
-
-            <div className="ma-actions ma-in" style={{ animationDelay: '260ms' }}>
+            <div className="ma-actions ma-in" style={{ animationDelay: '220ms' }}>
               <Button href="/contact" variant="primary">
                 Start your project
               </Button>
@@ -647,7 +638,7 @@ export default function MobileAppDevelopmentPage() {
       </section>
 
       {/* MOVING TECH STRIP */}
-      <div className="ma-marquee" aria-label="Technologies we work with">
+      {/* <div className="ma-marquee" aria-label="Technologies we work with">
         <div className="ma-track">
           {[...stack, ...stack].map((t, i) => (
             <span key={`${t}-${i}`} aria-hidden={i >= stack.length}>
@@ -655,7 +646,7 @@ export default function MobileAppDevelopmentPage() {
             </span>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* PLATFORMS */}
       <section className="ma-section">
@@ -955,38 +946,36 @@ const CSS = `
 
 .ma-hero-copy{max-width:520px}
 
-.ma-hero h1{
-  font-size:clamp(32px,4vw,48px);
-  line-height:1.15;
-  letter-spacing:-.035em
+/* same heading style as the landing page hero */
+.mobile-app-page .ma-hero h1{
+  font-family:var(--font-manrope),Arial,Helvetica,sans-serif;
+  font-size:clamp(1.65rem,3.4vw,2.8rem);
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.045em
 }
 
 .ma-hero h1 span{
   display:block;
-  margin-top:4px;
-  color:var(--ma-accent)
+  width:fit-content;
+  margin-top:2px;
+  color:transparent;
+  background-image:linear-gradient(90deg,#f97316,#ea580c,#f59e0b);
+  -webkit-background-clip:text;
+  background-clip:text
 }
 
-.ma-lead{
-  margin:22px 0 0;
-  max-width:480px;
-  font-size:16px;
-  line-height:1.7;
-  color:var(--ma-text)
+html[data-theme="dark"] .ma-hero h1 span{
+  background-image:linear-gradient(90deg,#fdba74,#fb923c,#fbbf24)
 }
 
-.ma-platrow{display:flex;gap:28px;margin-top:28px}
-
-.ma-platrow span{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  color:var(--ma-text)
+.ma-lead {
+  margin: 8px 0 0;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ma-text);
 }
-
-.ma-platrow svg{color:#fff}
 
 .ma-actions{
   display:flex;
@@ -1803,7 +1792,7 @@ const CSS = `
   .ma-hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}
   .ma-hero-copy{max-width:none;margin:0 auto}
   .ma-lead{margin-left:auto;margin-right:auto}
-  .ma-platrow,.ma-actions{justify-content:center}
+  .ma-actions{justify-content:center}
   .ma-hero-art{--k:.6;justify-self:center}
 
   .ma-planner{grid-template-columns:1fr;gap:44px}
