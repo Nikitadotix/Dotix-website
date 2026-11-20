@@ -36,17 +36,10 @@ export const projects = [
     category: 'Business Software',
     logo: '/images/projects/apploft-icon.svg',
     tags: ['React', 'Node.js'],
+    website: 'https://apploft.in',
     featured: false,
   },
-  {
-    id: 'notix',
-    name: 'Notix',
-    description: 'Central service and API for notification channels.',
-    category: 'SaaS Products',
-    logo: '/images/projects/notix-icon.png',
-    tags: ['Node.js', 'API'],
-    featured: false,
-  },
+
   {
     id: 'buzzr',
     name: 'Buzzr',
@@ -54,6 +47,7 @@ export const projects = [
     category: 'Mobile Apps',
     logo: '/images/projects/buzzr-icon.svg',
     tags: ['React Native', 'Next.js', 'Node.js'],
+    website: 'https://buzzr.media/?ref=dotix.io',
     featured: false,
   },
   {
@@ -63,6 +57,7 @@ export const projects = [
     category: 'Mobile Apps',
     logo: '/images/projects/madjoy-icon.svg',
     tags: ['React Native', 'Node.js'],
+    website: 'https://madjoy.in/?ref=dotix.io',
     featured: false,
   },
   {
@@ -71,6 +66,7 @@ export const projects = [
     description: 'Website for a digital marketing agency.',
     category: 'Websites',
     logo: '/images/projects/inloop-icon.png',
+    website: 'https://inloopmedia.com/?ref=dotix.io',
     tags: ['Next.js', 'Tailwind'],
     featured: false,
   },
@@ -81,6 +77,7 @@ export const projects = [
     category: 'Websites',
     logo: '/images/projects/snackmedia-icon.svg',
     tags: ['Next.js', 'Tailwind'],
+    website: 'https://snackmedia.io/?ref=dotix.io',
     featured: false,
   },
   {
@@ -90,6 +87,7 @@ export const projects = [
     category: 'Websites',
     logo: '/images/projects/adneo-icon.svg',
     tags: ['Next.js', 'Tailwind'],
+    website: 'https://adneo.in/?ref=dotix.io',
     featured: false,
   },
   {
@@ -99,6 +97,7 @@ export const projects = [
     category: 'Websites',
     logo: '/images/projects/theadzplug-icon.svg',
     tags: ['Next.js', 'Tailwind'],
+    website: 'https://theadzplug.com/?ref=dotix.io',
     featured: false,
   },
 ];

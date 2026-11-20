@@ -1,1886 +1,1950 @@
-import Link from 'next/link';
+'use client';
+
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Montserrat } from 'next/font/google';
+import { Button } from '../../../components/common/Button.js';
+import { FAQAccordion } from '../../../components/common/FAQAccordion.js';
+import { SectionHeading as SharedSectionHeading } from '../../../components/common/SectionHeading.js';
 
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  display: 'swap',
-});
+/* NOTE: `export const metadata` cannot live in a 'use client' file.
+   Put it in a sibling layout.js. document.title below is a fallback. */
 
-export const metadata = {
-  title: 'SaaS Development Company | SaaS Platforms, MVPs & Custom Software | Dotix',
-  description:
-    'Dotix designs and builds SaaS platforms, MVPs, internal tools and CRMs. We run our own products too, so we build with launch, scale and running costs in mind.',
-};
+/* ------------------------------------------------------------------ */
+/* CONTENT                                                             */
+/* ------------------------------------------------------------------ */
 
-const layers = [
-  'Database',
-  'APIs & logic',
-  'Authentication',
-  'Payments',
-  'Interface',
-];
-
-const proof = [
-  'Our own products are live today',
-  'You own the code and the data',
-  'A working build every week or two',
-];
-
-const solutions = [
-  {
-    no: '01',
-    title: 'SaaS platforms',
-    description:
-      'Multi-user products with accounts, roles, subscriptions and the backend to carry them. Built so adding the hundredth customer is no harder than adding the first.',
-    tags: 'Multi-tenancy · Authentication · Billing',
-  },
-  {
-    no: '02',
-    title: 'MVP development',
-    description:
-      'The smallest version of your idea that real people can use. We help you decide what to leave out, ship quickly and learn from actual usage before you invest further.',
-    tags: 'Product strategy · Prototyping · Development',
-  },
-  {
-    no: '03',
-    title: 'Admin panels and internal tools',
-    description:
-      'Replace spreadsheets, scattered tools and manual follow-ups with one system your team actually wants to open every morning.',
-    tags: 'Internal tools · Reporting · Automation',
-  },
-  {
-    no: '04',
-    title: 'Custom CRMs',
-    description:
-      'Leads, customers and pipelines managed the way your sales process really works, not the way a generic tool assumes it does.',
-    tags: 'Lead management · Workflows · Reporting',
-  },
-];
-
-const lifecycle = [
-  {
-    title: 'Sign up',
-    description: 'Short onboarding with email or social login, so people reach the product fast.',
-  },
-  {
-    title: 'Free trial',
-    description: 'Trial periods and limits that let users see the value before they pay.',
-  },
-  {
-    title: 'Subscriptions',
-    description: 'Plans, upgrades, downgrades and coupons without manual work on your side.',
-  },
-  {
-    title: 'Billing',
-    description: 'Invoices, receipts, tax details and failed-payment handling.',
-  },
-  {
-    title: 'Renewal',
-    description: 'Automatic renewals, reminders and clean cancellations.',
-  },
-];
-
-const products = [
-  {
-    name: 'Omnibase',
-    type: 'BACKEND AS A SERVICE',
-    description:
-      'Database, authentication, storage and payouts brought together on one backend.',
-    url: 'https://omnibase.in/',
-    image: '/images/products/omnibase-home.png',
-    imageAlt: 'Omnibase backend platform',
-  },
-  {
-    name: 'Duddy',
-    type: 'AI APP BUILDER',
-    description:
-      'An AI-enabled builder that creates native Android, iOS and web applications.',
-    url: 'https://duddy.io/',
-    image: '/images/products/duddy-home.png',
-    imageAlt: 'Duddy AI app builder',
-  },
-  {
-    name: 'RewardHub',
-    type: 'PERFORMANCE MARKETING',
-    description:
-      'A platform connecting advertisers, publishers and real users through campaigns.',
-    url: 'https://rewardhub.apploft.in/',
-    image: '/images/products/rewardhub-home.png',
-    imageAlt: 'RewardHub marketing platform',
-  },
-  {
-    name: 'Notix',
-    type: 'NOTIFICATION INFRASTRUCTURE',
-    description:
-      'A centralized notification service and API for multiple communication channels.',
-    url: 'https://notix.in/',
-    image: '/images/products/notix-home.png',
-    imageAlt: 'Notix notification platform',
-  },
-  {
-    name: 'Buzzr',
-    type: 'INFLUENCER MARKETING',
-    description:
-      'A connected platform for influencer campaigns, mobile apps and live tracking.',
-    url: 'https://buzzr.media/',
-    image: '/images/products/buzzr-home.png',
-    imageAlt: 'Buzzr influencer marketing platform',
-  },
-];
-
-const stages = [
-  {
-    no: '01',
-    title: 'Understand',
-    description:
-      'We talk to you about the business, the users and the problem. You get a clear scope, a rough timeline and an honest view of what is worth building first.',
-    note: 'Discovery · Scope · Roadmap',
-  },
-  {
-    no: '02',
-    title: 'Plan & design',
-    description:
-      'User flows, screens and technical architecture are agreed before heavy development starts, so surprises show up on paper instead of in code.',
-    note: 'User flows · UI/UX · Architecture',
-  },
-  {
-    no: '03',
-    title: 'Build',
-    description:
-      'We work in short cycles and share a working version regularly. You see real progress, give feedback early and steer as we go.',
-    note: 'Development · Testing · Review',
-  },
-  {
-    no: '04',
-    title: 'Launch & support',
-    description:
-      'We deploy, hand over documentation and stay available for fixes and the next round of improvements.',
-    note: 'Deployment · Handover · Support',
-  },
+const steps = [
+  { icon: 'pencil', title: 'Plan and design', time: 'Weeks 1–2', short: 'Goals, features and screens.' },
+  { icon: 'code', title: 'Build and test', time: 'Weeks 3–10', short: 'Short sprints on real devices.' },
+  { icon: 'rocket', title: 'Launch', time: 'Final weeks', short: 'Store release, closely watched.' },
+  { icon: 'refresh', title: 'Support and grow', time: 'Ongoing', short: 'Fixes, updates and new features.' },
 ];
 
 const faqs = [
   {
-    q: 'What is the difference between SaaS, an MVP and a dashboard?',
-    a: 'SaaS is software customers use as a product, usually through a subscription. An MVP is the smallest useful version of a product, built to test an idea with real users. A dashboard is a screen or set of screens for monitoring and managing operations. One product can include all three.',
+    question: 'Native or cross-platform: which is better?',
+    answer:
+      'Native gives you full platform features. React Native and Flutter share one codebase across iOS and Android. The right choice depends on your features, performance needs and budget.',
   },
   {
-    q: 'How long does it take to build an MVP?',
-    a: 'It depends on scope, but a focused MVP usually takes somewhere between 6 and 12 weeks. We agree the feature list and milestones up front so you know what to expect before development begins.',
+    question: 'Can you build for both iOS and Android?',
+    answer: 'Yes, using React Native, Flutter or native code, whichever suits the product.',
   },
   {
-    q: 'How much will it cost?',
-    a: 'Cost follows scope, so we do not quote a number before understanding the product. After a short discovery conversation we share an estimate with clear phases, so you can start small and extend later if it makes sense.',
+    question: 'Can you develop an MVP?',
+    answer: 'Yes. We pick the essential features and build a working MVP so you can test your idea early.',
   },
   {
-    q: 'Can you work on an existing product?',
-    a: 'Yes. We can review your current codebase, fix problems, improve its structure and keep building from there, focusing on performance, usability and maintainability.',
+    question: 'How long does app development take?',
+    answer: 'A simple MVP takes about 4–8 weeks. A feature-rich app takes 12–20 weeks or more.',
   },
   {
-    q: 'Which technologies do you use?',
-    a: 'We choose the stack to fit the product, team and budget rather than the other way round. Our own platforms run on a mix of Next.js, React, Node.js and Go, and we are comfortable working with what you already have.',
+    question: 'Do you handle app store submissions?',
+    answer: 'Yes. We prepare the build, store assets and settings, and submit to Google Play and the App Store.',
   },
   {
-    q: 'Will I be able to track development progress?',
-    a: 'Yes. You get regular updates and working versions to try, so you can review features, give feedback and stay involved throughout.',
+    question: 'Can you improve an existing app?',
+    answer: 'Yes. We fix bugs, speed it up, refresh the interface and add new features.',
   },
   {
-    q: 'Who owns the source code?',
-    a: 'You do. The code and data belong to you, and we can work in repositories and cloud accounts that stay under your control.',
-  },
-  {
-    q: 'Do you support the product after launch?',
-    a: 'Yes. We can continue with fixes, monitoring, updates and new features after launch, either as ongoing work or whenever you need us.',
+    question: 'Do you provide post-launch support?',
+    answer: 'Yes. We offer ongoing fixes, compatibility updates and performance work.',
   },
 ];
 
-function Eyebrow({ children }) {
-  return <p className="saas-eyebrow">{children}</p>;
-}
+const flow = [
+  {
+    title: 'Your users',
+    caption: 'Where people use your product.',
+    items: ['iOS app', 'Android app', 'Push notifications'],
+  },
+  {
+    title: 'API layer',
+    caption: 'A secure gateway to your data.',
+    items: ['Authentication', 'REST / GraphQL API', 'Request validation'],
+  },
+  {
+    title: 'Backend',
+    caption: 'Logic and storage behind the scenes.',
+    items: ['Business logic', 'Database', 'Admin dashboard'],
+  },
+  {
+    title: 'Connected services',
+    caption: 'Third-party tools where needed.',
+    items: ['Payments', 'Maps and location', 'Analytics and email'],
+  },
+];
 
-function SectionHeading({ eyebrow, title, description, align = 'left' }) {
+const platforms = [
+  {
+    key: 'web',
+    tab: 'Web app',
+    title: 'Web apps',
+    text: 'Browser apps for your team and customers. Nothing to install.',
+    points: ['React and Next.js', 'Dashboards and portals', 'Works on any device'],
+  },
+  {
+    key: 'ios',
+    tab: 'iOS app',
+    title: 'iPhone and iPad apps',
+    text: 'Apps that feel at home on Apple devices.',
+    points: ['Swift or React Native', 'App Store submission', 'Push, Face ID, Apple Pay'],
+  },
+  {
+    key: 'android',
+    tab: 'Android app',
+    title: 'Android apps',
+    text: 'Apps built for the wide range of Android devices.',
+    points: ['Kotlin or Flutter', 'Google Play release', 'Tested across screen sizes'],
+  },
+];
+
+const planTypes = [
+  { label: 'MVP', base: 4, desc: 'Core features, fast.' },
+  { label: 'Customer app', base: 9, desc: 'Public app with accounts.' },
+  { label: 'Operations app', base: 7, desc: 'Tools for your team.' },
+  { label: 'Rebuild', base: 6, desc: 'Modernise an existing app.' },
+];
+
+const planFeatures = [
+  { key: 'auth', label: 'User accounts', weeks: 1 },
+  { key: 'pay', label: 'Payments', weeks: 2 },
+  { key: 'push', label: 'Push notifications', weeks: 1 },
+  { key: 'chat', label: 'Chat', weeks: 2 },
+  { key: 'maps', label: 'Maps and location', weeks: 2 },
+  { key: 'admin', label: 'Admin dashboard', weeks: 3 },
+];
+
+/* The four app cards.
+   - `image`: portrait screenshot / mockup (about 346 x 521). Put files in
+     /public (e.g. '/apps/buzzr.png'). Leave '' to show a placeholder.
+   - `logo`: small square logo. Leave '' to show a placeholder.
+   - Update the URLs if you have the exact links. */
+const apps = [
+  {
+    name: 'Buzzr',
+    url: 'https://buzzr.media',
+    domain: 'buzzr.media',
+    image: '/images/products/buzzr-mobile.png',
+    logo: '/images/projects/buzzr-icon.svg',
+    platforms: [['android', 'Android'], ['ios', 'iOS'], ['web', 'Web']],
+  },
+  {
+    name: 'RewardHub',
+    url: 'https://rewardhub.apploft.in',
+    domain: 'rewardhub.apploft.in',
+    image: '/images/products/rewardhub-mobile.png',
+    logo: '/images/projects/rewardhub-icon.svg',
+    platforms: [['web', 'Web']],
+  },
+  {
+    name: 'Cash Lemon',
+    url: 'https://apploft.in',
+    domain: 'apploft.in',
+    image: '/images/products/cash-lemon-mobile.png',
+    logo: '/images/projects/apploft-icon.svg',
+    platforms: [['android', 'Android']],
+  },
+  {
+    name: 'Captcha Entry',
+    url: 'https://apploft.in',
+    domain: 'apploft.in',
+    image: '/images/products/captcha-entry-mobile.png',
+    logo: '/images/projects/apploft-icon.svg',
+    platforms: [['android', 'Android']],
+  },
+];
+
+/* Tech stack shown in the moving strip under the hero. Edit freely. */
+const stack = [
+  'React Native', 'Flutter', 'Swift', 'Kotlin', 'Next.js', 'React', 'Node.js',
+  'TypeScript', 'Firebase', 'PostgreSQL', 'GraphQL', 'AWS', 'Figma', 'Stripe',
+];
+
+/* Hero diagram: sample rows shown inside the phone, and the services
+   connected on the left and right. Edit freely. */
+const heroRows = [
+  { name: 'Maya Patel', meta: '#2043 · 3 items', status: 'Preparing', tone: 'warn', color: '#e8590c' },
+  { name: 'Daniel Cruz', meta: '#2042 · 5 items', status: 'On the way', tone: 'info', color: '#1c7ed6' },
+  { name: 'Aisha Khan', meta: '#2041 · 2 items', status: 'Delivered', tone: 'ok', color: '#2f9e44' },
+];
+
+const heroLeft = [
+  { label: 'Authentication', sub: 'Sign in and sessions', y: 110 },
+  { label: 'REST / GraphQL API', sub: 'Requests and validation', y: 300 },
+  { label: 'Push notifications', sub: 'Real-time updates', y: 490 },
+];
+
+const heroRight = [
+  { label: 'Database', sub: 'Orders and customers', y: 110 },
+  { label: 'Payments', sub: 'Cards and wallets', y: 300 },
+  { label: 'Analytics', sub: 'Reports and events', y: 490 },
+];
+
+/* connector paths: node edge to phone edge (stage is 840 x 680) */
+const heroPaths = [
+  'M170 134 C 215 134 215 220 262 220',
+  'M170 324 C 215 324 215 340 252 340',
+  'M170 514 C 215 514 215 460 262 460',
+  'M670 134 C 625 134 625 220 578 220',
+  'M670 324 C 625 324 625 340 588 340',
+  'M670 514 C 625 514 625 460 578 460',
+];
+
+/* ------------------------------------------------------------------ */
+/* SMALL HELPERS                                                       */
+/* ------------------------------------------------------------------ */
+
+function Reveal({ children, delay = 0, className = '' }) {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    if (typeof IntersectionObserver === 'undefined') {
+      const timer = setTimeout(() => setShown(true), 0);
+      return () => clearTimeout(timer);
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className={`saas-heading saas-heading-${align}`}>
-      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2>{title}</h2>
-      {description && <p>{description}</p>}
+    <div
+      ref={ref}
+      className={`ma-reveal ${shown ? 'is-in' : ''} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
     </div>
   );
 }
 
-export default function SaaSDevelopmentPage() {
+function SectionHead({ label, title, intro }) {
   return (
-    <main className={`saas-page ${montserrat.className}`}>
-      <style>{`
-        .saas-page {
-          --accent: var(--color-accent, #e9823b);
-          --bg: var(--background-primary, #ffffff);
-          --section: var(--background-secondary, #f7f7f7);
-          --panel: var(--background-card, #ffffff);
-          --border: var(--border, rgba(0,0,0,.10));
-          --text: var(--text-primary, #171717);
-          --secondary: var(--text-secondary, #626262);
-          --muted: var(--text-muted, #858585);
-
-          background: var(--bg);
-          color: var(--text);
-          overflow: clip;
-          font-size: 14px;
-        }
-
-        .dark .saas-page {
-          --accent: var(--color-accent, #ed9658);
-          --bg: var(--background-primary, #080a12);
-          --section: var(--background-secondary, #0d111c);
-          --panel: var(--background-card, #111522);
-          --border: var(--border, rgba(255,255,255,.10));
-          --text: var(--text-primary, #f5f5f5);
-          --secondary: var(--text-secondary, #b0b6c5);
-          --muted: var(--text-muted, #9299aa);
-        }
-
-        .saas-page * {
-          box-sizing: border-box;
-        }
-
-        .saas-wrap {
-          width: min(1080px, calc(100% - 48px));
-          margin: 0 auto;
-        }
-
-        .saas-section {
-          padding: 88px 0;
-        }
-
-        .saas-page h1,
-        .saas-page h2,
-        .saas-page h3 {
-          color: var(--text);
-        }
-
-        .saas-page p {
-          color: var(--secondary);
-        }
-
-        .saas-eyebrow {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin: 0 0 18px;
-          color: var(--accent) !important;
-          font-family: inherit;
-          font-size: 10px;
-          font-weight: 650;
-          letter-spacing: .16em;
-          text-transform: uppercase;
-        }
-
-        .saas-eyebrow::before {
-          content: '';
-          width: 28px;
-          height: 1px;
-          background: var(--accent);
-        }
-
-        .saas-heading {
-          max-width: 600px;
-          margin-bottom: 44px;
-        }
-
-        .saas-heading h2 {
-          margin: 0;
-          font-size: clamp(24px, 2.8vw, 34px);
-          line-height: 1.18;
-          letter-spacing: -.045em;
-          font-weight: 720;
-        }
-
-        .saas-heading > p:last-child {
-          max-width: 520px;
-          margin-top: 16px;
-          font-size: 14px;
-          line-height: 1.85;
-        }
-
-        .saas-heading-center {
-          margin-left: auto;
-          margin-right: auto;
-          text-align: center;
-        }
-
-        .saas-heading-center > p:last-child {
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .saas-accent {
-          color: var(--accent);
-        }
-
-        /* BUTTONS */
-
-        .saas-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 13px;
-          margin-top: 30px;
-        }
-
-        .saas-btn {
-          display: inline-flex;
-          min-height: 48px;
-          align-items: center;
-          justify-content: center;
-          padding: 0 24px;
-          border-radius: 999px;
-          font-size: 13px;
-          font-weight: 650;
-          text-decoration: none;
-          transition: background .25s ease, color .25s ease,
-            border-color .25s ease, transform .25s ease,
-            box-shadow .25s ease;
-        }
-
-        .saas-btn-primary {
-          background: var(--accent);
-          color: #fff;
-          border: 1px solid var(--accent);
-        }
-
-        .saas-btn-primary:hover {
-          transform: translateY(-2px);
-          background: #d97231;
-          border-color: #d97231;
-          box-shadow: 0 8px 22px rgba(217,114,49,.18);
-        }
-
-        .saas-btn-quiet {
-          background: transparent;
-          color: var(--text);
-          border: 1px solid var(--border);
-        }
-
-        .saas-btn-quiet:hover {
-          background: var(--section);
-          border-color: var(--accent);
-          transform: translateY(-2px);
-        }
-
-        /* HERO */
-
-        .saas-hero {
-          position: relative;
-          display: flex;
-          align-items: center;
-          min-height: 560px;
-          padding: 88px 0 72px;
-          border-bottom: 1px solid var(--border);
-          overflow: hidden;
-        }
-
-        .saas-hero::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background-image: radial-gradient(var(--border) 1px, transparent 1.4px);
-          background-size: 30px 30px;
-          -webkit-mask-image: radial-gradient(ellipse at 70% 50%, #000 0%, transparent 70%);
-          mask-image: radial-gradient(ellipse at 70% 50%, #000 0%, transparent 70%);
-        }
-
-        .saas-hero-inner {
-          position: relative;
-          display: grid;
-          grid-template-columns: 1.02fr .98fr;
-          align-items: center;
-          gap: 48px;
-        }
-
-        .saas-hero-copy {
-          max-width: 630px;
-        }
-
-        .saas-hero-copy > * {
-          animation: saas-appear .85s cubic-bezier(.2,.7,.2,1) both;
-        }
-
-        .saas-hero-copy > *:nth-child(1) { animation-delay: .05s; }
-        .saas-hero-copy > *:nth-child(2) { animation-delay: .15s; }
-        .saas-hero-copy > *:nth-child(3) { animation-delay: .28s; }
-        .saas-hero-copy > *:nth-child(4) { animation-delay: .4s; }
-        .saas-hero-copy > *:nth-child(5) { animation-delay: .52s; }
-
-        .saas-hero h1 {
-          margin: 0;
-          font-size: clamp(28px, 3.3vw, 42px);
-          line-height: 1.05;
-          letter-spacing: -.06em;
-          font-weight: 750;
-        }
-
-        .saas-hero-lead {
-          max-width: 480px;
-          margin-top: 22px;
-          font-size: 15px;
-          line-height: 1.9;
-        }
-
-        .saas-proof {
-          display: flex;
-          flex-direction: column;
-          gap: 11px;
-          margin: 30px 0 0;
-          padding: 0;
-          list-style: none;
-          color: var(--secondary);
-          font-size: 14px;
-        }
-
-        .saas-proof li {
-          position: relative;
-          padding-left: 18px;
-        }
-
-        .saas-proof li::before {
-          content: '';
-          position: absolute;
-          top: 6px;
-          left: 0;
-          width: 7px;
-          height: 7px;
-          border-radius: 2px;
-          background: var(--accent);
-          transform: rotate(45deg);
-        }
-
-        /* HERO ANIMATION: layers of a product assembling */
-
-        .saas-scene {
-          --size: 200px;
-          --gap: 38px;
-          position: relative;
-          height: 370px;
-        }
-
-        .saas-scene-glow {
-          position: absolute;
-          left: 50%;
-          top: 52%;
-          width: 300px;
-          height: 300px;
-          margin: -150px 0 0 -150px;
-          border-radius: 50%;
-          background: var(--accent);
-          opacity: .12;
-          filter: blur(80px);
-          animation: saas-breathe 8s ease-in-out infinite;
-        }
-
-        .saas-scene-shadow {
-          position: absolute;
-          left: 50%;
-          bottom: 6%;
-          width: 62%;
-          height: 44px;
-          transform: translateX(-50%);
-          background: radial-gradient(ellipse at center, rgba(0,0,0,.32), transparent 70%);
-          filter: blur(12px);
-          animation: saas-shadow 8s ease-in-out infinite;
-        }
-
-        .saas-float {
-          position: absolute;
-          inset: 0;
-          perspective: 1500px;
-          animation: saas-float 8s ease-in-out infinite;
-        }
-
-        .saas-stack {
-          position: absolute;
-          left: 50%;
-          top: 60%;
-          width: var(--size);
-          height: var(--size);
-          margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
-          transform-style: preserve-3d;
-          transform: rotateX(58deg) rotateZ(-38deg);
-        }
-
-        .saas-plate {
-          position: absolute;
-          inset: 0;
-          border-radius: 16px;
-          border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
-          background: color-mix(in srgb, var(--panel) 74%, transparent);
-          transform: translateZ(calc(var(--i) * var(--gap)));
-          animation: saas-plate-in 1.1s cubic-bezier(.2,.8,.2,1) both;
-          animation-delay: calc(var(--i) * .16s + .25s);
-        }
-
-        .saas-plate::before {
-          content: '';
-          position: absolute;
-          inset: 14px;
-          border-radius: 9px;
-          background-image: radial-gradient(var(--border) 1px, transparent 1.5px);
-          background-size: 18px 18px;
-        }
-
-        .saas-plate::after {
-          content: '';
-          position: absolute;
-          inset: -1px;
-          border-radius: inherit;
-          border: 1px solid var(--accent);
-          opacity: 0;
-          animation: saas-plate-pulse 5s ease-in-out infinite;
-          animation-delay: calc(var(--i) * .6s + 2s);
-        }
-
-        .saas-plate span {
-          position: absolute;
-          left: 18px;
-          bottom: 14px;
-          z-index: 1;
-          color: var(--secondary);
-          font-family: inherit;
-          font-size: 10px;
-          letter-spacing: .14em;
-          text-transform: uppercase;
-        }
-
-        .saas-plate:last-child {
-          border-color: var(--accent);
-          background: color-mix(in srgb, var(--accent) 14%, var(--panel));
-        }
-
-        .saas-plate:last-child span {
-          color: var(--accent);
-        }
-
-        /* SOLUTIONS */
-
-        .saas-solutions {
-          background: var(--section);
-          border-bottom: 1px solid var(--border);
-        }
-
-        .saas-solution-list {
-          border-top: 1px solid var(--border);
-        }
-
-        .saas-solution {
-          position: relative;
-          display: grid;
-          grid-template-columns: 55px 1fr 230px;
-          align-items: center;
-          gap: 25px;
-          padding: 29px 8px;
-          border-bottom: 1px solid var(--border);
-          transition: padding .3s ease, background .3s ease;
-        }
-
-        .saas-solution::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 22%;
-          bottom: 22%;
-          width: 2px;
-          border-radius: 4px;
-          background: var(--accent);
-          transform: scaleY(0);
-          transform-origin: center;
-          transition: transform .3s ease;
-        }
-
-        .saas-solution:hover {
-          padding-left: 18px;
-          padding-right: 17px;
-          background: color-mix(in srgb, var(--accent) 3%, transparent);
-        }
-
-        .saas-solution:hover::before {
-          transform: scaleY(1);
-        }
-
-        .saas-solution-no {
-          color: var(--muted);
-          font-size: 11px;
-          transition: color .25s ease;
-        }
-
-        .saas-solution:hover .saas-solution-no {
-          color: var(--accent);
-        }
-
-        .saas-solution h3 {
-          margin: 0;
-          font-size: 19px;
-          letter-spacing: -.03em;
-          transition: color .25s ease;
-        }
-
-        .saas-solution:hover h3 {
-          color: var(--accent);
-        }
-
-        .saas-solution p {
-          max-width: 540px;
-          margin: 8px 0 0;
-          font-size: 14px;
-          line-height: 1.75;
-        }
-
-        .saas-solution small {
-          color: var(--muted);
-          font-size: 12px;
-          line-height: 1.6;
-          text-align: right;
-        }
-
-        /* LIFECYCLE */
-
-        .saas-lifecycle {
-          position: relative;
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
-          --cycle: 7.5s;
-        }
-
-        .saas-lifecycle-item {
-          position: relative;
-          padding: 25px 18px 27px 0;
-          transition: transform .3s ease;
-        }
-
-        .saas-lifecycle-item:hover {
-          transform: translateY(-5px);
-        }
-
-        .saas-lifecycle-item:not(:last-child) {
-          border-right: 1px solid var(--border);
-          margin-right: 18px;
-        }
-
-        .saas-lifecycle-no {
-          color: var(--accent);
-          font-size: 10px;
-          font-weight: 650;
-        }
-
-        .saas-lifecycle-item h3 {
-          margin: 18px 0 8px;
-          font-size: 15px;
-          letter-spacing: -.03em;
-        }
-
-        .saas-lifecycle-item p {
-          margin: 0;
-          font-size: 13px;
-          line-height: 1.75;
-        }
-
-        /* PRODUCTS: top row of three cards, bottom row of two side-by-side cards */
-
-        .saas-products-grid {
-          display: grid;
-          grid-template-columns: repeat(6, minmax(0, 1fr));
-          gap: 22px;
-        }
-
-        .saas-product {
-          grid-column: span 2;
-          display: flex;
-          flex-direction: column;
-          min-width: 0;
-          overflow: hidden;
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          background: var(--panel);
-          color: inherit;
-          text-decoration: none;
-          transition: transform .35s ease, border-color .3s ease;
-        }
-
-        .saas-product:nth-child(4),
-        .saas-product:nth-child(5) {
-          grid-column: span 3;
-          flex-direction: row;
-        }
-
-        .saas-product:hover {
-          transform: translateY(-4px);
-          border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-        }
-
-        .saas-product-preview {
-          position: relative;
-          aspect-ratio: 16 / 9;
-          overflow: hidden;
-          border-bottom: 1px solid var(--border);
-          background: var(--section);
-        }
-
-        .saas-product:nth-child(4) .saas-product-preview,
-        .saas-product:nth-child(5) .saas-product-preview {
-          flex: 0 0 42%;
-          aspect-ratio: auto;
-          min-height: 100%;
-          border-bottom: 0;
-          border-right: 1px solid var(--border);
-        }
-
-        .saas-product-preview img {
-          object-fit: cover;
-          object-position: top center;
-          transition: transform .6s cubic-bezier(.2,.7,.2,1);
-        }
-
-        .saas-product:hover .saas-product-preview img {
-          transform: scale(1.04);
-        }
-
-        .saas-product-info {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          min-width: 0;
-          padding: 22px 22px 20px;
-        }
-
-        .saas-product-type {
-          margin-bottom: 12px;
-          color: var(--accent);
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: .12em;
-        }
-
-        .saas-product h3 {
-          margin: 0 0 10px;
-          font-size: 18px;
-          line-height: 1.3;
-          letter-spacing: -.03em;
-        }
-
-        .saas-product p {
-          margin: 0 0 22px;
-          font-size: 13px;
-          line-height: 1.7;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .saas-product-bottom {
-          margin-top: auto;
-          padding-top: 14px;
-          border-top: 1px solid var(--border);
-          color: var(--text);
-          font-size: 12px;
-          font-weight: 650;
-          transition: color .2s ease;
-        }
-
-        .saas-product-bottom span {
-          display: inline-block;
-          transition: transform .25s ease;
-        }
-
-        .saas-product:hover .saas-product-bottom {
-          color: var(--accent);
-        }
-
-        .saas-product:hover .saas-product-bottom span {
-          transform: translate(2px, -2px);
-        }
-
-        /* EXPERIENCE */
-
-        .saas-experience {
-          background: var(--section);
-          border-block: 1px solid var(--border);
-        }
-
-        .saas-experience-layout {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
-          gap: 60px;
-        }
-
-        .saas-experience-copy h2 {
-          margin: 0;
-          font-size: clamp(24px, 3vw, 34px);
-          line-height: 1.12;
-          letter-spacing: -.055em;
-        }
-
-        .saas-experience-copy > p:last-child {
-          max-width: 440px;
-          margin-top: 18px;
-          font-size: 14px;
-          line-height: 1.9;
-        }
-
-        .saas-experience-panel {
-          padding: 28px;
-          border: 1px solid var(--border);
-          border-radius: 13px;
-          background: var(--panel);
-          transition: transform .35s ease, border-color .35s ease;
-        }
-
-        .saas-experience-panel:hover {
-          transform: translateY(-4px);
-          border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-        }
-
-        .saas-experience-panel h3 {
-          margin: 0;
-          font-size: 18px;
-          letter-spacing: -.04em;
-        }
-
-        .saas-experience-panel > p {
-          margin-top: 14px;
-          font-size: 13px;
-          line-height: 1.8;
-        }
-
-        .saas-experience-comparison {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-          margin-top: 26px;
-        }
-
-        .saas-experience-comparison div {
-          padding: 17px;
-          background: var(--section);
-          border-radius: 9px;
-          transition: background .25s ease;
-        }
-
-        .saas-experience-comparison div:hover {
-          background: color-mix(in srgb, var(--accent) 8%, var(--section));
-        }
-
-        .saas-experience-comparison strong {
-          display: block;
-          font-size: 14px;
-          color: var(--text);
-        }
-
-        .saas-experience-comparison span {
-          display: block;
-          margin-top: 7px;
-          color: var(--muted);
-          font-size: 12px;
-          line-height: 1.6;
-        }
-
-        /* PROCESS */
-
-        .saas-process-grid {
-          position: relative;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          --cycle: 6s;
-        }
-
-        .saas-process-grid::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background: var(--border);
-        }
-
-        .saas-stage {
-          position: relative;
-          padding: 24px 22px 0 0;
-        }
-
-        .saas-stage:not(:last-child) {
-          margin-right: 22px;
-          border-right: 1px solid var(--border);
-        }
-
-        .saas-stage-no {
-          color: var(--accent);
-          font-size: 11px;
-          font-weight: 650;
-        }
-
-        .saas-stage h3 {
-          margin: 18px 0 12px;
-          font-size: 17px;
-          letter-spacing: -.04em;
-          transition: color .25s ease;
-        }
-
-        .saas-stage:hover h3 {
-          color: var(--accent);
-        }
-
-        .saas-stage p {
-          min-height: 120px;
-          margin: 0;
-          font-size: 13px;
-          line-height: 1.8;
-        }
-
-        .saas-stage small {
-          display: block;
-          margin-top: 18px;
-          color: var(--muted);
-          font-size: 12px;
-          line-height: 1.6;
-        }
-
-        /* FAQ */
-
-        .saas-faq {
-          background: var(--section);
-          border-top: 1px solid var(--border);
-        }
-
-        .saas-faq-layout {
-          display: grid;
-          grid-template-columns: .75fr 1.25fr;
-          gap: 70px;
-        }
-
-        .saas-faq-title {
-          margin: 0;
-          font-size: clamp(24px, 2.8vw, 34px);
-          line-height: 1.13;
-          letter-spacing: -.05em;
-        }
-
-        .saas-faq-intro {
-          margin-top: 17px;
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        .saas-faq-list {
-          border-top: 1px solid var(--border);
-        }
-
-        .saas-faq details {
-          border-bottom: 1px solid var(--border);
-        }
-
-        .saas-faq summary {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 20px;
-          padding: 19px 0;
-          color: var(--text);
-          font-size: 14px;
-          font-weight: 650;
-          cursor: pointer;
-          list-style: none;
-        }
-
-        .saas-faq summary::-webkit-details-marker {
-          display: none;
-        }
-
-        .saas-faq summary:after {
-          content: '+';
-          color: var(--accent);
-          font-size: 21px;
-          font-weight: 400;
-          transition: transform .25s ease;
-        }
-
-        .saas-faq details[open] summary:after {
-          transform: rotate(45deg);
-        }
-
-        .saas-faq details p {
-          max-width: 620px;
-          margin: 0 30px 20px 0;
-          font-size: 13px;
-          line-height: 1.8;
-          animation: saas-faq-reveal .3s ease both;
-        }
-
-        /* CTA */
-
-        .saas-cta {
-          padding: 80px 0;
-        }
-
-        .saas-cta-panel {
-          position: relative;
-          overflow: hidden;
-          padding: clamp(32px, 5vw, 60px);
-          border: 1px solid var(--border);
-          border-radius: 17px;
-          background: var(--section);
-        }
-
-        .saas-cta-panel::after {
-          content: '';
-          position: absolute;
-          top: -110px;
-          right: -110px;
-          width: 260px;
-          height: 260px;
-          border-radius: 50%;
-          background: var(--accent);
-          opacity: .07;
-          filter: blur(55px);
-          pointer-events: none;
-          transition: opacity .4s ease, transform .5s ease;
-        }
-
-        .saas-cta-panel:hover::after {
-          opacity: .12;
-          transform: scale(1.2);
-        }
-
-        .saas-cta-panel h2 {
-          position: relative;
-          z-index: 1;
-          max-width: 680px;
-          margin: 0;
-          font-size: clamp(26px, 3.2vw, 38px);
-          line-height: 1.15;
-          letter-spacing: -.055em;
-        }
-
-        .saas-cta-panel > p {
-          position: relative;
-          z-index: 1;
-          max-width: 480px;
-          margin: 18px 0 0;
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        .saas-cta-panel .saas-actions {
-          position: relative;
-          z-index: 1;
-        }
-
-        /* CONNECTED STEPS: a light travels along the line and lights each point */
-
-        .saas-lifecycle,
-        .saas-process-grid {
-          --step: 1.5s;
-        }
-
-        .saas-process-grid::after {
-          content: '';
-          position: absolute;
-          top: -4px;
-          left: 0;
-          width: 9px;
-          height: 9px;
-          margin-left: -4.5px;
-          border-radius: 50%;
-          background: var(--accent);
-          box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent),
-            0 0 18px var(--accent);
-          pointer-events: none;
-          animation: saas-travel var(--cycle) linear infinite;
-        }
-
-        .saas-stage::before {
-          content: '';
-          position: absolute;
-          top: -5px;
-          left: 0;
-          z-index: 1;
-          width: 9px;
-          height: 9px;
-          border-radius: 50%;
-          background: var(--bg);
-          border: 1px solid var(--muted);
-          animation: saas-node var(--cycle) ease-out infinite;
-          animation-delay: calc(var(--n) * var(--step));
-        }
-
-        /* LIFECYCLE: each point fills in turn, top bar and title light up */
-
-        .saas-lifecycle-item::before {
-          content: '';
-          position: absolute;
-          top: -1px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: var(--accent);
-          transform: scaleX(0);
-          transform-origin: left;
-          animation: saas-fill var(--cycle) ease-in-out infinite;
-          animation-delay: calc(var(--n) * var(--step));
-        }
-
-        .saas-lifecycle-item h3 {
-          animation: saas-lit var(--cycle) ease-in-out infinite;
-          animation-delay: calc(var(--n) * var(--step));
-        }
-
-        /* ANIMATIONS */
-
-        @keyframes saas-travel {
-          0% {
-            left: 0;
-            opacity: 0;
-          }
-          3% {
-            opacity: 1;
-          }
-          97% {
-            opacity: 1;
-          }
-          100% {
-            left: 100%;
-            opacity: 0;
-          }
-        }
-
-        @keyframes saas-node {
-          0% {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.5);
-            box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
-          }
-          20% {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.2);
-            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
-          }
-          35%, 100% {
-            background: var(--bg);
-            border-color: var(--muted);
-            transform: scale(1);
-            box-shadow: 0 0 0 0 transparent;
-          }
-        }
-
-        @keyframes saas-fill {
-          0% {
-            transform: scaleX(0);
-            opacity: 1;
-          }
-          14%, 50% {
-            transform: scaleX(1);
-            opacity: 1;
-          }
-          66%, 100% {
-            transform: scaleX(1);
-            opacity: 0;
-          }
-        }
-
-        @keyframes saas-lit {
-          0%, 66%, 100% {
-            color: var(--text);
-          }
-          10%, 46% {
-            color: var(--accent);
-          }
-        }
-
-        @keyframes saas-appear {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes saas-plate-in {
-          from {
-            opacity: 0;
-            transform: translateZ(calc(var(--i) * var(--gap) + 260px));
-          }
-        }
-
-        @keyframes saas-plate-pulse {
-          0%, 100% {
-            opacity: 0;
-            box-shadow: 0 0 0 0 transparent;
-          }
-          12% {
-            opacity: 1;
-            box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 40%, transparent);
-          }
-          30% {
-            opacity: 0;
-            box-shadow: 0 0 0 0 transparent;
-          }
-        }
-
-        @keyframes saas-float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-12px);
-          }
-        }
-
-        @keyframes saas-shadow {
-          0%, 100% {
-            transform: translateX(-50%) scaleX(1);
-            opacity: .9;
-          }
-          50% {
-            transform: translateX(-50%) scaleX(.9);
-            opacity: .6;
-          }
-        }
-
-        @keyframes saas-breathe {
-          0%, 100% {
-            opacity: .1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: .18;
-            transform: scale(1.08);
-          }
-        }
-
-        @keyframes saas-faq-reveal {
-          from {
-            opacity: 0;
-            transform: translateY(-5px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Reveal on scroll (CSS only, where supported) */
-
-        @supports (animation-timeline: view()) {
-          .saas-heading,
-          .saas-solution,
-          .saas-lifecycle-item,
-          .saas-product,
-          .saas-stage,
-          .saas-experience-panel,
-          .saas-faq-list {
-            animation: saas-appear linear both;
-            animation-timeline: view();
-            animation-range: entry 0% entry 30%;
-          }
-        }
-
-        /* TABLET */
-
-        @media(max-width: 900px) {
-          .saas-section {
-            padding: 80px 0;
-          }
-
-          .saas-hero-inner {
-            grid-template-columns: 1fr;
-            gap: 20px;
-          }
-
-          .saas-hero {
-            min-height: auto;
-          }
-
-          .saas-hero-copy {
-            max-width: 700px;
-          }
-
-          .saas-scene {
-            max-width: 520px;
-            width: 100%;
-            margin: 0 auto;
-            height: 400px;
-          }
-
-          .saas-solution {
-            grid-template-columns: 45px 1fr;
-          }
-
-          .saas-solution small {
-            grid-column: 2;
-            text-align: left;
-          }
-
-          .saas-products-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-          }
-
-          .saas-product,
-          .saas-product:nth-child(4),
-          .saas-product:nth-child(5) {
-            grid-column: auto;
-            flex-direction: column;
-          }
-
-          .saas-product:nth-child(5) {
-            grid-column: 1 / -1;
-          }
-
-          .saas-product:nth-child(4) .saas-product-preview,
-          .saas-product:nth-child(5) .saas-product-preview {
-            flex: none;
-            width: 100%;
-            min-height: 0;
-            aspect-ratio: 16 / 9;
-            border-right: 0;
-            border-bottom: 1px solid var(--border);
-          }
-
-          .saas-product:nth-child(5) .saas-product-preview {
-            aspect-ratio: 3 / 1;
-          }
-
-          .saas-experience-layout {
-            gap: 35px;
-          }
-
-          .saas-faq-layout {
-            gap: 45px;
-          }
-
-          .saas-lifecycle {
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          .saas-lifecycle-item:nth-child(3) {
-            border-right: none;
-          }
-
-          .saas-lifecycle,
-          .saas-process-grid {
-            border-top: 0;
-          }
-
-          .saas-process-grid::after,
-          .saas-process-grid::before {
-            display: none;
-          }
-
-          .saas-lifecycle-item,
-          .saas-stage {
-            border-top: 1px solid var(--border);
-          }
-
-          .saas-process-grid {
-            grid-template-columns: repeat(2, 1fr);
-            row-gap: 40px;
-          }
-
-          .saas-stage:nth-child(2) {
-            border-right: 0;
-            margin-right: 0;
-          }
-
-          .saas-stage p {
-            min-height: 0;
-          }
-        }
-
-        /* MOBILE */
-
-        @media(max-width: 640px) {
-          .saas-wrap {
-            width: calc(100% - 36px);
-          }
-
-          .saas-section {
-            padding: 65px 0;
-          }
-
-          .saas-hero {
-            padding: 75px 0 40px;
-          }
-
-          .saas-hero h1 {
-            font-size: clamp(27px, 7.5vw, 34px);
-          }
-
-          .saas-hero-lead {
-            font-size: 14px;
-          }
-
-          .saas-actions {
-            gap: 10px;
-          }
-
-          .saas-btn {
-            min-height: 44px;
-            padding: 0 18px;
-            font-size: 12px;
-          }
-
-          .saas-scene {
-            --size: 160px;
-            --gap: 28px;
-            height: 280px;
-          }
-
-          .saas-solution {
-            grid-template-columns: 30px 1fr;
-            gap: 10px;
-            padding: 21px 0;
-          }
-
-          .saas-solution h3 {
-            font-size: 16px;
-          }
-
-          .saas-solution small {
-            grid-column: 2;
-            text-align: left;
-            font-size: 11px;
-          }
-
-          .saas-solution p {
-            font-size: 13px;
-          }
-
-          .saas-lifecycle {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .saas-lifecycle-item {
-            padding: 19px 12px 19px 0;
-            margin-right: 12px;
-          }
-
-          .saas-lifecycle-item:not(:last-child) {
-            margin-right: 12px;
-          }
-
-          .saas-lifecycle-item:nth-child(2),
-          .saas-lifecycle-item:nth-child(4) {
-            border-right: none;
-          }
-
-          .saas-lifecycle-item h3 {
-            margin-top: 13px;
-          }
-
-          .saas-products-grid {
-            grid-template-columns: 1fr;
-            gap: 22px;
-          }
-
-          .saas-product,
-          .saas-product:nth-child(4),
-          .saas-product:nth-child(5) {
-            grid-column: auto;
-          }
-
-          .saas-product:nth-child(5) .saas-product-preview {
-            aspect-ratio: 16 / 9;
-          }
-
-          .saas-product-info {
-            padding: 20px;
-          }
-
-          .saas-experience-layout {
-            grid-template-columns: 1fr;
-            gap: 28px;
-          }
-
-          .saas-experience-panel {
-            padding: 23px;
-          }
-
-          .saas-process-grid {
-            grid-template-columns: 1fr;
-            gap: 27px;
-          }
-
-          .saas-stage {
-            padding: 0 0 0 18px;
-            border-top: 0;
-            border-left: 1px solid var(--border);
-          }
-
-          .saas-stage::before {
-            top: 3px;
-            left: -5px;
-          }
-
-          .saas-stage:not(:last-child),
-          .saas-stage:nth-child(2) {
-            margin-right: 0;
-            border-right: 0;
-          }
-
-          .saas-stage h3 {
-            margin: 10px 0;
-          }
-
-          .saas-stage p {
-            min-height: 0;
-          }
-
-          .saas-stage small {
-            margin-top: 10px;
-          }
-
-          .saas-faq-layout {
-            grid-template-columns: 1fr;
-            gap: 32px;
-          }
-
-          .saas-faq summary {
-            font-size: 14px;
-          }
-
-          .saas-cta {
-            padding: 60px 0;
-          }
-
-          .saas-cta-panel {
-            padding: 28px 22px;
-            border-radius: 13px;
-          }
-
-          .saas-cta-panel h2 {
-            font-size: 26px;
-          }
-        }
-
-        @media(prefers-reduced-motion: reduce) {
-          .saas-page *,
-          .saas-page *:before,
-          .saas-page *:after {
-            animation: none !important;
-            transition: none !important;
-            scroll-behavior: auto !important;
-          }
-
-          .saas-process-grid::after {
-            display: none;
-          }
-        }
-      `}</style>
-
-      {/* HERO */}
-      <section className="saas-hero">
-        <div className="saas-wrap saas-hero-inner">
-          <div className="saas-hero-copy">
-            <Eyebrow>SaaS &amp; product engineering</Eyebrow>
-
-            <h1>
-              Software your business can{' '}
-              <span className="saas-accent">run on.</span>
-            </h1>
-
-            <p className="saas-hero-lead">
-              We design and build SaaS platforms, MVPs and internal
-              tools. We also run products of our own, so we plan for what
-              happens after launch: users, uptime and the cost of keeping
-              it all running.
-            </p>
-
-            <div className="saas-actions">
-              <Link href="/contact" className="saas-btn saas-btn-primary">
-                Tell us about your product
-              </Link>
-
-              <Link href="#solutions" className="saas-btn saas-btn-quiet">
-                See what we build
-              </Link>
+    <Reveal className="ma-head">
+      <SharedSectionHeading
+        eyebrow={label}
+        title={title}
+        description={intro}
+        spacingClassName="mb-0"
+        descriptionClassName="ma-intro"
+      />
+    </Reveal>
+  );
+}
+
+const ICONS = {
+  pencil: 'M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z',
+  code: 'M16 18l6-6-6-6M8 6l-6 6 6 6',
+  rocket: 'M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 00-2.9-.1zM12 15l-3-3a22 22 0 012-4 12.9 12.9 0 0111-5c0 2.7-.8 7.5-5 11a22 22 0 01-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5',
+  refresh: 'M23 4v6h-6M1 20v-6h6M3.5 9a9 9 0 0114.8-3.4L23 10M1 14l4.7 4.4A9 9 0 0020.5 15',
+  check: 'M5 12l5 5L20 7',
+};
+
+function Ic({ n, s = 16, w = 1.8 }) {
+  return (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={ICONS[n]} />
+    </svg>
+  );
+}
+
+/* Small Web / iOS / Android icons for the hero row and app cards */
+function PlatIcon({ n }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      {n === 'web' && (
+        <path d="M3 4h18v12H3zM8 20h8M12 16v4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      )}
+      {n === 'ios' && (
+        <path
+          fill="currentColor"
+          d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
+        />
+      )}
+      {n === 'android' && (
+        <path
+          fill="currentColor"
+          d="M6 18c0 .55.45 1 1 1h1v3.5a1.5 1.5 0 003 0V19h2v3.5a1.5 1.5 0 003 0V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8A1.5 1.5 0 002 9.5v7a1.5 1.5 0 003 0v-7A1.5 1.5 0 003.5 8zm17 0A1.5 1.5 0 0019 9.5v7a1.5 1.5 0 003 0v-7A1.5 1.5 0 0020.5 8zM15.53 2.16l1.3-1.3a.5.5 0 00-.7-.7l-1.48 1.48A5.9 5.9 0 0012 1c-.96 0-1.86.23-2.66.63L7.85.16a.5.5 0 00-.7.7l1.31 1.31A5.97 5.97 0 006 7h12a5.97 5.97 0 00-2.47-4.84z"
+        />
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* HERO DIAGRAM: one phone (web app in the mobile browser) connected   */
+/* to the services behind it with animated dashed lines                */
+/* ------------------------------------------------------------------ */
+
+function HeroDiagram() {
+  return (
+    <div className="ma-stage hd">
+      <svg className="hd-lines" viewBox="0 0 840 680" aria-hidden="true">
+        {heroPaths.map((d, i) => (
+          <path key={d} d={d} style={{ animationDelay: `${i * 0.15}s` }} />
+        ))}
+        {[...heroLeft.map((n) => [170, n.y + 24]), ...heroRight.map((n) => [670, n.y + 24])].map(([x, y]) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="4" />
+        ))}
+      </svg>
+
+      {heroLeft.map((n) => (
+        <div key={n.label} className="hd-node" style={{ left: 20, top: n.y }}>
+          <b>{n.label}</b>
+          <small>{n.sub}</small>
+        </div>
+      ))}
+      {heroRight.map((n) => (
+        <div key={n.label} className="hd-node" style={{ left: 670, top: n.y }}>
+          <b>{n.label}</b>
+          <small>{n.sub}</small>
+        </div>
+      ))}
+
+      {/* left phone: reports */}
+      <div className="hd-phone hd-phone-left">
+        <div className="hd-screen">
+          <span className="hd-island" />
+          <div className="hd-status">
+            <span>9:41</span>
+            <span>5G</span>
+          </div>
+          <div className="hd-page hd-page-top">
+            <div className="hd-head">
+              <h4>Reports</h4>
+            </div>
+            <div className="hd-kpi">
+              <small>Revenue this week</small>
+              <strong>₹3.2L</strong>
+              <em>+12% vs last week</em>
+            </div>
+            <div className="hd-bars">
+              {[40, 62, 48, 80, 66, 92, 74].map((h, i) => (
+                <i key={i} style={{ height: `${h}%` }} />
+              ))}
+            </div>
+            <div className="hd-stats">
+              <div>
+                <small>Orders</small>
+                <strong>1,284</strong>
+              </div>
+              <div>
+                <small>Avg. time</small>
+                <strong>24 min</strong>
+              </div>
+            </div>
+          </div>
+          <span className="hd-bar" />
+        </div>
+      </div>
+
+      {/* right phone: live tracking */}
+      <div className="hd-phone hd-phone-right">
+        <div className="hd-screen">
+          <span className="hd-island" />
+          <div className="hd-status">
+            <span>9:41</span>
+            <span>5G</span>
+          </div>
+          <div className="hd-map">
+            <svg viewBox="0 0 240 250" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+              <path d="M-10 70 Q70 50 110 120 T250 150" fill="none" stroke="#dcdce4" strokeWidth="14" />
+              <path d="M60 -10 Q90 100 70 170 T110 270" fill="none" stroke="#dcdce4" strokeWidth="10" />
+              <path d="M40 210 Q90 170 120 130 T200 50" fill="none" stroke="#6c5ce7" strokeWidth="3" strokeLinecap="round" strokeDasharray="1 7" />
+              <circle cx="40" cy="210" r="6" fill="#15151f" />
+              <circle cx="200" cy="50" r="8" fill="#6c5ce7" />
+            </svg>
+          </div>
+          <div className="hd-sheet">
+            <b>Daniel Cruz</b>
+            <small>Arriving in 8 min</small>
+            <div className="hd-progress">
+              <i />
+            </div>
+          </div>
+          <span className="hd-bar" />
+        </div>
+      </div>
+
+      {/* middle phone: web app in the mobile browser */}
+      <div className="hd-phone hd-phone-main">
+        <div className="hd-screen">
+          <span className="hd-island" />
+          <div className="hd-status">
+            <span>9:41</span>
+            <span>5G</span>
+          </div>
+
+          <div className="hd-url">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="5" y="11" width="14" height="9" rx="2" />
+              <path d="M8 11V8a4 4 0 018 0v3" />
+            </svg>
+            app.yourproduct.com
+          </div>
+
+          <div className="hd-page">
+            <div className="hd-head">
+              <h4>Orders</h4>
+              <span>+ New</span>
             </div>
 
-            <ul className="saas-proof">
-              {proof.map((item) => (
-                <li key={item}>{item}</li>
+            <div className="hd-stats">
+              <div>
+                <small>Today</small>
+                <strong>186</strong>
+              </div>
+              <div>
+                <small>Revenue</small>
+                <strong>₹58.4k</strong>
+              </div>
+            </div>
+
+            <div className="hd-chart">
+              <svg viewBox="0 0 220 70" width="100%" height="70" preserveAspectRatio="none">
+                <path d="M0 54 C20 50 30 34 52 38 S86 58 110 32 S160 20 180 24 S210 8 220 6" fill="none" stroke="#6c5ce7" strokeWidth="2.4" strokeLinecap="round" />
+              </svg>
+            </div>
+
+            <div className="hd-list">
+              {heroRows.map((r) => (
+                <div key={r.name} className="hd-row">
+                  <i style={{ background: r.color }}>{r.name.charAt(0)}</i>
+                  <div>
+                    <b>{r.name}</b>
+                    <small>{r.meta}</small>
+                  </div>
+                  <em className={r.tone}>{r.status}</em>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <span className="hd-bar" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PLATFORMS (text only)                                               */
+/* ------------------------------------------------------------------ */
+
+function Platforms() {
+  return (
+    <div className="ma-plat">
+      {platforms.map((p, i) => (
+        <Reveal key={p.key} delay={i * 100}>
+          <div className="ma-plat-col">
+            <div className="ma-step-line">
+              <span />
+            </div>
+            <p className="ma-step-time">{p.tab}</p>
+            <h3>{p.title}</h3>
+            <p className="ma-body">{p.text}</p>
+            <ul>
+              {p.points.map((pt) => (
+                <li key={pt}>{pt}</li>
               ))}
             </ul>
           </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
 
-          <div className="saas-scene" aria-hidden="true">
-            <div className="saas-scene-glow" />
-            <div className="saas-scene-shadow" />
-            <div className="saas-float">
-              <div className="saas-stack">
-                {layers.map((layer, i) => (
-                  <div className="saas-plate" style={{ '--i': i }} key={layer}>
-                    <span>{layer}</span>
-                  </div>
+/* ------------------------------------------------------------------ */
+/* FLOW + PLANNER                                                      */
+/* ------------------------------------------------------------------ */
+
+function FlowDiagram() {
+  return (
+    <div className="ma-flow">
+      {flow.map((col, i) => (
+        <Fragment key={col.title}>
+          <Reveal delay={i * 140}>
+            <div className="ma-flow-col">
+              <p className="ma-flow-step">Layer {i + 1}</p>
+              <h3>{col.title}</h3>
+              <p className="ma-flow-cap">{col.caption}</p>
+              <ul>
+                {col.items.map((it) => (
+                  <li key={it}>{it}</li>
                 ))}
-              </div>
+              </ul>
             </div>
+          </Reveal>
+          {i < flow.length - 1 && (
+            <span className="ma-conn" aria-hidden="true" />
+          )}
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+/* Planner is kept here but its section is commented out in the page below. */
+function Planner() {
+  const [type, setType] = useState(0);
+  const [platform, setPlatform] = useState('both');
+  const [picked, setPicked] = useState(['auth']);
+
+  const toggle = (k) =>
+    setPicked((s) => (s.includes(k) ? s.filter((x) => x !== k) : [...s, k]));
+
+  const calc = useMemo(() => {
+    const rows = [{ label: `${planTypes[type].label} core`, w: planTypes[type].base }];
+    if (platform === 'both') rows.push({ label: 'Second platform', w: 1 });
+    planFeatures.filter((f) => picked.includes(f.key)).forEach((f) => rows.push({ label: f.label, w: f.weeks }));
+    const low = rows.reduce((n, r) => n + r.w, 0);
+    const high = Math.round(low * 1.5);
+    const m1 = Math.max(1, Math.round(low / 4.3));
+    const m2 = Math.max(1, Math.round(high / 4.3));
+    return { rows, low, high, max: Math.max(...rows.map((r) => r.w)), months: m1 === m2 ? `${m1} month${m1 > 1 ? 's' : ''}` : `${m1}–${m2} months` };
+  }, [type, platform, picked]);
+
+  return (
+    <div className="ma-planner">
+      <div className="ma-pl-left">
+        <fieldset>
+          <legend>
+            <b>1</b> What are you building?
+          </legend>
+          <div className="ma-cards2">
+            {planTypes.map((t, i) => (
+              <button key={t.label} type="button" className={`ma-opt ${type === i ? 'on' : ''}`} onClick={() => setType(i)} aria-pressed={type === i}>
+                <strong>{t.label}</strong>
+                <small>{t.desc}</small>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            <b>2</b> Which platforms?
+          </legend>
+          <div className="ma-cards3">
+            {[['ios', 'iOS', 'iPhone and iPad'], ['android', 'Android', 'Phones and tablets'], ['both', 'Both', 'Shared code, +1 wk']].map(([k, l, d]) => (
+              <button key={k} type="button" className={`ma-opt ${platform === k ? 'on' : ''}`} onClick={() => setPlatform(k)} aria-pressed={platform === k}>
+                <strong>{l}</strong>
+                <small>{d}</small>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            <b>3</b> What should it do?
+          </legend>
+          <div className="ma-options">
+            {planFeatures.map((f) => {
+              const on = picked.includes(f.key);
+              return (
+                <button key={f.key} type="button" className={`ma-chip ${on ? 'on' : ''}`} onClick={() => toggle(f.key)} aria-pressed={on}>
+                  <span className="ma-tick">{on && <Ic n="check" s={11} w={3} />}</span>
+                  {f.label}
+                  <em>+{f.weeks} wk</em>
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+      </div>
+
+      <aside className="ma-planner-result">
+        <p className="ma-label">Your rough timeline</p>
+        <p className="ma-weeks" key={`${calc.low}-${calc.high}`}>
+          {calc.low}–{calc.high} <span>weeks</span>
+        </p>
+        <p className="ma-months">About {calc.months}</p>
+
+        <p className="ma-break-title">Where the time goes</p>
+        <div className="ma-break">
+          {calc.rows.map((r) => (
+            <div key={r.label} className="ma-break-row">
+              <span>{r.label}</span>
+              <div>
+                <i style={{ width: `${(r.w / calc.max) * 100}%` }} />
+              </div>
+              <b>{r.w} wk</b>
+            </div>
+          ))}
+        </div>
+
+        <p className="ma-note">A guide only. Scope changes the real number.</p>
+        <Button href="/contact" variant="primary">
+          Get an accurate estimate
+        </Button>
+      </aside>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PROCESS TIMELINE: the line fills as you scroll                      */
+/* ------------------------------------------------------------------ */
+
+function ProcessTimeline() {
+  const ref = useRef(null);
+  const [reached, setReached] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      let p = 1;
+      if (!reduce) {
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        // 0 when the block enters the lower part of the screen,
+        // 1 when its bottom passes the middle
+        p = (vh * 0.85 - r.top) / (vh * 0.3 + r.height);
+        p = Math.min(1, Math.max(0, p));
+      }
+      el.style.setProperty('--p', p.toFixed(4));
+
+      const last = steps.length - 1;
+      let n = 0;
+      steps.forEach((_, i) => {
+        const at = i === 0 ? 0.02 : i / last - 0.02;
+        if (p >= at) n = i + 1;
+      });
+      setReached(n);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return (
+    <div className="ma-steps" ref={ref}>
+      <div className="ma-steps-line" aria-hidden="true">
+        <span />
+      </div>
+      {steps.map((st, i) => (
+        <div key={st.title} className={`ma-step ${i < reached ? 'is-active' : ''}`}>
+          <div className="ma-step-dot">
+            <Ic n={st.icon} s={24} w={1.6} />
+          </div>
+          <p className="ma-step-time">{st.time}</p>
+          <h3>{st.title}</h3>
+          <p className="ma-body">{st.short}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PAGE                                                                */
+/* ------------------------------------------------------------------ */
+
+export default function MobileAppDevelopmentPage() {
+  useEffect(() => {
+    document.title = 'Mobile App Development | iOS & Android | Dotix';
+  }, []);
+
+  return (
+    <main className="mobile-app-page">
+      <style>{CSS}</style>
+
+      {/* HERO */}
+      <section className="ma-hero">
+        <div className="ma-container ma-hero-grid">
+          <div className="ma-hero-copy">
+            <h1 className="ma-in" style={{ animationDelay: '80ms' }}>
+              One product.
+              <span>Web, iOS and Android.</span>
+            </h1>
+            <p className="ma-lead ma-in" style={{ animationDelay: '160ms' }}>
+              We design and build web, iOS and Android apps, from first prototype to store release and beyond.
+            </p>
+
+            <div className="ma-platrow ma-in" style={{ animationDelay: '200ms' }}>
+              {[['web', 'Web'], ['ios', 'iOS'], ['android', 'Android']].map(([k, l]) => (
+                <span key={k}>
+                  <PlatIcon n={k} />
+                  {l}
+                </span>
+              ))}
+            </div>
+
+            <div className="ma-actions ma-in" style={{ animationDelay: '260ms' }}>
+              <Button href="/contact" variant="primary">
+                Start your project
+              </Button>
+              <a href="#planner" className="ma-link">
+                Plan your app &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div className="ma-hero-art" aria-hidden="true">
+            <HeroDiagram />
           </div>
         </div>
       </section>
 
-      {/* SOLUTIONS */}
-      {/* <section className="saas-section saas-solutions" id="solutions">
-        <div className="saas-wrap">
-          <SectionHeading
-            eyebrow="What we build"
-            title={
-              <>
-                Four things we build{' '}
-                <span className="saas-accent">well.</span>
-              </>
-            }
-            description="Most projects start as one of these, and plenty grow into two or three. Whichever you need, we build it around how your business really works."
-          />
+      {/* MOVING TECH STRIP */}
+      {/* <div className="ma-marquee" aria-label="Technologies we work with">
+        <div className="ma-track">
+          {[...stack, ...stack].map((t, i) => (
+            <span key={`${t}-${i}`} aria-hidden={i >= stack.length}>
+              {t}
+            </span>
+          ))}
+        </div>
+      </div> */}
 
-          <div className="saas-solution-list">
-            {solutions.map((item) => (
-              <article className="saas-solution" key={item.no}>
-                <span className="saas-solution-no">{item.no}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <small>{item.tags}</small>
-              </article>
-            ))}
-          </div>
+      {/* PLATFORMS */}
+      <section className="ma-section">
+        <div className="ma-container">
+          <SectionHead
+            label="Every screen"
+            title="Built for the platform in people’s hands."
+            intro="Each version feels native to its platform."
+          />
+          <Reveal delay={80}>
+            <Platforms />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FLOW */}
+      <section className="ma-section ma-alt">
+        <div className="ma-container">
+          <SectionHead
+            label="How it fits together"
+            title="What happens behind every tap."
+            intro="How a typical product connects your app, data and services."
+          />
+          <FlowDiagram />
+        </div>
+      </section>
+
+      {/* PLANNER */}
+      {/* <section className="ma-section" id="planner">
+        <div className="ma-container">
+          <SectionHead
+            label="Plan your app"
+            title="Get a feel for the timeline."
+            intro="Pick what you need to see a rough range."
+          />
+          <Reveal delay={80}>
+            <Planner />
+          </Reveal>
         </div>
       </section> */}
 
-      {/* PRODUCT LIFECYCLE */}
-      <section className="saas-section">
-        <div className="saas-wrap">
-          <SectionHeading
-            eyebrow="Beyond the screens"
-            title={
-              <>
-                Billing, trials and renewals are{' '}
-                <span className="saas-accent">part of the product.</span>
-              </>
-            }
-            description="A SaaS product earns its money after the sign-up page. We build the whole customer journey, not just the interface."
+      {/* WORK */}
+      <section className="ma-section ma-alt">
+        <div className="ma-container">
+          <SectionHead
+            label="Selected work"
+            title="Products we have built."
+            intro="A few of our apps."
           />
+          <div className="ma-pgrid">
+            {apps.map((app) => (
+              <article key={app.name} className="ma-app">
+                <a
+                  className="ma-app-shot"
+                  href={app.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${app.name}: visit site`}
+                >
+                  {app.image ? (
+                    <Image
+                      src={app.image}
+                      alt={`${app.name} screenshot`}
+                      fill
+                      sizes="(max-width: 560px) 100vw, 25vw"
+                    />
+                  ) : (
+                    <div className="ma-app-ph">
+                      <span>{app.name.charAt(0)}</span>
+                      <small>Add image</small>
+                    </div>
+                  )}
+                </a>
 
-          <div className="saas-lifecycle">
-            {lifecycle.map((item, i) => (
-              <div className="saas-lifecycle-item" style={{ '--n': i }} key={item.title}>
-                <span className="saas-lifecycle-no">0{i + 1}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="ma-app-body">
+                  <div className="ma-app-top">
+                    {app.logo ? (
+                      <Image
+                        className="ma-app-logo"
+                        src={app.logo}
+                        alt=""
+                        width={34}
+                        height={34}
+                      />
+                    ) : (
+                      <span className="ma-app-logo ma-app-logo-ph">{app.name.charAt(0)}</span>
+                    )}
+                    <a
+                      className="ma-app-domain"
+                      href={app.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      [{app.domain}]
+                    </a>
+                  </div>
 
-      {/* PRODUCTS */}
-      <section className="saas-section saas-solutions" id="our-work">
-        <div className="saas-wrap">
-          <SectionHeading
-            eyebrow="Built by Dotix"
-            title={
-              <>
-                Products we've shipped{' '}
-                <span className="saas-accent">and still run.</span>
-              </>
-            }
-            description="These are our own platforms, live and in use. Running them taught us how to think about architecture, performance and cost long before a client asks."
-          />
+                  <h3>{app.name}</h3>
 
-          <div className="saas-products-grid">
-            {products.map((product) => (
-              <a
-                className="saas-product"
-                href={product.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={product.name}
-              >
-                <div className="saas-product-preview">
-                  <Image
-                    src={product.image}
-                    alt={product.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) calc(100vw - 36px), (max-width: 900px) 50vw, 33vw"
-                  />
-                </div>
-
-                <div className="saas-product-info">
-                  <span className="saas-product-type">{product.type}</span>
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-
-                  <div className="saas-product-bottom">
-                    Visit site <span aria-hidden="true">↗</span>
+                  <div className="ma-app-tags">
+                    {app.platforms.map(([k, l]) => (
+                      <span key={k}>
+                        <PlatIcon n={k} />
+                        {l}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </a>
+              </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* EXPERIENCE */}
-      <section className="saas-section saas-experience">
-        <div className="saas-wrap saas-experience-layout">
-          <div className="saas-experience-copy">
-            <Eyebrow>Why it matters</Eyebrow>
-
-            <h2>
-              We run what we build,{' '}
-              <span className="saas-accent">so we plan for the long run.</span>
-            </h2>
-
-            <p>
-              Shipping is the easy part. Keeping a product fast, secure and
-              affordable once real users arrive is where most projects
-              struggle. We deal with the same problems on our own platforms,
-              and bring those lessons into yours.
-            </p>
-          </div>
-
-          <div className="saas-experience-panel">
-            <Eyebrow>An example from our own stack</Eyebrow>
-            <h3>One foundation instead of five separate tools.</h3>
-
-            <p>
-              Omnibase combines database, authentication, storage and
-              backend services in a single place. Our products share it,
-              which means less duplicated work, fewer moving parts and
-              faster launches.
-            </p>
-
-            <div className="saas-experience-comparison">
-              <div>
-                <strong>Separate systems</strong>
-                <span>
-                  More services to connect, secure and keep updated.
-                </span>
-              </div>
-
-              <div>
-                <strong>Shared foundation</strong>
-                <span>
-                  Core backend capabilities managed from one place.
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* PROCESS */}
-      <section className="saas-section">
-        <div className="saas-wrap">
-          <SectionHeading
-            eyebrow="How we work"
-            title={
-              <>
-                How a project{' '}
-                <span className="saas-accent">actually runs.</span>
-              </>
-            }
-            description="A simple process with regular check-ins, so you always know where things stand and can change direction early if you need to."
+      <section className="ma-section">
+        <div className="ma-container">
+          <SectionHead
+            label="How we work"
+            title="Four stages, no surprises."
+            intro="A clear process from planning and design to development and launch, with every step defined along the way."
           />
-
-          <div className="saas-process-grid">
-            {stages.map((stage, i) => (
-              <article className="saas-stage" style={{ '--n': i }} key={stage.no}>
-                <span className="saas-stage-no">
-                  Step {stage.no}
-                </span>
-                <h3>{stage.title}</h3>
-                <p>{stage.description}</p>
-                <small>{stage.note}</small>
-              </article>
-            ))}
-          </div>
+          <ProcessTimeline />
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="saas-section saas-faq">
-        <div className="saas-wrap saas-faq-layout">
-          <div>
-            <Eyebrow>Good to know</Eyebrow>
-
-            <h2 className="saas-faq-title">
-              Questions before we{' '}
-              <span className="saas-accent">start?</span>
-            </h2>
-
-            <p className="saas-faq-intro">
-              Can't find what you're looking for, or still working out what
-              to build? Send us a message and we'll talk it through.
-            </p>
-
-            <div className="saas-actions">
-              <Link href="/contact" className="saas-btn saas-btn-primary">
-                Talk to our team
-              </Link>
+      <section className="ma-section ma-alt">
+        <div className="ma-container ma-faq-wrap">
+          <SectionHead label="FAQs" title="Questions we hear often." intro="Quick answers before we talk." />
+          <Reveal delay={80}>
+            <div className="ma-faq">
+              <FAQAccordion faqs={faqs} />
             </div>
-          </div>
-
-          <div className="saas-faq-list">
-            {faqs.map((faq) => (
-              <details key={faq.q}>
-                <summary>{faq.q}</summary>
-                <p>{faq.a}</p>
-              </details>
-            ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="saas-cta">
-        <div className="saas-wrap">
-          <div className="saas-cta-panel">
-            <Eyebrow>Start a project</Eyebrow>
-
-            <h2>
-              Got a product in mind?{' '}
-              <span className="saas-accent">
-                Tell us what you're building.
-              </span>
-            </h2>
-
-            <p>
-              An idea on a napkin, a rough prototype or a product that
-              needs a rebuild: we're happy to look at it and tell you
-              honestly how we would approach it.
-            </p>
-
-            <div className="saas-actions">
-              <Link href="/contact" className="saas-btn saas-btn-primary">
-                Start a conversation
-              </Link>
-
-              <Link href="/projects" className="saas-btn saas-btn-quiet">
-                See our projects
-              </Link>
+      {/* CTA */}
+      <section className="ma-cta">
+        <div className="ma-container ma-narrow">
+          <Reveal>
+            <SharedSectionHeading
+              eyebrow="Start a mobile project"
+              title="Have an app in mind? Tell us about it."
+              description="Tell us what you are planning. We will reply with honest feedback."
+              spacingClassName="mb-6"
+            />
+            <div className="ma-cta-box">
+              <div className="ma-cta-box-art" aria-hidden="true">
+                <span className="ma-cta-orbit ma-cta-orbit-one" />
+                <span className="ma-cta-orbit ma-cta-orbit-two" />
+                <span className="ma-cta-spark ma-cta-spark-one" />
+                <span className="ma-cta-spark ma-cta-spark-two" />
+              </div>
+              <div className="ma-cta-box-content">
+                <p className="ma-cta-kicker">Your next app starts here</p>
+                <p className="ma-cta-box-copy">
+                  Share your idea and we’ll help turn it into a clear, buildable plan.
+                </p>
+                <Button href="/contact" variant="primary">
+                  Start your project
+                </Button>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </main>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* STYLES                                                              */
+/* ------------------------------------------------------------------ */
+
+const CSS = `
+.mobile-app-page{
+  --ma-accent:var(--accent,#8b7cff);
+  --ma-bg:var(--background-primary,#0a0a12);
+  --ma-bg2:var(--background-secondary,#0f0f1a);
+  --ma-card:var(--background-card,#14141f);
+  --ma-line:var(--border,rgba(255,255,255,.1));
+  --ma-text:var(--text-secondary,#b0b2c3);
+  --ma-muted:var(--text-muted,#82859a);
+  background:var(--ma-bg);
+  color:#f2f2f7;
+  overflow:hidden
+}
+
+.mobile-app-page *{box-sizing:border-box}
+.mobile-app-page h1,.mobile-app-page h2,.mobile-app-page h3{
+  margin:0;
+  color:#fff;
+  letter-spacing:-.02em;
+  font-weight:650
+}
+.mobile-app-page p,.mobile-app-page ul{margin:0}
+.mobile-app-page ul{padding:0;list-style:none}
+.mobile-app-page button{font-family:inherit;cursor:pointer}
+
+.ma-container{max-width:1140px;margin:0 auto;padding:0 clamp(16px, 4vw, 24px)}
+.ma-narrow{max-width:800px}
+.ma-section{padding:112px 0}
+.ma-alt{background:var(--ma-bg2)}
+
+.ma-label{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ma-accent);
+  margin-bottom:18px
+}
+
+.ma-head{max-width:620px;margin-bottom:64px}
+
+.mobile-app-page .ma-head h2{
+  margin-bottom:16px;
+  font-size:clamp(26px,3vw,36px);
+  line-height:1.25
+}
+
+.mobile-app-page .ma-intro{
+  margin-top:20px;
+  font-size:16px;
+  line-height:1.7;
+  color:var(--ma-text)
+}
+
+.ma-body{font-size:15px;line-height:1.7;color:var(--ma-text)}
+
+.ma-reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .6s ease,transform .6s ease
+}
+.ma-reveal.is-in{opacity:1;transform:none}
+.ma-in{opacity:0;animation:maIn .7s ease forwards}
+
+@keyframes maIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
+}
+
+/* hero */
+.ma-hero{
+  position:relative;
+  display:flex;
+  align-items:center;
+  min-height:min(92svh,820px);
+  padding:96px 0;
+  overflow:hidden;
+  background:radial-gradient(ellipse 60% 70% at 85% 30%,rgba(139,124,255,.16),transparent 70%),var(--ma-bg)
+}
+
+.ma-hero::before{
+  content:'';
+  position:absolute;
+  left:55%;
+  bottom:-160px;
+  width:900px;
+  height:520px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:var(--ma-accent);
+  opacity:.12;
+  filter:blur(140px);
+  pointer-events:none
+}
+
+.ma-hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);
+  gap:16px;
+  align-items:center;
+  width:100%
+}
+
+.ma-hero-copy{max-width:520px}
+
+.ma-hero h1{
+  font-size:clamp(32px,4vw,48px);
+  line-height:1.15;
+  letter-spacing:-.035em
+}
+
+.ma-hero h1 span{
+  display:block;
+  margin-top:4px;
+  color:var(--ma-accent)
+}
+
+.ma-lead{
+  margin:22px 0 0;
+  max-width:480px;
+  font-size:16px;
+  line-height:1.7;
+  color:var(--ma-text)
+}
+
+.ma-platrow{display:flex;gap:28px;margin-top:28px}
+
+.ma-platrow span{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  color:var(--ma-text)
+}
+
+.ma-platrow svg{color:#fff}
+
+.ma-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:28px;
+  margin-top:34px
+}
+
+.ma-link{
+  color:#fff;
+  font-size:15px;
+  font-weight:550;
+  text-decoration:none;
+  border-bottom:1px solid var(--ma-line);
+  padding-bottom:2px;
+  transition:border-color .2s,color .2s
+}
+
+.ma-link:hover{
+  border-color:var(--ma-accent);
+  color:var(--ma-accent)
+}
+
+/* hero art */
+.ma-hero-art{
+  --k:.7;
+  position:relative;
+  width:calc(840px*var(--k));
+  height:calc(680px*var(--k));
+  justify-self:end;
+  pointer-events:none
+}
+
+.ma-stage{
+  position:absolute;
+  left:0;
+  top:0;
+  width:840px;
+  height:680px;
+  transform:scale(var(--k));
+  transform-origin:top left
+}
+
+/* hero diagram */
+.hd-lines{
+  position:absolute;
+  inset:0;
+  width:840px;
+  height:680px;
+  pointer-events:none
+}
+
+.hd-lines path{
+  fill:none;
+  stroke:var(--ma-accent);
+  stroke-width:1.6;
+  stroke-dasharray:6 7;
+  opacity:.85;
+  animation:hdFlow 1.1s linear infinite
+}
+
+.hd-lines circle{fill:var(--ma-accent)}
+@keyframes hdFlow{to{stroke-dashoffset:-13}}
+
+.hd-node{
+  position:absolute;
+  width:150px;
+  padding:12px 14px;
+  border:1px solid var(--ma-line);
+  border-radius:10px;
+  background:var(--ma-card);
+  box-shadow:0 20px 40px -24px rgba(0,0,0,.8);
+  text-align:left
+}
+
+.hd-node b{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:-.01em
+}
+
+.hd-node small{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  line-height:1.4;
+  color:var(--ma-muted)
+}
+
+.hd-phone{
+  position:absolute;
+  width:268px;
+  height:548px;
+  padding:8px;
+  border-radius:48px;
+  background:#0b0b0f;
+  box-shadow:0 0 0 2px #3a3a44 inset,0 40px 70px -30px rgba(0,0,0,.9);
+  font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;
+  color:#15151f;
+  text-align:left;
+  transform-origin:50% 100%
+}
+
+.hd-phone-main{
+  left:286px;
+  top:56px;
+  z-index:3;
+  box-shadow:0 0 0 2px #3a3a44 inset,0 40px 70px -30px rgba(0,0,0,.9),0 0 80px -20px rgba(139,124,255,.35);
+  animation:hdFloat 8s ease-in-out infinite
+}
+
+.hd-phone-left{
+  left:178px;
+  top:92px;
+  z-index:1;
+  transform:rotate(-11deg) scale(.9);
+  animation:hdFloat 9s ease-in-out -2s infinite
+}
+
+.hd-phone-right{
+  left:394px;
+  top:92px;
+  z-index:2;
+  transform:rotate(11deg) scale(.9);
+  animation:hdFloat 10s ease-in-out -4s infinite
+}
+
+.hd-page-top{padding-top:22px}
+
+.hd-kpi{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:#6c5ce7;
+  color:#fff
+}
+
+.hd-kpi small{display:block;font-size:10px;opacity:.8}
+.hd-kpi strong{display:block;margin:2px 0;font-size:26px;letter-spacing:-.02em}
+.hd-kpi em{font-size:10px;font-style:normal;opacity:.85}
+
+.hd-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:7px;
+  height:96px;
+  margin-top:10px;
+  padding:12px;
+  border-radius:12px;
+  background:#fff
+}
+
+.hd-bars i{flex:1;border-radius:3px 3px 1px 1px;background:#cfc9fb}
+.hd-bars i:nth-child(6){background:#6c5ce7}
+
+.hd-map{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:130px;
+  background:#ececf2
+}
+
+.hd-sheet{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:170px;
+  padding:22px 20px;
+  border-radius:22px 22px 0 0;
+  background:#fff;
+  box-shadow:0 -8px 24px rgba(0,0,0,.08)
+}
+
+.hd-sheet b{display:block;font-size:16px}
+.hd-sheet small{display:block;margin-top:3px;font-size:12px;color:#7a7a88}
+
+.hd-progress{
+  height:5px;
+  margin-top:18px;
+  border-radius:3px;
+  background:#e6e6ee;
+  overflow:hidden
+}
+
+.hd-progress i{
+  display:block;
+  width:62%;
+  height:100%;
+  border-radius:3px;
+  background:#6c5ce7
+}
+
+@keyframes hdFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -8px}
+}
+
+.hd-screen{
+  position:relative;
+  height:100%;
+  border-radius:40px;
+  background:#f4f4f8;
+  overflow:hidden
+}
+
+.hd-island{
+  position:absolute;
+  top:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:80px;
+  height:23px;
+  border-radius:14px;
+  background:#000;
+  z-index:2
+}
+
+.hd-status{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 26px 0 30px;
+  font-size:12px;
+  font-weight:600
+}
+
+.hd-url{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  height:30px;
+  margin:16px 18px 0;
+  border-radius:10px;
+  background:#e4e4ea;
+  font-size:12px;
+  color:#55555f
+}
+
+.hd-page{padding:16px 16px 0}
+.hd-head{display:flex;align-items:center;justify-content:space-between}
+
+.mobile-app-page .hd-head h4{
+  margin:0;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:-.02em;
+  color:#15151f
+}
+
+.hd-head span{
+  padding:6px 11px;
+  border-radius:7px;
+  background:#6c5ce7;
+  color:#fff;
+  font-size:11px;
+  font-weight:600
+}
+
+.hd-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.hd-stats div{padding:10px 12px;border-radius:10px;background:#fff}
+.hd-stats small{display:block;font-size:10px;color:#7a7a88}
+.hd-stats strong{display:block;margin-top:2px;font-size:19px}
+.hd-chart{margin-top:10px;padding:10px 12px;border-radius:10px;background:#fff}
+.hd-list{margin-top:10px;border-radius:12px;background:#fff;overflow:hidden}
+
+.hd-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-bottom:.5px solid #e8e8ee
+}
+
+.hd-row:last-child{border:0}
+
+.hd-row i{
+  display:flex;
+  flex-shrink:0;
+  align-items:center;
+  justify-content:center;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  color:#fff;
+  font-size:12px;
+  font-style:normal;
+  font-weight:600
+}
+
+.hd-row div{flex:1;min-width:0}
+.hd-row b{display:block;font-size:12px;font-weight:600}
+.hd-row small{display:block;font-size:10px;color:#8a8a94}
+
+.hd-row em{
+  padding:2px 7px;
+  border-radius:999px;
+  font-size:9px;
+  font-style:normal;
+  font-weight:600;
+  white-space:nowrap
+}
+
+.hd-row em.warn{background:#fff0dc;color:#b25e00}
+.hd-row em.info{background:#e1edff;color:#0a5fd0}
+.hd-row em.ok{background:#dff5e8;color:#1b7f4b}
+
+.hd-bar{
+  position:absolute;
+  bottom:7px;
+  left:50%;
+  transform:translateX(-50%);
+  width:108px;
+  height:4px;
+  border-radius:2px;
+  background:#000
+}
+
+/* moving tech strip */
+.ma-marquee{
+  overflow:hidden;
+  padding:22px 0;
+  border-top:1px solid var(--ma-line);
+  border-bottom:1px solid var(--ma-line);
+  background:var(--ma-bg2);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)
+}
+
+.ma-track{display:flex;width:max-content;animation:maMarquee 36s linear infinite}
+.ma-marquee:hover .ma-track{animation-play-state:paused}
+
+.ma-track span{
+  display:inline-flex;
+  align-items:center;
+  gap:36px;
+  padding-right:36px;
+  font-size:15px;
+  font-weight:550;
+  color:var(--ma-text);
+  white-space:nowrap
+}
+
+.ma-track span::after{
+  content:'';
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--ma-accent)
+}
+
+@keyframes maMarquee{to{transform:translateX(-50%)}}
+
+/* platforms */
+.ma-plat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+
+.mobile-app-page .ma-plat-col h3{
+  margin-bottom:16px;
+  font-size:22px
+}
+
+.ma-plat-col ul{display:grid;gap:12px;margin-top:26px}
+
+.ma-plat-col li{
+  position:relative;
+  padding-left:22px;
+  font-size:15px;
+  color:#e8e8f0
+}
+
+.ma-plat-col li::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:9px;
+  width:10px;
+  height:2px;
+  background:var(--ma-accent)
+}
+
+/* flow */
+.ma-flow{
+  display:grid;
+  grid-template-columns:1fr 48px 1fr 48px 1fr 48px 1fr;
+  align-items:stretch
+}
+
+.ma-flow>.ma-reveal{display:flex}
+
+.ma-flow-col{
+  flex:1;
+  padding:28px 24px;
+  border:1px solid var(--ma-line);
+  border-radius:12px;
+  background:var(--ma-card);
+  transition:border-color .3s
+}
+
+.ma-flow-col:hover{border-color:var(--ma-muted)}
+
+.mobile-app-page .ma-flow-step{
+  margin-bottom:14px;
+  font-size:12px;
+  color:var(--ma-muted)
+}
+
+.mobile-app-page .ma-flow-col h3{
+  margin-bottom:10px;
+  font-size:18px
+}
+
+.mobile-app-page .ma-flow-cap{
+  min-height:40px;
+  margin-bottom:22px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--ma-muted)
+}
+
+.ma-flow-col ul{display:grid;gap:8px}
+
+.ma-flow-col li{
+  padding:10px 12px;
+  border-radius:6px;
+  background:rgba(255,255,255,.05);
+  font-size:13px;
+  color:#e8e8f0
+}
+
+.ma-conn{
+  position:relative;
+  align-self:center;
+  height:2px;
+  background:repeating-linear-gradient(90deg,var(--ma-muted) 0 6px,transparent 6px 12px);
+  background-size:12px 2px;
+  animation:maDash 1.2s linear infinite;
+  opacity:.7
+}
+
+.ma-conn::after{
+  content:'';
+  position:absolute;
+  right:-2px;
+  top:-4px;
+  border-left:7px solid var(--ma-muted);
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent
+}
+
+@keyframes maDash{to{background-position:12px 0}}
+@keyframes maDashV{to{background-position:0 12px}}
+
+/* planner */
+#planner.ma-section{padding:88px 0}
+#planner .ma-head{margin-bottom:40px}
+
+.ma-planner{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:40px;
+  align-items:start
+}
+
+.ma-planner fieldset{margin:0 0 26px;padding:0;border:0;min-width:0}
+
+.ma-planner legend{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0;
+  margin-bottom:12px;
+  font-size:14px;
+  font-weight:600;
+  color:#fff
+}
+
+.ma-planner legend b{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-size:12px
+}
+
+.ma-cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ma-cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+.ma-opt{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding:12px 14px;
+  border:1px solid var(--ma-line);
+  border-radius:8px;
+  background:transparent;
+  color:var(--ma-text);
+  text-align:left;
+  transition:border-color .2s,background .2s
+}
+
+.ma-opt strong{font-size:14px;color:#fff;font-weight:600}
+.ma-opt small{font-size:12px;line-height:1.4;color:var(--ma-muted)}
+.ma-opt:hover{border-color:var(--ma-muted)}
+.ma-opt.on{border-color:var(--ma-accent);background:rgba(255,255,255,.04)}
+
+.ma-options{display:flex;flex-wrap:wrap;gap:8px}
+
+.ma-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid var(--ma-line);
+  border-radius:6px;
+  background:transparent;
+  color:var(--ma-text);
+  font-size:13px;
+  transition:border-color .2s,background .2s,color .2s
+}
+
+.ma-chip em{font-style:normal;font-size:11px;color:var(--ma-muted)}
+.ma-chip:hover{border-color:var(--ma-muted);color:#fff}
+.ma-chip.on{border-color:var(--ma-accent);background:rgba(255,255,255,.04);color:#fff}
+
+.ma-tick{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:14px;
+  height:14px;
+  border:1px solid var(--ma-line);
+  border-radius:3px;
+  color:#fff
+}
+
+.ma-chip.on .ma-tick{background:var(--ma-accent);border-color:var(--ma-accent)}
+
+.ma-planner-result{
+  position:sticky;
+  top:96px;
+  padding:24px;
+  border:1px solid var(--ma-line);
+  border-radius:10px;
+  background:var(--ma-card)
+}
+
+.ma-planner-result .ma-label{margin-bottom:12px}
+.ma-weeks{font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1;color:#fff}
+.ma-weeks span{font-size:15px;font-weight:500;letter-spacing:0;color:var(--ma-muted)}
+.ma-months{margin:8px 0 22px;font-size:13px;color:var(--ma-text)}
+.ma-break-title{margin-bottom:12px;font-size:12px;font-weight:600;color:var(--ma-muted)}
+.ma-break{display:grid;gap:10px;margin-bottom:22px}
+
+.ma-break-row{
+  display:grid;
+  grid-template-columns:110px 1fr 38px;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  color:var(--ma-text)
+}
+
+.ma-break-row div{height:4px;border-radius:2px;background:var(--ma-line);overflow:hidden}
+
+.ma-break-row i{
+  display:block;
+  height:100%;
+  border-radius:2px;
+  background:var(--ma-accent);
+  transition:width .4s ease
+}
+
+.ma-break-row b{text-align:right;font-weight:600;color:#fff}
+.ma-note{margin-bottom:20px;font-size:12px;line-height:1.6;color:var(--ma-muted)}
+
+/* app cards */
+.ma-pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ma-app{display:flex;flex-direction:column;min-width:0}
+
+.ma-app-shot{
+  position:relative;
+  display:block;
+  aspect-ratio:346/521;
+  border-radius:12px;
+  background:var(--ma-card);
+  overflow:hidden;
+  text-decoration:none;
+  transition:background .25s ease
+}
+
+.ma-app-shot img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.ma-app-ph{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  width:100%;
+  height:100%;
+  border:1px dashed var(--ma-line);
+  border-radius:12px;
+  background:linear-gradient(135deg,#171726,#0e0e18)
+}
+
+.ma-app-ph span{
+  font-size:56px;
+  font-weight:650;
+  color:rgba(255,255,255,.8);
+  letter-spacing:-.03em
+}
+
+.ma-app-ph small{font-size:12px;color:var(--ma-muted)}
+
+.ma-app-body{padding:24px 4px 0}
+
+.ma-app-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px
+}
+
+.ma-app-logo{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  object-fit:contain;
+  flex-shrink:0
+}
+
+.ma-app-logo-ph{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--ma-accent);
+  color:#fff;
+  font-size:16px;
+  font-weight:650
+}
+
+/* website link + diagonal arrow */
+.ma-app-domain{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:6px;
+  min-width:0;
+  max-width:calc(100% - 46px);
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  line-height:1.5;
+  color:var(--ma-accent);
+  text-decoration:none;
+  text-align:right;
+  overflow-wrap:anywhere;
+  transition:color .2s ease
+}
+
+.ma-app-domain svg{
+  width:13px;
+  height:13px;
+  flex-shrink:0;
+  transition:transform .25s ease
+}
+
+.ma-app-domain:hover{color:#fff}
+
+.ma-app-domain:hover svg{
+  transform:translate(3px,-3px)
+}
+
+.ma-app-domain:focus-visible{
+  outline:2px solid var(--ma-accent);
+  outline-offset:4px;
+  border-radius:3px
+}
+
+.mobile-app-page .ma-app-body h3{
+  margin:18px 0 14px;
+  font-size:24px
+}
+
+.ma-app-tags{display:flex;flex-wrap:wrap;gap:8px}
+
+.ma-app-tags span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border:1px solid var(--ma-line);
+  border-radius:4px;
+  font-size:13px;
+  color:var(--ma-text)
+}
+
+.ma-app-tags svg{width:14px;height:14px}
+
+/* platform column rule (animated by Reveal) */
+.ma-step-line{height:2px;margin-bottom:28px;background:var(--ma-line)}
+.ma-step-line span{display:block;width:0;height:100%;background:var(--ma-accent);transition:width 1s ease .3s}
+.ma-reveal.is-in .ma-step-line span{width:100%}
+
+/* process timeline (scroll-driven) */
+.ma-step-time{
+  margin-bottom:14px;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ma-muted);
+  transition:color .4s
+}
+
+.ma-steps{
+  --p:0;
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px
+}
+
+.ma-steps-line{
+  position:absolute;
+  top:35px;
+  left:12.5%;
+  right:12.5%;
+  height:2px;
+  background:var(--ma-line)
+}
+
+.ma-steps-line span{
+  display:block;
+  width:100%;
+  height:100%;
+  background:var(--ma-accent);
+  transform:scaleX(var(--p,0));
+  transform-origin:left center;
+  transition:transform .15s linear
+}
+
+.ma-step{position:relative;padding:0 8px;text-align:center}
+
+.ma-step-dot{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:72px;
+  height:72px;
+  margin:0 auto 28px;
+  border:2px solid var(--ma-line);
+  border-radius:50%;
+  background:var(--ma-bg);
+  color:var(--ma-muted);
+  transition:border-color .4s,color .4s,box-shadow .4s
+}
+
+.ma-step.is-active .ma-step-dot{
+  border-color:var(--ma-accent);
+  color:var(--ma-accent);
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--ma-accent) 15%, transparent)
+}
+
+.ma-step.is-active .ma-step-time{color:var(--ma-accent)}
+
+.mobile-app-page .ma-step h3{margin-bottom:10px;font-size:20px}
+.ma-step .ma-body{max-width:220px;margin:0 auto}
+
+/* faq */
+.ma-faq-wrap{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);
+  gap:72px;
+  align-items:start
+}
+
+.ma-faq-wrap .ma-head{margin-bottom:0}
+.ma-faq{font-size:15px}
+.ma-faq p{line-height:1.75}
+
+/* CTA */
+.ma-cta{
+  padding:120px 0;
+  text-align:center;
+  border-top:1px solid var(--ma-line)
+}
+
+.ma-cta h2{
+  margin-bottom:20px;
+  font-size:clamp(28px,3.4vw,40px);
+  line-height:1.2;
+  letter-spacing:-.03em
+}
+
+.ma-cta p{
+  max-width:500px;
+  margin:0 auto 36px;
+  font-size:16px;
+  line-height:1.7;
+  color:var(--ma-text)
+}
+
+/* responsive */
+@media(max-width:1000px){
+  .ma-hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}
+  .ma-hero-copy{max-width:none;margin:0 auto}
+  .ma-lead{margin-left:auto;margin-right:auto}
+  .ma-platrow,.ma-actions{justify-content:center}
+  .ma-hero-art{--k:.6;justify-self:center}
+
+  .ma-planner{grid-template-columns:1fr;gap:44px}
+  .ma-planner-result{position:static}
+
+  .ma-flow{grid-template-columns:1fr}
+  .ma-flow>.ma-reveal{display:block}
+
+  .ma-conn{
+    width:2px;
+    height:40px;
+    justify-self:center;
+    background:repeating-linear-gradient(180deg,var(--ma-muted) 0 6px,transparent 6px 12px);
+    background-size:2px 12px;
+    animation-name:maDashV
+  }
+
+  .ma-conn::after{
+    right:auto;
+    left:-4px;
+    top:auto;
+    bottom:-2px;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-top:7px solid var(--ma-muted);
+    border-bottom:0
+  }
+
+  .ma-pgrid{grid-template-columns:repeat(2,1fr)}
+  .mobile-app-page .ma-flow-cap{min-height:0}
+  .ma-plat{grid-template-columns:1fr;gap:48px}
+  .ma-faq-wrap{grid-template-columns:1fr;gap:40px}
+}
+
+@media(max-width:700px){
+  .ma-steps{grid-template-columns:1fr;gap:40px}
+
+  .ma-steps-line{
+    top:36px;
+    bottom:36px;
+    left:35px;
+    right:auto;
+    width:2px;
+    height:auto
+  }
+
+  .ma-steps-line span{
+    transform:scaleY(var(--p,0));
+    transform-origin:center top
+  }
+
+  .ma-step{
+    display:grid;
+    grid-template-columns:72px 1fr;
+    gap:0 20px;
+    align-items:center;
+    padding:0;
+    text-align:left
+  }
+
+  .ma-step-dot{grid-row:1/span 3;margin:0}
+  .ma-step .ma-body{margin:0}
+
+  .ma-break-row{grid-template-columns:96px 1fr 38px}
+  .ma-section{padding:72px 0}
+  .ma-head{margin-bottom:48px}
+  .ma-hero{padding:72px 0;min-height:auto}
+  .ma-planner-result{padding:24px}
+}
+
+@media(max-width:560px){
+  .ma-hero-art{--k:clamp(0.26, calc((100vw - 40px) / 840), 0.4); max-width: 100%;}
+  .ma-pgrid{grid-template-columns:1fr}
+  .ma-cards2,.ma-cards3{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mobile-app-page *{animation:none!important;transition:none!important}
+  .ma-reveal,.ma-in{opacity:1;transform:none}
+  .ma-step-line span{width:100%;height:100%}
+}
+`;

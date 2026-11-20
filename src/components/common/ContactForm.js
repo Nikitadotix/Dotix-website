@@ -39,15 +39,15 @@ export function ContactForm() {
   return (
     <>
       {/* Contact Section */}
-      <section className="py-24 bg-background-secondary">
+      <section className="py-14 sm:py-20 lg:py-24 bg-background-secondary">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left Side - Contact Information */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-8">
-                Let's talk.
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
+                Let&apos;s talk.
               </h2>
-              <p className="text-text-secondary mb-8">
+              <p className="text-text-secondary mb-6 sm:mb-8 text-sm sm:text-base">
                 A human replies, not a bot.
               </p>
 
@@ -87,9 +87,9 @@ export function ContactForm() {
             </div>
 
             {/* Right Side - Contact Form */}
-            <div className="bg-background-card p-8 rounded-lg border border-border">
+            <div className="bg-background-card p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-border">
               {submitStatus === 'success' ? (
-                <div className="text-center py-12">
+                <div className="text-center py-10 sm:py-12">
                   <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -99,7 +99,7 @@ export function ContactForm() {
                     Message sent!
                   </h3>
                   <p className="text-text-secondary">
-                    We'll get back to you soon.
+                    We&apos;ll get back to you soon.
                   </p>
                 </div>
               ) : (

@@ -2,6 +2,15 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import {
+  Cloud,
+  Smartphone,
+  BrainCircuit,
+  Workflow,
+  CreditCard,
+  Server,
+} from 'lucide-react';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 export function TechStack() {
   const shouldReduceMotion = useReducedMotion();
@@ -10,9 +19,9 @@ export function TechStack() {
     {
       title: 'Frontend & Mobile',
       technologies: [
-        { name: 'Next.js', slug: 'nextdotjs', color: 'FFFFFF' },
+        { name: 'Next.js', slug: 'nextdotjs', color: '000000' },
         { name: 'React', slug: 'react', color: '61DAFB' },
-        { name: 'React Native', slug: 'react', color: '61DAFB' },
+        { name: 'React Native', icon: Smartphone },
         { name: 'TypeScript', slug: 'typescript', color: '3178C6' },
         { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
         { name: 'Framer Motion', slug: 'framer', color: '0055FF' },
@@ -23,10 +32,10 @@ export function TechStack() {
       technologies: [
         { name: 'Go', slug: 'go', color: '00ADD8' },
         { name: 'Node.js', slug: 'nodedotjs', color: '5FA04E' },
-        { name: 'Fastify', slug: 'fastify', color: 'FFFFFF' },
+        { name: 'Fastify', slug: 'fastify', color: '000000' },
         { name: 'GraphQL', slug: 'graphql', color: 'E10098' },
-        { name: 'Socket.IO', slug: 'socketdotio', color: 'FFFFFF' },
-        { name: 'Stripe', slug: 'stripe', color: '635BFF' },
+        { name: 'Socket.IO', slug: 'socketdotio', color: '010101' },
+        { name: 'Stripe', icon: CreditCard },
       ],
     },
     {
@@ -44,10 +53,10 @@ export function TechStack() {
       title: 'Cloud & AI',
       technologies: [
         { name: 'Docker', slug: 'docker', color: '2496ED' },
-        { name: 'AWS', slug: 'amazonaws', color: 'FF9900' },
+        { name: 'AWS', icon: Cloud },
         { name: 'Cloudflare', slug: 'cloudflare', color: 'F38020' },
-        { name: 'GitHub Actions', slug: 'githubactions', color: 'FFFFFF' },
-        { name: 'OpenAI APIs', slug: 'openai', color: 'FFFFFF' },
+        { name: 'GitHub Actions', icon: Workflow },
+        { name: 'OpenAI APIs', icon: BrainCircuit },
       ],
     },
   ];
@@ -59,101 +68,123 @@ export function TechStack() {
     }))
   );
 
-  const rows = [
-    technologies.filter((_, index) => index % 2 === 0),
-    technologies.filter((_, index) => index % 2 !== 0),
-  ];
+  // Divide technologies into four vertical columns
+  const columns = Array.from({ length: 4 }, (_, columnIndex) =>
+    technologies.filter((_, index) => index % 4 === columnIndex)
+  );
 
   return (
     <section
       id="tech-stack"
       className="relative overflow-hidden border-t border-border/70 bg-background-secondary py-20 sm:py-24 lg:py-28"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
 
         {/* LEFT CONTENT */}
-        <div className="max-w-md">
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-text-primary sm:text-4xl md:text-5xl">
-            Our stack. Your next{' '}
-            <span className="text-accent">
-              breakthrough.
-            </span>
-          </h2>
-
-          <p className="mt-5 max-w-sm text-sm leading-7 text-text-muted sm:text-base">
-            We bring together proven technologies to build reliable,
-            scalable, and high-performing digital products.
-          </p>
+        <div className="max-w-lg">
+          <SectionHeading
+            eyebrow="Technologies used"
+            title={
+              <>
+                Key <span className="text-accent">Technologies</span> &amp;{' '}
+                <span className="text-accent">Platforms</span>
+              </>
+            }
+            description="We work with leading platforms and technologies that empower digital transformation, accelerate delivery, and drive measurable business results."
+            spacingClassName="mb-0"
+            titleClassName="max-w-md md:text-5xl"
+            descriptionClassName="max-w-md leading-7 text-text-muted sm:text-base"
+          />
         </div>
 
-        {/* RIGHT TECHNOLOGY LOGOS */}
+        {/* RIGHT ANIMATED TECHNOLOGY PANEL */}
         <div
+          id="tech-stack-grid"
           role="group"
-          aria-label="Technology stack"
-          className="min-w-0 space-y-9 sm:space-y-12 lg:space-y-14"
+          aria-label="Technologies used by Dotix"
+          className="relative min-w-0"
         >
-          {rows.map((row, rowIndex) => {
-            const reverse = rowIndex === 1;
+          <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-background-card p-4 shadow-sm sm:p-5 lg:p-6">
 
-            return (
-              <div
-                key={rowIndex}
-                className="overflow-hidden"
-                role="group"
-                aria-label={`Technology row ${rowIndex + 1}`}
-              >
-                <motion.div
-                  className="flex w-max"
-                  initial={
-                    shouldReduceMotion
-                      ? false
-                      : { x: reverse ? '-50%' : '0%' }
-                  }
-                  animate={
-                    shouldReduceMotion
-                      ? undefined
-                      : {
-                          x: reverse
-                            ? ['-50%', '0%']
-                            : ['0%', '-50%'],
-                        }
-                  }
-                  transition={{
-                    duration: reverse ? 38 : 42,
-                    ease: 'linear',
-                    repeat: Infinity,
-                  }}
-                >
-                  {[0, 1].map((copy) => (
-                    <div
-                      key={copy}
-                      className="flex shrink-0 items-center gap-9 pr-9 sm:gap-12 sm:pr-12 lg:gap-14 lg:pr-14"
-                      aria-hidden={copy === 1 ? true : undefined}
+            {/* Background detail */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.04] via-transparent to-transparent" />
+
+            {/* Vertical scrolling columns */}
+            <div className="relative grid h-[360px] grid-cols-4 gap-2 overflow-hidden sm:h-[380px] sm:gap-2.5 lg:h-[390px]">
+
+              {columns.map((column, columnIndex) => {
+                const reverse = columnIndex % 2 !== 0;
+
+                return (
+                  <div
+                    key={columnIndex}
+                    className="relative h-full overflow-hidden"
+                  >
+                    <motion.div
+                      className="flex flex-col gap-2.5 sm:gap-3"
+                      initial={false}
+                      animate={
+                        shouldReduceMotion
+                          ? { y: 0 }
+                          : {
+                              y: reverse
+                                ? ['-50%', '0%']
+                                : ['0%', '-50%'],
+                            }
+                      }
+                      transition={{
+                        duration: 17 + columnIndex * 3,
+                        ease: 'linear',
+                        repeat: Infinity,
+                      }}
                     >
-                      {row.map((technology) => (
+                      {/* Duplicate items for seamless scrolling */}
+                      {[0, 1].map((copy) => (
                         <div
-                          key={`${technology.name}-${copy}`}
-                          title={technology.name}
-                          className="group flex h-[76px] w-[76px] shrink-0 items-center justify-center transition-transform duration-300 hover:-translate-y-1 sm:h-[88px] sm:w-[88px]"
+                          key={copy}
+                          className="flex shrink-0 flex-col gap-2.5 sm:gap-3"
+                          aria-hidden={copy === 1}
                         >
-                          <img
-                            src={`https://cdn.simpleicons.org/${technology.slug}/${technology.color}`}
-                            alt={copy === 0 ? technology.name : ''}
-                            aria-hidden={copy === 1 ? true : undefined}
-                            loading="lazy"
-                            width="42"
-                            height="42"
-                            className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110 sm:h-11 sm:w-11"
-                          />
+                          {column.map((technology) => {
+                            const TechnologyIcon = technology.icon;
+
+                            return (
+                              <div
+                                key={`${technology.name}-${copy}`}
+                                title={technology.name}
+                                className="group mx-auto flex aspect-square w-full max-w-[68px] shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background-elevated p-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-background-primary"
+                              >
+                                {TechnologyIcon ? (
+                                  <TechnologyIcon
+                                    size={24}
+                                    strokeWidth={1.7}
+                                    className="text-text-primary transition-transform duration-300 group-hover:scale-110 sm:h-6 sm:w-6"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <img
+                                    src={`https://cdn.simpleicons.org/${technology.slug}/${technology.color}`}
+                                    alt={copy === 0 ? technology.name : ''}
+                                    aria-hidden={copy === 1 ? true : undefined}
+                                    loading="lazy"
+                                    width="50"
+                                    height="50"
+                                    className="h-5 w-5 object-contain transition-transform duration-300 group-hover:scale-110 sm:h-6 sm:w-6"
+                                  />
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       ))}
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-            );
-          })}
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
   );

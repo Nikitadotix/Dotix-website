@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="760" viewBox="0 0 1080 760" fill="none">
+  <defs>
+    <linearGradient id="surface" x1="72" y1="44" x2="1002" y2="712" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#292443"/>
+      <stop offset="1" stop-color="#171522"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="106" y1="210" x2="369" y2="497" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="596" y1="205" x2="824" y2="581" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F5FF"/>
+      <stop offset="1" stop-color="#ECE8F8"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1080" height="760" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#9B8FC8" fill-opacity=".24"/>
+    </pattern>
+  </defs>
+
+  <rect x="18" y="18" width="1044" height="724" rx="34" fill="#0F0D18" fill-opacity=".34" filter="url(#shadow)"/>
+  <rect x="26" y="22" width="1028" height="716" rx="30" fill="url(#surface)" stroke="#FFFFFF" stroke-opacity=".13"/>
+  <circle cx="920" cy="150" r="220" fill="#8B5CF6" fill-opacity=".13"/>
+  <circle cx="920" cy="150" r="220" fill="url(#dots)"/>
+
+  <rect x="27" y="23" width="1026" height="58" rx="29" fill="#FFFFFF" fill-opacity=".035"/>
+  <path d="M27 81.5H1053" stroke="#FFFFFF" stroke-opacity=".1"/>
+  <circle cx="62" cy="52" r="6" fill="#FF7A7A"/>
+  <circle cx="84" cy="52" r="6" fill="#F6C76B"/>
+  <circle cx="106" cy="52" r="6" fill="#72D49A"/>
+  <rect x="400" y="39" width="280" height="26" rx="13" fill="#FFFFFF" fill-opacity=".06"/>
+  <circle cx="417" cy="52" r="4" fill="#A78BFA"/>
+  <text x="430" y="56" fill="#D6D1E7" font-family="Arial, sans-serif" font-size="11">duddy.io / Untitled App</text>
+  <text x="951" y="56" fill="#B7B0CE" font-family="Arial, sans-serif" font-size="11" text-anchor="end">Preview</text>
+  <rect x="968" y="36" width="62" height="31" rx="9" fill="#8B5CF6"/>
+  <text x="999" y="56" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Build</text>
+
+  <rect x="52" y="105" width="362" height="574" rx="20" fill="#211E34" stroke="#FFFFFF" stroke-opacity=".1"/>
+  <circle cx="80" cy="140" r="15" fill="#8B5CF6" fill-opacity=".2"/>
+  <path d="m80 131 2.4 6.6L89 140l-6.6 2.4L80 149l-2.4-6.6L71 140l6.6-2.4L80 131Z" fill="#C4B5FD"/>
+  <text x="106" y="138" fill="#F4F1FF" font-family="Arial, sans-serif" font-size="14" font-weight="700">Build with AI</text>
+  <text x="106" y="156" fill="#9C96B2" font-family="Arial, sans-serif" font-size="10">Describe your app and let Duddy start it</text>
+  <rect x="72" y="180" width="322" height="123" rx="14" fill="#171522" stroke="#8B5CF6" stroke-opacity=".55"/>
+  <text x="91" y="207" fill="#B9B2CC" font-family="Arial, sans-serif" font-size="10">YOUR PROMPT</text>
+  <text x="91" y="233" fill="#F5F3FA" font-family="Arial, sans-serif" font-size="12">Create a calm habit tracker with</text>
+  <text x="91" y="252" fill="#F5F3FA" font-family="Arial, sans-serif" font-size="12">a weekly progress view and a daily</text>
+  <text x="91" y="271" fill="#F5F3FA" font-family="Arial, sans-serif" font-size="12">check-in screen.</text>
+  <rect x="72" y="320" width="322" height="1" fill="#FFFFFF" fill-opacity=".1"/>
+  <text x="76" y="351" fill="#9C96B2" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1">GENERATED COMPONENTS</text>
+  <rect x="72" y="369" width="322" height="51" rx="11" fill="#FFFFFF" fill-opacity=".045"/>
+  <rect x="84" y="381" width="27" height="27" rx="8" fill="#6D5BD0" fill-opacity=".27"/>
+  <path d="M92 394h11M97.5 388.5v11" stroke="#C4B5FD" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="122" y="391" fill="#E9E5F4" font-family="Arial, sans-serif" font-size="11" font-weight="700">Weekly progress</text>
+  <text x="122" y="407" fill="#928BA9" font-family="Arial, sans-serif" font-size="9">Progress card · Ready</text>
+  <circle cx="371" cy="394" r="4" fill="#78D7A0"/>
+  <rect x="72" y="432" width="322" height="51" rx="11" fill="#FFFFFF" fill-opacity=".045"/>
+  <rect x="84" y="444" width="27" height="27" rx="8" fill="#E7A65C" fill-opacity=".18"/>
+  <path d="M91 458h13M92.5 454h10M94 450h7" stroke="#F5C988" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="122" y="454" fill="#E9E5F4" font-family="Arial, sans-serif" font-size="11" font-weight="700">Daily check-in</text>
+  <text x="122" y="470" fill="#928BA9" font-family="Arial, sans-serif" font-size="9">Form · Logic connected</text>
+  <circle cx="371" cy="457" r="4" fill="#78D7A0"/>
+  <rect x="72" y="495" width="322" height="51" rx="11" fill="#FFFFFF" fill-opacity=".045"/>
+  <rect x="84" y="507" width="27" height="27" rx="8" fill="#55B9B1" fill-opacity=".18"/>
+  <circle cx="97.5" cy="520.5" r="6" stroke="#8EE4D5" stroke-width="1.5"/>
+  <path d="m95 520 2 2 4-4" stroke="#8EE4D5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="122" y="517" fill="#E9E5F4" font-family="Arial, sans-serif" font-size="11" font-weight="700">Habit data model</text>
+  <text x="122" y="533" fill="#928BA9" font-family="Arial, sans-serif" font-size="9">Collection · Connected</text>
+  <circle cx="371" cy="520" r="4" fill="#78D7A0"/>
+  <rect x="72" y="575" width="322" height="75" rx="13" fill="url(#accent)"/>
+  <path d="M94 601h22M105 590v22" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="130" y="603" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12" font-weight="700">Your idea, taking shape</text>
+  <text x="94" y="627" fill="#F0EAFE" font-family="Arial, sans-serif" font-size="10">AI layout · Visual logic · Native builds</text>
+
+  <rect x="438" y="105" width="590" height="574" rx="20" fill="#191725" stroke="#FFFFFF" stroke-opacity=".1"/>
+  <text x="467" y="139" fill="#F1EEF8" font-family="Arial, sans-serif" font-size="12" font-weight="700">APP CANVAS</text>
+  <rect x="466" y="157" width="534" height="494" rx="14" fill="#252238"/>
+  <circle cx="482" cy="174" r="2" fill="#817994"/>
+  <circle cx="493" cy="174" r="2" fill="#817994"/>
+  <circle cx="504" cy="174" r="2" fill="#817994"/>
+  <rect x="610" y="187" width="248" height="432" rx="33" fill="#0E0D14" stroke="#817994" stroke-opacity=".5" stroke-width="2"/>
+  <rect x="620" y="197" width="228" height="412" rx="25" fill="url(#screen)"/>
+  <rect x="697" y="205" width="74" height="15" rx="7.5" fill="#0E0D14"/>
+  <text x="640" y="245" fill="#736A8E" font-family="Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="1">MONDAY, JUNE 16</text>
+  <text x="640" y="273" fill="#201B34" font-family="Arial, sans-serif" font-size="20" font-weight="700">Your week,</text>
+  <text x="640" y="297" fill="#201B34" font-family="Arial, sans-serif" font-size="20" font-weight="700">in motion.</text>
+  <rect x="640" y="315" width="188" height="100" rx="14" fill="#FFFFFF"/>
+  <text x="655" y="338" fill="#766D8E" font-family="Arial, sans-serif" font-size="9">WEEKLY CONSISTENCY</text>
+  <text x="655" y="374" fill="#211B38" font-family="Arial, sans-serif" font-size="27" font-weight="700">78%</text>
+  <text x="711" y="373" fill="#7B6DC1" font-family="Arial, sans-serif" font-size="9">+12% this week</text>
+  <path d="M655 394c17-17 26 4 41-6 13-9 20-5 29-11 13-9 20 4 31-4 12-9 20-8 31-15 12-8 22 3 35-8" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="640" y="428" width="188" height="137" rx="14" fill="#FFFFFF"/>
+  <text x="655" y="452" fill="#201B34" font-family="Arial, sans-serif" font-size="11" font-weight="700">Today&apos;s habits</text>
+  <circle cx="663" cy="478" r="8" fill="#E9E3FA"/>
+  <path d="m659 478 3 3 5-6" stroke="#7357C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="680" y="481" fill="#4B455D" font-family="Arial, sans-serif" font-size="9">Morning walk</text>
+  <circle cx="663" cy="507" r="8" fill="#E9E3FA"/>
+  <path d="m659 507 3 3 5-6" stroke="#7357C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="680" y="510" fill="#4B455D" font-family="Arial, sans-serif" font-size="9">Read for 20 min</text>
+  <circle cx="663" cy="536" r="8" fill="#F1EEF6" stroke="#D8D2E5"/>
+  <text x="680" y="539" fill="#4B455D" font-family="Arial, sans-serif" font-size="9">Plan tomorrow</text>
+  <rect x="640" y="577" width="188" height="22" rx="8" fill="#8B5CF6"/>
+  <text x="734" y="592" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Check in for today</text>
+
+  <rect x="500" y="216" width="108" height="70" rx="13" fill="#302B47" stroke="#FFFFFF" stroke-opacity=".13"/>
+  <circle cx="519" cy="237" r="9" fill="#8B5CF6" fill-opacity=".3"/>
+  <path d="m519 231 1.6 4.4 4.4 1.6-4.4 1.6L519 243l-1.6-4.4-4.4-1.6 4.4-1.6L519 231Z" fill="#D8CCFF"/>
+  <text x="535" y="240" fill="#E9E5F4" font-family="Arial, sans-serif" font-size="9" font-weight="700">AI-generated</text>
+  <text x="514" y="263" fill="#A59DB8" font-family="Arial, sans-serif" font-size="8">Screen + logic ready</text>
+
+  <rect x="863" y="403" width="112" height="89" rx="13" fill="#302B47" stroke="#FFFFFF" stroke-opacity=".13"/>
+  <text x="879" y="424" fill="#A59DB8" font-family="Arial, sans-serif" font-size="8" font-weight="700" letter-spacing=".8">ONE PROJECT</text>
+  <rect x="879" y="437" width="22" height="22" rx="7" fill="#FFFFFF" fill-opacity=".08"/>
+  <circle cx="890" cy="448" r="6" stroke="#E7E1F7" stroke-width="1.4"/>
+  <rect x="909" y="437" width="22" height="22" rx="7" fill="#FFFFFF" fill-opacity=".08"/>
+  <path d="M920 443v10m-3-7h6" stroke="#E7E1F7" stroke-width="1.4" stroke-linecap="round"/>
+  <rect x="939" y="437" width="22" height="22" rx="7" fill="#FFFFFF" fill-opacity=".08"/>
+  <path d="M944 444h12v8h-12zM947 455h6" stroke="#E7E1F7" stroke-width="1.2" stroke-linejoin="round"/>
+  <text x="920" y="477" fill="#E9E5F4" font-family="Arial, sans-serif" font-size="8" text-anchor="middle">iOS · Android · Web</text>
+</svg>

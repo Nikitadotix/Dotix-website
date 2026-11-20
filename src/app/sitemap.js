@@ -1,5 +1,6 @@
 import { products } from '../data/products.js';
 import { blogPosts } from '../data/blog.js';
+import { getCaseStudies } from '../lib/case-studies.js';
 
 const baseUrl = 'https://dotix.io';
 
@@ -36,6 +37,12 @@ export default function sitemap() {
     ...blogPosts.map((post) => ({
       url: `${baseUrl}/blog/${post.id}`,
       lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    })),
+    ...getCaseStudies().map((caseStudy) => ({
+      url: `${baseUrl}/case-studies/${caseStudy.slug}`,
+      lastModified: new Date(caseStudy.updated || caseStudy.date),
       changeFrequency: 'monthly',
       priority: 0.7,
     })),

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import {
   AnimatePresence,
@@ -10,6 +11,7 @@ import {
 
 import { Button } from '../../../components/common/Button.js';
 import { FAQAccordion } from '../../../components/common/FAQAccordion.js';
+import { SectionHeading } from '../../../components/common/SectionHeading.js';
 import { projects } from '../../../data/projects.js';
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -132,15 +134,6 @@ function Reveal({ children, className = '', delay = 0, y = 28 }) {
     >
       {children}
     </motion.div>
-  );
-}
-
-function Eyebrow({ children }) {
-  return (
-    <p className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-accent">
-      <span className="h-px w-8 bg-accent" />
-      {children}
-    </p>
   );
 }
 
@@ -323,9 +316,22 @@ function ProjectMarquee({ items, speed = 0.7 }) {
                 key={`${project.id}-${i}`}
                 className="flex w-[290px] sm:w-[380px] shrink-0 flex-col rounded-2xl border border-border bg-background-card p-6 sm:p-8"
               >
-                <span className="text-sm font-medium text-accent tabular-nums">
-                  0{(i % items.length) + 1}
-                </span>
+                <div className="flex items-center justify-between">
+                  {project.logo && (
+                    <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-border bg-background-elevated p-2">
+                      <Image
+                        src={project.logo}
+                        alt=""
+                        width={32}
+                        height={32}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <span className="text-sm font-medium text-accent tabular-nums">
+                    0{(i % items.length) + 1}
+                  </span>
+                </div>
                 <h3 className="mt-5 text-2xl sm:text-3xl font-bold text-white tracking-[-0.03em]">
                   {project.name}
                 </h3>
@@ -349,7 +355,7 @@ function ProjectMarquee({ items, speed = 0.7 }) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-8 flex justify-end gap-3">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8 flex justify-end gap-3">
         <button
           type="button"
           aria-label="Previous projects"
@@ -446,7 +452,7 @@ function ScoreRing({ label, delay }) {
     <div className="flex flex-col items-center gap-3">
       <div className="relative w-[76px] h-[76px]">
         <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
-          <circle cx="32" cy="32" r={RING_R} stroke="white" strokeOpacity="0.1" strokeWidth="4" fill="none" />
+          <circle cx="32" cy="32" r={RING_R} stroke="var(--border)" strokeWidth="4" fill="none" />
           <motion.circle
             cx="32"
             cy="32"
@@ -494,12 +500,12 @@ export default function WebDevelopmentPage() {
     <main className="overflow-x-clip">
 
       {/* HERO (same as the original) */}
-      <section className="relative bg-background-primary pt-32 pb-16 lg:pt-44 lg:pb-20">
+      <section className="relative bg-background-primary pt-20 sm:pt-32 pb-12 sm:pb-16 lg:pt-44 lg:pb-20">
         <Aurora />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="-mt-4 sm:-mt-6 lg:-mt-8 text-5xl sm:text-7xl lg:text-8xl font-bold text-white tracking-[-0.05em] leading-[1.05]"
+            className="-mt-2 sm:-mt-6 lg:-mt-8 text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-[-0.05em] leading-[1.08]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
@@ -509,7 +515,7 @@ export default function WebDevelopmentPage() {
           </motion.h1>
 
           <motion.p
-            className="mt-7 text-sm sm:text-base text-text-secondary leading-relaxed max-w-xl mx-auto"
+            className="mt-5 sm:mt-7 text-xs sm:text-base text-text-secondary leading-relaxed max-w-xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
@@ -519,7 +525,7 @@ export default function WebDevelopmentPage() {
           </motion.p>
 
           <motion.div
-            className="mt-9"
+            className="mt-7 sm:mt-9"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
@@ -527,7 +533,7 @@ export default function WebDevelopmentPage() {
             <Button
               href="/contact"
               variant="primary"
-              className="bg-white/90 text-black text-sm font-semibold px-7 py-3.5 shadow-lg shadow-white/10 hover:bg-white transition-all duration-300"
+              className="bg-white/90 text-black text-xs sm:text-sm font-semibold px-6 sm:px-7 py-3 sm:py-3.5 shadow-lg shadow-white/10 hover:bg-white transition-all duration-300"
             >
               Start your website
             </Button>
@@ -535,15 +541,15 @@ export default function WebDevelopmentPage() {
 
           {/* Quality targets */}
           <motion.div
-            className="mt-16 pt-10 border-t border-border/60"
+            className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-border/60"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <p className="text-xs text-text-muted mb-7">
+            <p className="text-xs text-text-muted mb-5 sm:mb-7">
               The standard every site we build is held to
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 max-w-2xl mx-auto">
               {SCORES.map((label, i) => (
                 <ScoreRing key={label} label={label} delay={1 + i * 0.2} />
               ))}
@@ -554,20 +560,23 @@ export default function WebDevelopmentPage() {
 
       {/* WHAT WE BUILD: sticky intro + numbered list */}
       <section className="bg-background-secondary py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <Reveal>
-                <Eyebrow>What we build</Eyebrow>
-                <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-[-0.04em] leading-tight">
-                  The right website starts with the{' '}
-                  <span className="text-accent">right purpose.</span>
-                </h2>
-                <p className="mt-5 text-sm sm:text-base text-white/70 leading-relaxed max-w-md">
-                  Whether you want to establish your brand, generate leads,
-                  publish content, or sell products, we build around what you
-                  want to achieve.
-                </p>
+                <SectionHeading
+                  eyebrow="What we build"
+                  title={
+                    <>
+                      The right website starts with the{' '}
+                      <span className="text-accent">right purpose.</span>
+                    </>
+                  }
+                  description="Whether you want to establish your brand, generate leads, publish content, or sell products, we build around what you want to achieve."
+                  spacingClassName="mb-0"
+                  titleClassName="text-white sm:text-5xl"
+                  descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+                />
               </Reveal>
             </div>
           </div>
@@ -599,12 +608,21 @@ export default function WebDevelopmentPage() {
 
       {/* WHY: statement + 2x2 grid */}
       <section className="bg-background-primary py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <Eyebrow>Why us</Eyebrow>
-            <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-[-0.04em] leading-tight max-w-3xl">
-              Built to perform, <span className="text-accent">not just to launch.</span>
-            </h2>
+            <SectionHeading
+              eyebrow="Why us"
+              title={
+                <>
+                  Built to perform,{' '}
+                  <span className="text-accent">not just to launch.</span>
+                </>
+              }
+              description="We build reliable, scalable software that delivers lasting value as your business grows."
+              spacingClassName="mb-0"
+              titleClassName="max-w-3xl text-white sm:text-5xl"
+              descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+            />
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 border-t border-l border-white/10">
@@ -626,17 +644,20 @@ export default function WebDevelopmentPage() {
 
       {/* SELECTED PROJECTS: auto-scrolling cards */}
       <section className="bg-background-secondary py-20 lg:py-28 overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
-              <Eyebrow>Selected work</Eyebrow>
-              <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-[-0.04em] leading-tight">
-                Websites we've <span className="text-accent">shipped.</span>
-              </h2>
-            </div>
-            <p className="text-sm sm:text-base text-white/70 leading-relaxed max-w-sm">
-              A few of the digital products and websites we've brought to life.
-            </p>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="max-w-3xl">
+            <SectionHeading
+              eyebrow="Selected work"
+              title={
+                <>
+                  Websites we’ve <span className="text-accent">shipped.</span>
+                </>
+              }
+              description="A few of the digital products and websites we’ve brought to life."
+              spacingClassName="mb-0"
+              titleClassName="text-white sm:text-5xl"
+              descriptionClassName="text-sm text-white/70 sm:text-base"
+            />
           </Reveal>
         </div>
 
@@ -647,13 +668,21 @@ export default function WebDevelopmentPage() {
 
       {/* PROCESS: three columns */}
       <section className="bg-background-primary py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <Eyebrow>Our process</Eyebrow>
-            <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-[-0.04em] leading-tight max-w-3xl">
-              From first idea to a site{' '}
-              <span className="text-accent">ready for the real world.</span>
-            </h2>
+            <SectionHeading
+              eyebrow="Our process"
+              title={
+                <>
+                  From first idea to a site{' '}
+                  <span className="text-accent">ready for the real world.</span>
+                </>
+              }
+              description="We turn your ideas into polished, responsive websites built for performance, usability, and growth."
+              spacingClassName="mb-0"
+              titleClassName="max-w-3xl text-white sm:text-5xl"
+              descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+            />
           </Reveal>
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
@@ -661,7 +690,7 @@ export default function WebDevelopmentPage() {
               <Reveal key={item.title} delay={i * 0.12}>
                 <div>
                   <div className="h-px bg-accent" />
-                  <span className="mt-6 block text-6xl sm:text-7xl font-bold leading-none tracking-[-0.05em] text-accent">
+                  <span className="mt-6 block text-2xl sm:text-3xl font-bold leading-none tracking-[-0.05em] text-accent">
                     0{i + 1}
                   </span>
                   <h3 className="mt-6 text-xl sm:text-2xl font-bold text-white leading-snug">
@@ -679,16 +708,21 @@ export default function WebDevelopmentPage() {
 
       {/* FAQ */}
       <section className="bg-background-secondary py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-4">
             <Reveal>
-              <Eyebrow>FAQ</Eyebrow>
-              <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-[-0.04em] leading-tight">
-                Questions before you <span className="text-accent">start?</span>
-              </h2>
-              <p className="mt-4 text-sm sm:text-base text-white/70 leading-relaxed">
-                Answers on SEO, timelines, redesigns, and maintenance.
-              </p>
+              <SectionHeading
+                eyebrow="FAQ"
+                title={
+                  <>
+                    Questions before you <span className="text-accent">start?</span>
+                  </>
+                }
+                description="Answers on SEO, timelines, redesigns, and maintenance."
+                spacingClassName="mb-0"
+                titleClassName="text-white sm:text-5xl"
+                descriptionClassName="text-sm text-white/70 sm:text-base"
+              />
             </Reveal>
           </div>
 
@@ -702,20 +736,24 @@ export default function WebDevelopmentPage() {
 
       {/* CTA */}
       <section className="bg-background-primary py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-accent/25 bg-gradient-to-br from-accent/15 via-background-card to-background-card p-8 sm:p-14 lg:p-16">
               <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-                <div className="lg:col-span-8">
-                  <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-[-0.05em] leading-[1.06]">
-                    Your next big idea deserves a{' '}
-                    <span className="text-accent">better website.</span>
-                  </h2>
-                  <p className="mt-6 text-sm sm:text-base text-white/70 leading-relaxed max-w-xl">
-                    Tell us what you're building and we'll help you launch a
-                    fast, engaging site that moves your business forward.
-                  </p>
-                </div>
+                <SectionHeading
+                  eyebrow="Start a website project"
+                  title={
+                    <>
+                      Your next big idea deserves a{' '}
+                      <span className="text-accent">better website.</span>
+                    </>
+                  }
+                  description="Tell us what you’re building and we’ll help you launch a fast, engaging site that moves your business forward."
+                  className="lg:col-span-8"
+                  spacingClassName="mb-0"
+                  titleClassName="text-4xl text-white sm:text-6xl"
+                  descriptionClassName="max-w-xl text-sm text-white/70 sm:text-base"
+                />
 
                 <div className="lg:col-span-4 lg:flex lg:justify-end">
                   <Button href="/contact" variant="primary" className={buttonClass}>

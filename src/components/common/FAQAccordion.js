@@ -25,27 +25,27 @@ export function FAQAccordion({ faqs, initialOpenIndex = 0 }) {
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+              className="w-full px-4 py-3.5 sm:px-6 sm:py-5 flex items-center justify-between text-left focus:outline-none"
               aria-expanded={isOpen}
             >
-              <span className={`text-base font-bold pr-4 transition-colors ${
+              <span className={`text-sm sm:text-base font-bold pr-3 sm:pr-4 transition-colors ${
                 isOpen ? 'text-white' : 'text-text-primary hover:text-white'
               }`}>
                 {faq.question}
               </span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+              <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                 isOpen ? 'bg-accent/15 text-accent' : 'bg-background-elevated text-text-muted'
               }`}>
                 {isOpen ? (
-                  <Minus className="w-4 h-4 stroke-[2.5]" />
+                  <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 ) : (
-                  <Plus className="w-4 h-4 stroke-[2.5]" />
+                  <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 )}
               </div>
             </button>
             
             {isOpen && (
-              <div className="px-6 pb-6 pt-1 text-sm text-text-secondary leading-relaxed border-t border-border/40 mt-1">
+              <div className="px-4 pb-4 sm:px-6 sm:pb-6 pt-1 text-xs sm:text-sm text-text-secondary leading-relaxed border-t border-border/40 mt-1">
                 {faq.answer}
               </div>
             )}

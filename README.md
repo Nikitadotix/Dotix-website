@@ -29,6 +29,20 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Adding a Case Study
+
+Create `src/content/case-studies/<slug>.md` and add a matching `slug` in its
+frontmatter. Use the same slug in the filename and frontmatter; published
+case studies with `draft: false` automatically get a page at
+`/case-studies/<slug>`, appear on `/case-studies`, and are added to the sitemap.
+
+Each file needs `title`, `description`, `slug`, `cover`, `date`, `updated`,
+`author`, `category`, `tags`, `icon`, `link`, `draft`, and `readingTime`
+frontmatter fields. Put `cover`, `icon`, and Markdown image files under `public/`
+and reference them with paths such as `/images/case-studies/example.webp`.
+The shared page template supplies the hero, tag icons, article typography,
+section-heading markers, and list markers.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

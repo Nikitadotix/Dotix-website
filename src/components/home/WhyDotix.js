@@ -8,6 +8,7 @@ import {
   useScroll,
   useSpring,
 } from 'framer-motion';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 const reasons = [
   {
@@ -34,6 +35,19 @@ const reasons = [
 
 const ease = [0.22, 1, 0.36, 1];
 
+/*
+  position: sticky stops working when ANY parent has overflow hidden/auto/scroll
+  (very common: overflow-x-hidden on body, main or a page wrapper).
+  This rule switches every ancestor of the sticky column to `overflow-x: clip`,
+  which still hides sideways overflow but does not break sticky.
+*/
+const STICKY_FIX = `
+:is(html, body, main, div, section, article):has(.wd-sticky){
+  overflow-x: clip;
+  overflow-y: visible;
+}
+`;
+
 function Reason({ title, description, index, reduce }) {
   const ref = useRef(null);
   // A row counts as "current" while it sits around the middle of the viewport
@@ -46,12 +60,12 @@ function Reason({ title, description, index, reduce }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.7, ease }}
-      className="relative py-10 first:pt-2 last:pb-2 sm:py-12"
+      className="group relative py-10 first:pt-2 last:pb-2 sm:py-12"
     >
       {/* Dot sitting on the progress rule */}
       <span
         aria-hidden="true"
-        className={`absolute -left-[calc(1.5rem+4.5px)] top-[3.35rem] h-[9px] w-[9px] rounded-full border transition-all duration-500 first:top-[0.9rem] sm:-left-[calc(2.25rem+4.5px)] ${
+        className={`absolute -left-[calc(1.5rem+4.5px)] top-[3.35rem] h-[9px] w-[9px] rounded-full border transition-all duration-500 group-first:top-[0.9rem] sm:-left-[calc(2.25rem+4.5px)] ${
           isCurrent
             ? 'scale-125 border-accent bg-accent'
             : 'border-border bg-background-secondary'
@@ -87,10 +101,12 @@ export function WhyDotix() {
   const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: 0.4 });
 
   return (
-    <section className="relative border-t border-border/70 bg-background-secondary/80 py-24 sm:py-32">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24 lg:px-8">
+    <section className="relative border-t border-border/70 bg-background-secondary/80 py-16 sm:py-24 lg:py-32">
+      <style dangerouslySetInnerHTML={{ __html: STICKY_FIX }} />
+
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 sm:gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24 lg:px-8">
         {/* Left: stays put while the reasons scroll past */}
-        <div className="lg:sticky lg:top-32 lg:self-start">
+        <div className="wd-sticky h-fit lg:sticky lg:top-32 lg:self-start">
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,45 +114,40 @@ export function WhyDotix() {
             transition={{ duration: 0.8, ease }}
             className="max-w-lg"
           >
-           <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-7 bg-accent" />
-
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Why Dotix
-            </span>
-          </div>
-
-            <h2 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-[3.5rem]">
-              Software built{' '}
-              <span className="relative inline-block whitespace-nowrap">
-                with you
-                {/* Hand-drawn style underline */}
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 200 12"
-                  preserveAspectRatio="none"
-                  className="absolute -bottom-2 left-0 h-3 w-full overflow-visible text-accent"
-                >
-                  <motion.path
-                    d="M2 8 C 38 2, 70 11, 108 5 S 168 9, 198 3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    initial={reduce ? false : { pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.1, delay: 0.5, ease: 'easeInOut' }}
-                  />
-                </svg>
-              </span>{' '}
-              in mind.
-            </h2>
-
-            <p className="mt-8 max-w-sm text-base leading-relaxed text-text-secondary">
-              A focused team, a clear process, and products you can confidently own and
-              grow.
-            </p>
+            <SectionHeading
+              eyebrow="Why Dotix"
+              title={
+                <>
+                  Software built{' '}
+                  <span className="relative inline-block whitespace-nowrap">
+                    with you
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 200 12"
+                      preserveAspectRatio="none"
+                      className="absolute -bottom-2 left-0 h-3 w-full overflow-visible text-accent"
+                    >
+                      <motion.path
+                        d="M2 8 C 38 2, 70 11, 108 5 S 168 9, 198 3"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        initial={reduce ? false : { pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.1, delay: 0.5, ease: 'easeInOut' }}
+                      />
+                    </svg>
+                  </span>{' '}
+                  in mind.
+                </>
+              }
+              description="A focused team, a clear process, and products you can confidently own and grow."
+              spacingClassName="mb-0"
+              titleClassName="text-3xl font-extrabold leading-[1.08] text-white sm:text-5xl md:text-[3.5rem]"
+              descriptionClassName="mt-6 sm:mt-8 max-w-sm text-sm sm:text-base leading-relaxed"
+            />
           </motion.div>
         </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '../common/Button.js';
+import { SectionHeading } from '../common/SectionHeading.js';
 import Link from 'next/link';
 
 const trustPoints = [
@@ -45,15 +46,15 @@ export function FinalCTA() {
       {/* ANIMATED BACKGROUND */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         {/* Soft drifting light */}
-        <div className="fcta-orb-a absolute -left-[10%] bottom-[-30%] h-[70%] w-[55%] rounded-full bg-white/[0.07] blur-[110px]" />
+        <div className="fcta-orb-a absolute -left-[10%] bottom-[-30%] h-[70%] w-[55%] rounded-full bg-accent/[0.08] blur-[110px]" />
         <div className="fcta-orb-b absolute -right-[8%] bottom-[-35%] h-[75%] w-[50%] rounded-full bg-accent/20 blur-[130px]" />
 
         {/* Layered waves */}
         <svg className="fcta-wave fcta-wave-3" viewBox="0 0 2880 400" preserveAspectRatio="none">
           <defs>
             <linearGradient id="fcta-g3" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fff" stopOpacity="0.10" />
-              <stop offset="100%" stopColor="#fff" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.02" />
             </linearGradient>
           </defs>
           <path d={WAVE_PATH} fill="url(#fcta-g3)" />
@@ -61,8 +62,8 @@ export function FinalCTA() {
         <svg className="fcta-wave fcta-wave-2" viewBox="0 0 2880 400" preserveAspectRatio="none">
           <defs>
             <linearGradient id="fcta-g2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fff" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#fff" stopOpacity="0.03" />
+              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.03" />
             </linearGradient>
           </defs>
           <path d={WAVE_PATH} fill="url(#fcta-g2)" />
@@ -70,8 +71,8 @@ export function FinalCTA() {
         <svg className="fcta-wave fcta-wave-1" viewBox="0 0 2880 400" preserveAspectRatio="none">
           <defs>
             <linearGradient id="fcta-g1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fff" stopOpacity="0.16" />
-              <stop offset="100%" stopColor="#fff" stopOpacity="0.04" />
+              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.04" />
             </linearGradient>
           </defs>
           <path d={WAVE_PATH} fill="url(#fcta-g1)" />
@@ -97,48 +98,47 @@ export function FinalCTA() {
 
       {/* CONTENT */}
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center px-4 text-center sm:px-6">
-        <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-          Let&apos;s build something meaningful
-        </p>
-
-        <h2 className="mb-4 text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
-          Ready to turn your vision into{' '}
-          <span className="bg-gradient-to-r from-text-primary via-text-secondary to-accent bg-clip-text text-transparent">
-            production software?
-          </span>
-        </h2>
-
-        <p className="mb-8 max-w-lg text-sm leading-[1.7] text-text-secondary sm:text-base">
-          From the first idea to a production-ready product, work directly with
-          experienced engineers who understand your goals, take ownership, and
-          build software designed to grow with your business.
-        </p>
+        <SectionHeading
+          eyebrow="Let’s build something meaningful"
+          title={
+            <>
+              Ready to turn your vision into{' '}
+              <span className="bg-gradient-to-r from-text-primary via-text-secondary to-accent bg-clip-text text-transparent">
+                production software?
+              </span>
+            </>
+          }
+          description="From the first idea to a production-ready product, work directly with experienced engineers who understand your goals, take ownership, and build software designed to grow with your business."
+          align="center"
+          spacingClassName="mb-8"
+          titleClassName="text-2xl sm:text-4xl md:text-[2.75rem] font-extrabold text-white"
+          descriptionClassName="max-w-lg text-sm leading-[1.7] sm:text-base"
+        />
 
         {/* CTA BUTTONS */}
         <div className="flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
           <Button
             href="/contact"
             variant="primary"
-            className="group flex h-12 w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-white/90 px-7 text-[13px] font-semibold text-background-primary shadow-lg shadow-white/10 transition-all duration-300 hover:bg-white hover:shadow-accent/20 sm:w-auto"
+            className="group flex h-12 w-full items-center justify-center gap-2.5 rounded-full bg-white/90 px-5 sm:px-7 text-[13px] font-semibold text-background-primary shadow-lg shadow-white/10 transition-all duration-300 hover:bg-white hover:shadow-accent/20 sm:w-auto text-center"
           >
             Start Your Project
-            
           </Button>
 
           <Link
             href="/contact?intent=call"
-            className="inline-flex h-12 w-full items-center justify-center whitespace-nowrap rounded-full border border-border bg-background-card px-7 text-[13px] font-semibold text-text-primary transition-all duration-300 hover:border-accent/60 hover:bg-background-elevated sm:w-auto"
+            className="inline-flex h-12 w-full items-center justify-center rounded-full border border-border bg-background-card px-5 sm:px-7 text-[13px] font-semibold text-text-primary transition-all duration-300 hover:border-accent/60 hover:bg-background-elevated sm:w-auto text-center"
           >
             Schedule a Discovery Call
           </Link>
         </div>
 
         {/* TRUST POINTS */}
-        <ul className="mt-10 flex flex-wrap items-center justify-center gap-y-2 text-xs font-medium text-text-secondary">
+        <ul className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-y-2 text-[11px] sm:text-xs font-medium text-text-secondary">
           {trustPoints.map((point, i) => (
             <li
               key={point}
-              className={`px-4 ${i !== 0 ? 'sm:border-l sm:border-border' : ''}`}
+              className={`px-2.5 sm:px-4 ${i !== 0 ? 'sm:border-l sm:border-border' : ''}`}
             >
               {point}
             </li>

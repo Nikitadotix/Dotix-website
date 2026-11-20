@@ -18,6 +18,12 @@ export const metadata = {
   description: "Dotix builds and operates SaaS products, custom software, websites, mobile applications and business dashboards for startups and businesses.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -25,11 +31,11 @@ export default function RootLayout({ children }) {
       data-theme="light"
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background-primary text-text-primary">
+      <body className="min-h-full bg-background-primary text-text-primary overflow-x-hidden w-full">
         <div aria-hidden="true" className="site-animated-background" />
-        <div className="relative z-10 flex min-h-full flex-col">
+        <div className="relative z-10 flex min-h-full flex-col overflow-x-hidden w-full">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 min-w-0 w-full overflow-x-clip">{children}</main>
           <Footer />
         </div>
       </body>

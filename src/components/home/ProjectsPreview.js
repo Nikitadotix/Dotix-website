@@ -14,8 +14,14 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
   Layers3,
 } from 'lucide-react';
+import { SectionHeading } from '../common/SectionHeading.js';
+
+/* =========================================
+   PROJECTS DATA
+========================================= */
 
 const projectsList = [
   {
@@ -25,6 +31,8 @@ const projectsList = [
     logo: '/images/projects/duddy-icon.svg',
     description:
       'AI-enabled no-code builder that creates native Android, iOS and web applications.',
+    website: 'https://duddy.io',
+    domain: 'duddy.io',
     href: '/projects/duddy',
   },
   {
@@ -34,6 +42,8 @@ const projectsList = [
     logo: '/images/projects/omnibase-icon.svg',
     description:
       'Backend-as-a-service with database, authentication, file storage, payouts, notifications and admin dashboard.',
+    website: 'https://omnibase.in',
+    domain: 'omnibase.in',
     href: '/projects/omnibase',
   },
   {
@@ -43,6 +53,8 @@ const projectsList = [
     logo: '/images/projects/rewardhub-icon.svg',
     description:
       'Rewards and monetisation platform for advertisers, publishers and users.',
+    website: 'https://rewardhub.apploft.in',
+    domain: 'rewardhub.apploft.in',
     href: '/projects/rewardhub',
   },
   {
@@ -52,6 +64,8 @@ const projectsList = [
     logo: '/images/projects/apploft-icon.svg',
     description:
       'App ecosystem for managing internal applications.',
+    website: 'https://apploft.in',
+    domain: 'apploft.in',
     href: '/projects/apploft',
   },
   {
@@ -69,6 +83,8 @@ const projectsList = [
     category: 'Mobile Apps',
     description:
       'Influencer marketing and campaign platform with mobile apps, website and admin dashboard.',
+    website: 'https://buzzr.media/?ref=dotix.io',
+    domain: 'buzzr.media',
     logo: '/images/projects/buzzr-icon.svg',
     href: '/projects/buzzr',
   },
@@ -78,6 +94,8 @@ const projectsList = [
     category: 'Mobile Apps',
     description:
       'Platform for buying gift cards and vouchers and earning cashback.',
+    website: 'https://madjoy.in/?ref=dotix.io',
+    domain: 'madjoy.in',
     logo: '/images/projects/madjoy-icon.svg',
     href: '/projects/madjoy',
   },
@@ -87,6 +105,8 @@ const projectsList = [
     category: 'Websites',
     description:
       'Website for a digital marketing agency.',
+    website: 'https://inloopmedia.com/?ref=dotix.io',
+    domain: 'inloopmedia.com',
     logo: '/images/projects/inloop-icon.png',
     href: '/projects/inloopmedia',
   },
@@ -96,6 +116,8 @@ const projectsList = [
     category: 'Websites',
     description:
       'Website for an influencer marketing agency.',
+    website: 'https://snackmedia.io/?ref=dotix.io',
+    domain: 'snackmedia.io',
     logo: '/images/projects/snackmedia-icon.svg',
     href: '/projects/snackmedia',
   },
@@ -105,6 +127,8 @@ const projectsList = [
     category: 'Websites',
     description:
       'Website for a performance marketing agency.',
+    website: 'https://adneo.in/?ref=dotix.io',
+    domain: 'adneo.in',
     logo: '/images/projects/adneo-icon.svg',
     href: '/projects/adneo',
   },
@@ -115,6 +139,8 @@ const projectsList = [
     logo: '/images/projects/theadzplug-icon.svg',
     description:
       'Website for a digital marketing agency.',
+    website: 'https://theadzplug.com/?ref=dotix.io',
+    domain: 'theadzplug.com',
     href: '/projects/theadzplug',
   },
 ];
@@ -134,13 +160,17 @@ function getVisibleCount(width) {
    PROJECT CARD
 ========================================= */
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, caseStudySlugs }) {
   const reducedMotion = useReducedMotion();
+  const hasCaseStudy = caseStudySlugs.includes(project.id);
+  const projectHref = hasCaseStudy
+    ? `/case-studies/${project.id}`
+    : project.website || project.href;
+  const isExternal = !hasCaseStudy && /^https?:\/\//i.test(projectHref);
+  const ProjectLink = isExternal ? 'a' : Link;
 
   return (
-    <article
-      className="group h-full"
-    >
+    <article className="group h-full">
       <motion.div
         whileHover={
           reducedMotion
@@ -153,10 +183,8 @@ function ProjectCard({ project, index }) {
         }}
         className="h-full"
       >
-        <Link
-          href={project.href}
-          className="relative flex h-full min-h-[290px] flex-col overflow-hidden border border-border bg-background-card p-6 transition-all duration-500 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/[0.06] sm:min-h-[310px] sm:p-7"
-        >
+        <div className="relative flex h-full min-h-[320px] sm:min-h-[360px] flex-col overflow-hidden border border-border bg-background-card p-5 sm:p-7 transition-all duration-500 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/[0.06]">
+
           {/* Hover background */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.06] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -164,12 +192,12 @@ function ProjectCard({ project, index }) {
           <div className="absolute left-0 top-0 h-[2px] w-0 bg-accent transition-all duration-500 group-hover:w-full" />
 
           <div className="relative flex flex-1 flex-col">
+
             {/* Top row */}
             <div className="mb-8 flex items-center justify-between">
+
               {/* Logo */}
-              <div
-                className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden border border-border bg-background-elevated"
-              >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden border border-border bg-background-elevated">
                 {project.logo ? (
                   <Image
                     src={project.logo}
@@ -198,35 +226,72 @@ function ProjectCard({ project, index }) {
             </span>
 
             {/* Project name */}
-            <h3 className="mb-3 flex items-center gap-2 text-xl font-semibold tracking-tight text-text-primary transition-colors duration-300 group-hover:text-accent sm:text-2xl">
+            <ProjectLink
+              href={projectHref}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+              className="mb-3 inline-flex w-fit items-center gap-2 text-xl font-semibold tracking-tight text-text-primary transition-colors duration-300 hover:text-accent sm:text-2xl"
+            >
               {project.name}
 
               <ArrowUpRight
-                className="h-4 w-4 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
-            </h3>
+            </ProjectLink>
 
             {/* Description */}
             <p className="max-w-md text-sm leading-[1.8] text-text-secondary">
               {project.description}
             </p>
 
-            {/* Bottom link */}
-            <div className="mt-auto flex items-center justify-between border-t border-border pt-5">
-              <span className="text-xs font-medium text-text-secondary transition-colors duration-300 group-hover:text-accent">
-                View project
-              </span>
+            {/* Bottom section */}
+            <div className="mt-auto pt-5">
 
-              <ArrowRight
-                size={16}
-                className="text-text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent"
-              />
+              {/* Website link - just above divider */}
+              <div className="mb-4 min-h-[18px]">
+                {project.website && (
+                  <a
+                    href={project.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${project.name} website`}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary transition-colors duration-300 hover:text-accent"
+                  >
+                    {project.domain}
+
+                    <ExternalLink
+                      size={12}
+                      className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    />
+                  </a>
+                )}
+              </div>
+
+              {/* Horizontal divider */}
+              <div className="border-t border-border" />
+
+              {/* Read Case Study button */}
+              <div className="flex items-center justify-between pt-5">
+                <ProjectLink
+                  href={projectHref}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-xs font-semibold text-white transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/20"
+                >
+                  {hasCaseStudy ? 'Read Case Study' : 'View Project'}
+
+                  <ArrowUpRight
+                    size={14}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </ProjectLink>
+              </div>
             </div>
           </div>
 
           {/* Ambient hover glow */}
           <div className="pointer-events-none absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-accent/[0.07] opacity-0 blur-[70px] transition-opacity duration-500 group-hover:opacity-100" />
-        </Link>
+        </div>
       </motion.div>
     </article>
   );
@@ -236,7 +301,7 @@ function ProjectCard({ project, index }) {
    MAIN PROJECT CAROUSEL
 ========================================= */
 
-export function ProjectsPreview() {
+export function ProjectsPreview({ caseStudySlugs = [] }) {
   const reducedMotion = useReducedMotion();
 
   const containerRef = useRef(null);
@@ -277,14 +342,20 @@ export function ProjectsPreview() {
 
   // Reset carousel position when responsive layout changes.
   useEffect(() => {
-    setSkipAnimation(true);
-    setCurrentIndex(visibleCount);
+    let frame;
+    const timer = setTimeout(() => {
+      setSkipAnimation(true);
+      setCurrentIndex(visibleCount);
 
-    const frame = requestAnimationFrame(() => {
-      setSkipAnimation(false);
-    });
+      frame = requestAnimationFrame(() => {
+        setSkipAnimation(false);
+      });
+    }, 0);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      clearTimeout(timer);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [visibleCount]);
 
   // Clone items for seamless infinite movement.
@@ -374,6 +445,7 @@ export function ProjectsPreview() {
       <div className="ambient-glow pointer-events-none absolute left-1/4 top-1/3 h-[350px] w-[500px] bg-accent/[0.05] blur-[140px]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10">
+
         {/* =================================
             SECTION HEADER
         ================================= */}
@@ -397,27 +469,22 @@ export function ProjectsPreview() {
           }}
           className="mb-10 flex flex-col gap-6 sm:mb-12 md:flex-row md:items-end md:justify-between"
         >
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-8 bg-accent" />
-
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
-                Projects built by Dotix
-              </span>
-            </div>
-
-            <h2 className="max-w-2xl text-3xl font-bold leading-[1.15] tracking-tight text-text-primary sm:text-4xl md:text-5xl">
-              Production Software{' '}
-              <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
-                Shipped & Scaled.
-              </span>
-            </h2>
-
-            <p className="mt-4 max-w-xl text-sm leading-[1.8] text-text-secondary sm:text-base">
-              Explore the digital products, platforms and
-              applications we design and engineer to solve
-              real business challenges.
-            </p>
+          <div className="max-w-2xl">
+            <SectionHeading
+              eyebrow="Projects built by Dotix"
+              title={
+                <>
+                  Production Software{' '}
+                  <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
+                    Shipped &amp; Scaled.
+                  </span>
+                </>
+              }
+              description="Explore the digital products, platforms and applications we design and engineer to solve real business challenges."
+              spacingClassName="mb-0"
+              titleClassName="md:text-5xl"
+              descriptionClassName="sm:text-base"
+            />
           </div>
 
           {/* Project count */}
@@ -485,6 +552,7 @@ export function ProjectsPreview() {
                 >
                   <ProjectCard
                     project={project}
+                    caseStudySlugs={caseStudySlugs}
                     index={
                       (index - visibleCount + projectsList.length) %
                       projectsList.length
@@ -499,6 +567,7 @@ export function ProjectsPreview() {
               CONTROLS
           ================================= */}
           <div className="mt-8 flex flex-col justify-between gap-6 border-t border-border pt-6 sm:flex-row sm:items-center">
+
             {/* Pagination indicators */}
             <div className="flex flex-wrap items-center gap-2">
               {projectsList.map((project, index) => (

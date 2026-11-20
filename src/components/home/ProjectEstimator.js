@@ -15,6 +15,7 @@ import {
   Cpu
 } from 'lucide-react';
 import { Button } from '../common/Button.js';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 export function ProjectEstimator() {
   const [projectType, setProjectType] = useState('saas');
@@ -79,21 +80,28 @@ export function ProjectEstimator() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-4">
-            <Calculator className="w-3.5 h-3.5" /> [04] Interactive Scope Estimator
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-            Configure Your Architecture &{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover">
-              Calculate Timeline
-            </span>
-          </h2>
-          <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
-            Select your product type and core requirements to preview recommended architecture and sprint timeline immediately.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow={
+            <>
+              <Calculator className="mr-1.5 inline h-3.5 w-3.5" />
+              [04] Interactive Scope Estimator
+            </>
+          }
+          title={
+            <>
+              Configure Your Architecture &amp;{' '}
+              <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
+                Calculate Timeline
+              </span>
+            </>
+          }
+          description="Select your product type and core requirements to preview recommended architecture and sprint timeline immediately."
+          align="center"
+          className="max-w-3xl"
+          spacingClassName="mb-16"
+          titleClassName="font-extrabold text-white sm:text-4xl md:text-5xl"
+          descriptionClassName="text-base leading-relaxed sm:text-lg"
+        />
 
         {/* Estimator Card Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

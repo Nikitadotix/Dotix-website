@@ -4,8 +4,7 @@
 import { motion } from 'framer-motion';
 import { faqs } from '../../data/faqs.js';
 import { FAQAccordion } from '../common/FAQAccordion.js';
-import { Button } from '../common/Button.js';
-import { MessageCircle, ArrowUpRight } from 'lucide-react';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 export function FAQ() {
   return (
@@ -32,7 +31,7 @@ export function FAQ() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* FAQ Heading + Accordion */}
-        <div className="mb-16 grid grid-cols-1 items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div className="mb-10 sm:mb-16 grid grid-cols-1 items-start gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
 
           <motion.div
             initial={{ opacity: 0, y: 35 }}
@@ -41,22 +40,21 @@ export function FAQ() {
             transition={{ duration: 0.7 }}
             className="max-w-xl lg:sticky lg:top-28 lg:pt-4"
           >
-            <p className="mb-5 flex items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-              <span className="h-px w-8 bg-accent" />
-              Got questions?
-            </p>
-
-            <h2 className="mb-6 text-left text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
-              Frequently Asked{' '}
-              <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
-                Questions
-              </span>
-            </h2>
-
-            <p className="max-w-md text-base leading-relaxed text-text-secondary sm:text-lg">
-              Everything you need to know about working with Dotix, from IP ownership and sprint communication to pricing structures.
-            </p>
-
+            <SectionHeading
+              eyebrow="Got questions?"
+              title={
+                <>
+                  Frequently Asked{' '}
+                  <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
+                    Questions
+                  </span>
+                </>
+              }
+              description="Everything you need to know about working with Dotix, from IP ownership and sprint communication to pricing structures."
+              spacingClassName="mb-0"
+              titleClassName="text-left text-2xl font-extrabold text-white sm:text-4xl md:text-5xl"
+              descriptionClassName="max-w-md text-sm sm:text-base leading-relaxed"
+            />
            
           </motion.div>
 

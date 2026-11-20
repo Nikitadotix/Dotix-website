@@ -59,6 +59,8 @@ html[data-theme="dark"] {
 html {
   font-size: 15px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -68,6 +70,15 @@ body {
   font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
 }
 
 .site-navbar__logo {
@@ -75,6 +86,10 @@ body {
 }
 
 html:not([data-theme="light"]) .site-navbar__logo {
+  filter: brightness(0) invert(1);
+}
+
+html:not([data-theme="light"]) .about-hero__logo {
   filter: brightness(0) invert(1);
 }
 
@@ -171,6 +186,209 @@ html[data-theme="light"] .site-primary-button:hover {
   background-color: var(--accent-hover) !important;
 }
 
+html[data-theme="light"] .home-stack-slab {
+  background-image: linear-gradient(135deg, #1c211f, #292016);
+  border-color: rgb(120 113 108 / 55%) !important;
+}
+
+html[data-theme="light"] .home-stack-slab-active {
+  background-image: linear-gradient(135deg, #26312b, #382619);
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 35px rgb(217 119 40 / 30%) !important;
+}
+
+html[data-theme="light"] .home-stack-orbit {
+  border-color: rgb(120 113 108 / 45%) !important;
+}
+
+.mobile-app-page .ma-cta-box {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: 42px;
+  padding: clamp(28px, 5vw, 52px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--background-card);
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.mobile-app-page .ma-cta-box-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mobile-app-page .ma-cta-orbit {
+  position: absolute;
+  display: block;
+  width: 220px;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: 50%;
+  animation: ma-cta-orbit 14s linear infinite;
+}
+
+.mobile-app-page .ma-cta-orbit-one {
+  top: -130px;
+  right: 4%;
+  box-shadow:
+    0 0 0 24px color-mix(in srgb, var(--accent) 4%, transparent),
+    0 0 0 48px color-mix(in srgb, var(--accent) 3%, transparent);
+}
+
+.mobile-app-page .ma-cta-orbit-two {
+  bottom: -170px;
+  left: 8%;
+  width: 260px;
+  animation-direction: reverse;
+  opacity: 0.65;
+}
+
+.mobile-app-page .ma-cta-spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 70%, transparent);
+  animation: ma-cta-spark 4s ease-in-out infinite;
+}
+
+.mobile-app-page .ma-cta-spark-one {
+  top: 28%;
+  right: 24%;
+}
+
+.mobile-app-page .ma-cta-spark-two {
+  bottom: 24%;
+  left: 28%;
+  animation-delay: -2s;
+}
+
+.mobile-app-page .ma-cta-box-content {
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-app-page .ma-cta-kicker {
+  margin: 0 0 8px !important;
+  color: var(--accent) !important;
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mobile-app-page .ma-cta-box-copy {
+  margin: 0 auto 24px !important;
+}
+
+@keyframes ma-cta-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ma-cta-spark {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+html[data-theme="light"] .mobile-app-page {
+  --ma-strong: var(--text-primary);
+  --ma-text: var(--text-secondary);
+  --ma-muted: var(--text-muted);
+  --ma-card: var(--background-card);
+  --ma-bg2: var(--background-secondary);
+  --ma-line: var(--border);
+}
+
+@media (max-width: 360px) {
+  .mobile-app-page .ma-hero-grid,
+  .mobile-app-page .ma-hero-copy {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .mobile-app-page .ma-hero-art {
+    --k: 0.26;
+  }
+}
+
+html[data-theme="light"] .mobile-app-page h1,
+html[data-theme="light"] .mobile-app-page h2,
+html[data-theme="light"] .mobile-app-page h3,
+html[data-theme="light"] .mobile-app-page .ma-platrow svg,
+html[data-theme="light"] .mobile-app-page .ma-link,
+html[data-theme="light"] .mobile-app-page .ma-flow-col li,
+html[data-theme="light"] .mobile-app-page .ma-planner legend,
+html[data-theme="light"] .mobile-app-page .ma-planner legend b,
+html[data-theme="light"] .mobile-app-page .ma-opt strong,
+html[data-theme="light"] .mobile-app-page .ma-chip:hover,
+html[data-theme="light"] .mobile-app-page .ma-chip.on,
+html[data-theme="light"] .mobile-app-page .ma-tick,
+html[data-theme="light"] .mobile-app-page .ma-weeks,
+html[data-theme="light"] .mobile-app-page .ma-break-row b,
+html[data-theme="light"] .mobile-app-page .ma-app-ph span,
+html[data-theme="light"] .mobile-app-page .ma-app-domain:hover {
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .mobile-app-page .ma-plat-col li {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .mobile-app-page .ma-flow-col li {
+  background: var(--background-elevated);
+}
+
+html[data-theme="light"] .mobile-app-page .ma-planner legend b,
+html[data-theme="light"] .mobile-app-page .ma-chip.on {
+  background: var(--background-elevated);
+}
+
+html[data-theme="light"] .mobile-app-page .ma-app-ph {
+  background: linear-gradient(
+    135deg,
+    var(--background-secondary),
+    var(--background-card)
+  );
+}
+
+html[data-theme="light"] .case-study-body {
+  background: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .case-study-body p,
+html[data-theme="light"] .case-study-body li {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .case-study-body strong,
+html[data-theme="light"] .case-study-body .text-text-primary,
+html[data-theme="light"] .case-study-markdown__heading,
+html[data-theme="light"] .case-study-markdown strong {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="light"] .case-study-body .border-border {
+  border-color: var(--border);
+}
+
+html[data-theme="light"] .case-study-body aside {
+  background: var(--background-card);
+}
+
 @keyframes scroll-rise {
   from {
     opacity: 0;
@@ -199,6 +417,111 @@ html[data-theme="light"] .site-primary-button:hover {
   transform-origin: center;
 }
 
+.case-study-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #121116;
+}
+
+.case-study-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 9%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 9%) 1px, transparent 1px);
+  background-position: center;
+  background-size: 192px 166px;
+  opacity: 0.75;
+}
+
+.case-study-hero__orb {
+  position: absolute;
+  z-index: -1;
+  width: 22rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #483faa;
+  filter: blur(82px);
+  opacity: 0.07;
+  pointer-events: none;
+  animation: case-study-orb-drift 17s ease-in-out infinite alternate;
+}
+
+.case-study-hero__orb--one {
+  top: -12rem;
+  right: -5rem;
+}
+
+.case-study-hero__orb--two {
+  right: 34%;
+  bottom: -17rem;
+  background: #8b5cf6;
+  animation-delay: -8s;
+}
+
+@keyframes case-study-orb-drift {
+  from {
+    transform: translate3d(-12px, -8px, 0) scale(0.94);
+  }
+  to {
+    transform: translate3d(20px, 16px, 0) scale(1.08);
+  }
+}
+
+.case-study-body {
+  background: #101010;
+  color: #a3a3a3;
+}
+
+.case-study-body p,
+.case-study-body li {
+  color: #a3a3a3;
+}
+
+.case-study-body strong,
+.case-study-body .text-text-primary {
+  color: #f5f5f5 !important;
+}
+
+.case-study-body .border-border {
+  border-color: rgb(255 255 255 / 14%);
+}
+
+.case-study-markdown__heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0 1.25rem;
+  color: #f5f5f5;
+  font-size: clamp(1.45rem, 2.4vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.case-study-markdown h2:first-child,
+.case-study-markdown h3:first-child {
+  margin-top: 0;
+}
+
+.case-study-markdown__heading svg {
+  flex: none;
+}
+
+.case-study-markdown li p:last-child {
+  margin-bottom: 0;
+}
+
+.case-study-markdown strong {
+  color: #f5f5f5;
+  font-weight: 700;
+}
+
+.case-study-markdown img {
+  display: block;
+}
+
 .testimonial-carousel {
   scrollbar-width: none;
 }
@@ -221,6 +544,10 @@ html[data-theme="light"] .site-primary-button:hover {
   }
 
   .ambient-glow {
+    animation: none !important;
+  }
+
+  .case-study-hero__orb {
     animation: none !important;
   }
 

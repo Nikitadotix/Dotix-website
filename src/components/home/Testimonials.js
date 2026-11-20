@@ -1,7 +1,8 @@
 'use client';
 
-import { Quote, Sparkles, Star } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
 import { testimonials } from '../../data/testimonials.js';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 const getInitials = (name) =>
   name
@@ -21,14 +22,14 @@ function TestimonialCard({ item }) {
   return (
     <figure
       onMouseMove={trackGlow}
-      className="group relative w-[300px] shrink-0 overflow-hidden rounded-3xl border border-border bg-background-card p-6 shadow-sm backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:bg-background-elevated hover:border-accent/40 sm:w-[380px] sm:p-7"
+      className="group relative w-[270px] sm:w-[380px] shrink-0 overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-background-card p-5 sm:p-7 shadow-sm backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:bg-background-elevated hover:border-accent/40"
     >
       {/* Glow that follows the cursor */}
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            'radial-gradient(320px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.09), transparent 65%)',
+            'radial-gradient(320px circle at var(--gx, 50%) var(--gy, 50%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 65%)',
         }}
         aria-hidden="true"
       />
@@ -97,7 +98,7 @@ function MarqueeRow({ items, reverse = false, duration = 55 }) {
 export function Testimonials() {
   return (
     <section
-      className="relative overflow-hidden bg-background-primary py-24 sm:py-32"
+      className="relative overflow-hidden bg-background-primary py-16 sm:py-24 lg:py-32"
       id="testimonials"
     >
       <style>{`
@@ -131,12 +132,15 @@ export function Testimonials() {
       <div className="tm-glow pointer-events-none absolute left-1/2 top-1/2 h-[380px] w-[380px] rounded-full bg-accent/15 blur-[140px]" />
 
       <div className="relative z-10">
-        <div className="tm-rise mx-auto mb-14 max-w-2xl px-4 text-center sm:mb-16">
-        
-           
-          <h2 className="text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl md:text-5xl">
-            What our clients say
-          </h2>
+        <div className="tm-rise mx-auto mb-14 max-w-2xl px-4 sm:mb-16">
+          <SectionHeading
+            eyebrow="Client feedback"
+            title="What our clients say"
+            description="A few words from the teams we’ve worked with."
+            align="center"
+            spacingClassName="mb-0"
+            titleClassName="font-extrabold md:text-5xl"
+          />
         </div>
 
         <div

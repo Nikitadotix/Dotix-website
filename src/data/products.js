@@ -27,14 +27,9 @@ export const products = [
     id: 'apploft',
     name: 'Apploft',
     description: 'App ecosystem for managing internal applications.',
+    website: 'https://apploft.in',
     category: 'Product',
     tags: ['Internal', 'Management'],
   },
-  {
-    id: 'notix',
-    name: 'Notix',
-    description: 'Central service and API for notification channels.',
-    category: 'Product',
-    tags: ['Notifications', 'API'],
-  },
+  
 ];

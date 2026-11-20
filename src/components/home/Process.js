@@ -9,6 +9,7 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
+import { SectionHeading } from '../common/SectionHeading.js';
 
 const steps = [
   {
@@ -66,7 +67,7 @@ function TimelineStep({ step, index, total, progress, reduced }) {
   const borderColor = useTransform(
     progress,
     [Math.max(0, start), Math.min(1, start + 0.12)],
-    ['rgba(255,255,255,0.16)', 'var(--accent)']
+    ['#78716C', '#D97728']
   );
 
   const pulseOpacity = useTransform(
@@ -88,12 +89,12 @@ function TimelineStep({ step, index, total, progress, reduced }) {
   return (
     <motion.article
       style={reduced ? {} : { opacity, y }}
-      className="group relative flex min-w-0 flex-col items-start"
+      className="group relative flex min-w-0 flex-col items-start pl-14 md:pl-0"
     >
       {/* Timeline node */}
       <motion.div
         style={reduced ? {} : { borderColor }}
-        className="relative z-10 mb-8 flex h-10 w-10 items-center justify-center rounded-full border bg-background-primary sm:h-11 sm:w-11"
+        className="absolute left-0 top-0 md:relative z-10 flex h-10 w-10 items-center justify-center rounded-full border bg-background-primary sm:h-11 sm:w-11 md:mb-8"
       >
         <motion.span
           style={reduced ? {} : { opacity: numberOpacity }}
@@ -114,8 +115,8 @@ function TimelineStep({ step, index, total, progress, reduced }) {
       </motion.div>
 
       {/* Step content */}
-      <div className="w-full border-t border-border pt-5 transition-colors duration-300 group-hover:border-accent/50">
-        <h3 className="mb-3 text-xl font-medium tracking-[-0.025em] text-text-primary transition-colors duration-300 group-hover:text-accent sm:text-2xl">
+      <div className="w-full border-t border-border pt-2 md:pt-5 transition-colors duration-300 group-hover:border-accent/50">
+        <h3 className="mb-2 md:mb-3 text-lg sm:text-xl font-medium tracking-[-0.025em] text-text-primary transition-colors duration-300 group-hover:text-accent sm:text-2xl">
           {step.title}
         </h3>
 
@@ -132,7 +133,7 @@ function TimelineStep({ step, index, total, progress, reduced }) {
             duration: reduced ? 0 : 0.65,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mt-7 h-px w-full origin-left bg-accent/60"
+          className="mt-5 md:mt-7 h-px w-full origin-left bg-accent/60"
         />
       </div>
     </motion.article>
@@ -165,14 +166,13 @@ export function Process() {
     <section
       ref={sectionRef}
       id="process"
-      className="relative overflow-hidden bg-background-primary py-24 sm:py-32"
+      className="relative overflow-hidden bg-background-primary py-16 sm:py-24 lg:py-32"
     >
       {/* Ambient background */}
       <div className="ambient-glow pointer-events-none absolute inset-0 opacity-30" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
 
-        {/* Section heading */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -181,20 +181,21 @@ export function Process() {
             duration: 0.7,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mx-auto mb-20 max-w-2xl text-center"
+          className="mx-auto mb-12 sm:mb-20 max-w-2xl text-center"
         >
-          <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.18em] text-accent sm:text-xs">
-            Engineering methodology
-          </p>
-
-          <h2 className="text-3xl font-medium tracking-[-0.035em] text-text-primary sm:text-5xl">
-            From idea to{' '}
-            <span className="font-medium text-accent">launch.</span>
-          </h2>
-
-          <p className="mt-4 text-sm font-normal leading-7 text-text-secondary sm:text-base">
-            Clear milestones. Working software. No surprises.
-          </p>
+          <SectionHeading
+            eyebrow="Engineering methodology"
+            title={
+              <>
+                From idea to <span className="font-medium text-accent">launch.</span>
+              </>
+            }
+            description="Clear milestones. Working software. No surprises."
+            align="center"
+            spacingClassName="mb-0"
+            titleClassName="font-medium tracking-[-0.035em] sm:text-5xl"
+            descriptionClassName="font-normal leading-7 sm:text-base"
+          />
         </motion.div>
 
         {/* Timeline */}
@@ -235,7 +236,7 @@ export function Process() {
           />
 
           {/* Timeline steps */}
-          <div className="grid grid-cols-1 gap-12 pl-0 md:grid-cols-4 md:gap-7">
+          <div className="grid grid-cols-1 gap-8 sm:gap-10 pl-0 md:grid-cols-4 md:gap-7">
             {steps.map((step, index) => (
               <TimelineStep
                 key={step.number}

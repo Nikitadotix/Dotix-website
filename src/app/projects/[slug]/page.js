@@ -1,241 +1,275 @@
-import { projects } from '../../../data/projects.js';
-import { Button } from '../../../components/common/Button.js';
+
+import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 
-export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.id,
-  }));
-}
+import { projects } from '../../data/projects.js';
+import { products } from '../../data/products.js';
+import { ProjectFilter } from '../../components/common/ProjectFilter.js';
+import { SectionHeading } from '../../components/common/SectionHeading.js';
+import HeroCircuit from '../../components/common/HeroCircuit.js';
+import { getCaseStudies } from '../../lib/case-studies.js';
 
-export async function generateMetadata({ params }) {
-  const project = projects.find(p => p.id === params.slug);
-  
-  if (!project) {
-    return {
-      title: 'Project Not Found',
-    };
-  }
-
-  return {
-    title: `${project.name} | Dotix`,
-    description: project.description,
-  };
-}
-
-const projectDetails = {
-  duddy: {
-    overview: 'Duddy is an AI-enabled no-code app builder that allows users to create real native Android, iOS and web applications without writing code.',
-    problem: 'Building mobile applications traditionally requires significant technical expertise, time, and resources. Many businesses and individuals have app ideas but lack the development skills to bring them to life.',
-    solution: 'Duddy uses AI to understand user requirements and automatically generate native application code. The platform provides a visual interface for designing apps and handles the entire build pipeline.',
-    techStack: ['Next.js', 'React', 'AI layer', 'Firebase', 'Custom build pipeline'],
-    techReason: 'Next.js and React provide a modern, performant frontend. The AI layer enables intelligent code generation. Firebase offers backend services and real-time capabilities. Custom build pipeline ensures native app generation.',
-    impact: 'Duddy enables non-technical users to build and deploy mobile applications, significantly reducing the barrier to entry for app development.',
-  },
-  omnibase: {
-    overview: 'Omnibase is a backend-as-a-service platform that provides database, authentication, file storage, payouts, notifications, and an admin dashboard.',
-    problem: 'Building backend infrastructure from scratch is time-consuming and requires expertise in multiple areas like databases, authentication, and file storage.',
-    solution: 'Omnibase provides a comprehensive backend solution with all essential services in one platform. Developers can focus on frontend development while Omnibase handles backend operations.',
-    techStack: ['Go', 'MariaDB', 'MySQL', 'Fastify', 'Node.js', 'Express', 'Firebase', 'Vite', 'React', 'Tailwind', 'TypeScript'],
-    techReason: 'Go provides high-performance backend services. MariaDB and MySQL offer reliable database solutions. Fastify and Express enable flexible API development. Firebase adds real-time capabilities. React and Tailwind create a modern admin dashboard.',
-    impact: 'Omnibase accelerates development by providing ready-to-use backend services, reducing development time and infrastructure complexity.',
-  },
-  rewardhub: {
-    overview: 'RewardHub is a rewards and monetisation platform connecting advertisers with real users.',
-    problem: 'Advertisers need effective ways to reach real users, while users want to be rewarded for their engagement with content and offers.',
-    solution: 'RewardHub creates a marketplace where advertisers can run campaigns and users can earn rewards by completing tasks. The platform ensures genuine user engagement through verification systems.',
-    techStack: ['Next.js', 'React', 'Vite', 'TypeScript', 'Tailwind', 'Node.js', 'Express', 'MySQL', 'Redis', 'OpenAI API', 'Firebase Cloud Messaging'],
-    techReason: 'Next.js and React provide a responsive frontend. Node.js and Express power the backend APIs. MySQL and Redis handle data storage and caching. OpenAI API enhances user experience. Firebase Cloud Messaging enables real-time notifications.',
-    impact: 'RewardHub creates a transparent ecosystem where advertisers reach real users and users are fairly compensated for their engagement.',
-  },
+export const metadata = {
+  title: 'Projects & Products | Dotix',
+  description:
+    'Explore products built by Dotix and software projects delivered for businesses.',
 };
 
-export default function ProjectPage({ params }) {
-  const project = projects.find(p => p.id === params.slug);
-  const details = projectDetails[params.slug];
+export default function ProjectsPage() {
+  const caseStudySlugs = getCaseStudies().map(({ slug }) => slug);
 
-  if (!project) {
-    notFound();
-  }
+  const featuredProducts = products.filter((product) =>
+    ['duddy', 'omnibase', 'rewardhub', 'apploft'].includes(product.id)
+  );
+
+  const otherProjects = projects.filter(
+    (project) =>
+      !['duddy', 'omnibase', 'rewardhub', 'apploft', 'notix'].includes(
+        project.id
+      )
+  );
+
+  /* =========================================
+     PRODUCT ICONS
+  ========================================= */
+
+  const productIcons = {
+    duddy: '/images/projects/duddy-icon.svg',
+    omnibase: '/images/projects/omnibase-icon.svg',
+    rewardhub: '/images/projects/rewardhub-icon.svg',
+    apploft: '/images/projects/apploft-icon.svg',
+  };
+
+  /* =========================================
+     PRODUCT HIGHLIGHTS
+  ========================================= */
+
+  const productHighlights = {
+    duddy: ['AI App Builder', 'Web App', 'UI/UX', 'Animations'],
+    omnibase: ['Backend', 'API Integration', 'Dashboard', 'Cloud'],
+    rewardhub: ['Web App', 'UI/UX', 'Rewards', 'Dashboard'],
+    apploft: ['Mobile Apps', 'Android', 'iOS', 'UI/UX'],
+  };
+
+  /* =========================================
+     PRODUCT BRAND COLORS
+  ========================================= */
+
+  const productColors = {
+    duddy: '#9333EA',
+    omnibase: '#FFFFFF',
+    rewardhub: '#172554',
+    apploft: '#F04438',
+  };
+
+  /* =========================================
+     STAGGERED CARD PLACEMENT
+  ========================================= */
+
+  const placement = [
+    'lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:self-center',
+    'lg:col-start-2 lg:row-start-1',
+    'lg:col-start-2 lg:row-start-2',
+    'lg:col-start-3 lg:row-start-1 lg:row-span-2 lg:self-center',
+  ];
+
+  /* =========================================
+     HERO CHIPS
+  ========================================= */
+
+  const heroChips = featuredProducts.map((product) => ({
+    src: productIcons[product.id],
+    alt: product.name,
+  }));
 
   return (
-    <>
-      {/* Hero */}
-      <section className="py-24 bg-background-primary">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-sm text-text-muted mb-4">
-            <Link href="/projects" className="hover:text-accent transition-colors">
-              Projects
-            </Link>
-            <span>/</span>
-            <span className="text-text-secondary">{project.name}</span>
-          </div>
-          
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-            {project.name}
-          </h1>
-          
-          <p className="text-xl text-text-secondary max-w-3xl mb-8">
-            {project.description}
-          </p>
+    <main>
+      {/* =========================================
+          HERO SECTION
+      ========================================= */}
 
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-sm px-3 py-1 rounded-full bg-background-card border border-border text-text-secondary"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+      <section className="relative overflow-hidden bg-background-primary py-16 sm:py-20 lg:py-24">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(var(--border,rgba(255,255,255,.12))_1px,transparent_1.4px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_75%_50%,#000,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_75%_50%,#000,transparent_70%)]"
+        />
 
-          {project.website && (
-            <Button
-              href={project.website}
-              variant="primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Visit Website
-            </Button>
-          )}
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:gap-6">
+          <SectionHeading
+            as="h1"
+            eyebrow="Our work"
+            title={
+              <>
+                Products we build.
+                <span className="text-accent">
+                  {' '}Projects we deliver.
+                </span>
+              </>
+            }
+            description="From products we’re building ourselves to digital solutions developed for businesses, here’s a look at what we do."
+            className="max-w-4xl"
+            spacingClassName="mb-0"
+            titleClassName="text-4xl leading-tight sm:text-5xl md:text-6xl"
+            descriptionClassName="mt-6 max-w-xl text-base leading-7 sm:text-lg"
+          />
+
+          <HeroCircuit chips={heroChips} />
         </div>
       </section>
 
-      {/* Project Details */}
-      {details ? (
-        <>
-          <section className="py-24 bg-background-secondary">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-              <h2 className="text-3xl font-bold text-white mb-8">
-                Project Overview
+      {/* =========================================
+          OUR PRODUCTS SECTION
+      ========================================= */}
+
+      <section className="bg-background-primary pb-24 pt-8">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+
+          {/* SECTION HEADING */}
+
+          <div className="mb-12 flex w-full flex-col items-center text-center">
+            <div className="flex w-full flex-col items-center text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+                Built by Dotix
+              </p>
+
+              <h2 className="text-center text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl">
+                Our <span className="text-accent">Products</span>
               </h2>
-              <p className="text-lg text-text-secondary leading-relaxed mb-8">
-                {details.overview}
-              </p>
 
-              <h3 className="text-xl font-semibold text-white mb-4">
-                The Problem
-              </h3>
-              <p className="text-text-secondary leading-relaxed mb-8">
-                {details.problem}
-              </p>
-
-              <h3 className="text-xl font-semibold text-white mb-4">
-                What Dotix Created
-              </h3>
-              <p className="text-text-secondary leading-relaxed mb-8">
-                {details.solution}
-              </p>
-
-              <h3 className="text-xl font-semibold text-white mb-4">
-                Technology Stack
-              </h3>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {details.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-sm px-3 py-1 rounded bg-background-card border border-border text-text-secondary"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <h3 className="text-xl font-semibold text-white mb-4">
-                Why These Technologies
-              </h3>
-              <p className="text-text-secondary leading-relaxed mb-8">
-                {details.techReason}
-              </p>
-
-              <h3 className="text-xl font-semibold text-white mb-4">
-                Project Impact
-              </h3>
-              <p className="text-text-secondary leading-relaxed">
-                {details.impact}
+              <p className="mx-auto mt-3 max-w-md text-center text-sm leading-6 text-text-secondary">
+                Products designed, developed and operated by our team.
               </p>
             </div>
-          </section>
-
-          {/* Conclusion */}
-          <section className="py-24 bg-background-primary">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-              <h2 className="text-3xl font-bold text-white mb-8">
-                Conclusion
-              </h2>
-              <p className="text-lg text-text-secondary leading-relaxed">
-                {project.name} demonstrates Dotix's capability to build complex, production-ready software solutions that solve real business problems.
-              </p>
-            </div>
-          </section>
-        </>
-      ) : (
-        <section className="py-24 bg-background-secondary">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <p className="text-text-secondary">
-              Detailed case study coming soon.
-            </p>
           </div>
-        </section>
-      )}
 
-      {/* Get In Touch */}
-      <section className="py-24 bg-background-secondary">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-text-secondary mb-10">
-            Have a similar project in mind? Let's discuss it.
-          </p>
-          <Button href="/contact" variant="primary">
-            Contact Us
-          </Button>
-        </div>
-      </section>
+          {/* PRODUCT CARDS */}
 
-      {/* Explore More */}
-      <section className="py-24 bg-background-primary">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-12">
-            Explore more projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.filter(p => p.id !== project.id).slice(0, 3).map((p) => (
-              <Link
-                key={p.id}
-                href={`/projects/${p.id}`}
-                className="p-6 rounded-lg bg-background-card border border-border hover:border-accent/50 transition-colors"
-              >
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {p.name}
-                </h3>
-                <p className="text-sm text-text-secondary">
-                  {p.description}
-                </p>
-              </Link>
-            ))}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 lg:gap-x-8 lg:gap-y-6">
+            {featuredProducts.map((product, index) => {
+              const hasCaseStudy = caseStudySlugs.includes(product.id);
+
+              const href = hasCaseStudy
+                ? `/case-studies/${product.id}`
+                : product.website || `/projects/${product.id}`;
+
+              const isExternal =
+                !hasCaseStudy && /^https?:\/\//i.test(href);
+
+              const websiteLabel = product.website
+                ?.replace(/^https?:\/\//i, '')
+                .replace(/\/$/, '');
+
+              const LinkTag = isExternal ? 'a' : Link;
+
+              const linkProps = {
+                href,
+                target: isExternal ? '_blank' : undefined,
+                rel: isExternal ? 'noopener noreferrer' : undefined,
+              };
+
+              const ctaLabel = hasCaseStudy
+                ? 'Read case study'
+                : product.website
+                  ? 'Explore product'
+                  : 'View project';
+
+              const tags = [
+                ...(productHighlights[product.id] || []),
+                ...(product.tags || []),
+              ].slice(0, 4);
+
+              return (
+                <article
+                  key={product.id}
+                  style={{
+                    borderTopColor:
+                      productColors[product.id] || 'var(--border)',
+                  }}
+                  className={`group flex min-h-[230px] flex-col rounded-lg border border-border border-t-4 bg-background-card p-6 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:-translate-y-1 ${
+                    placement[index] || ''
+                  }`}
+                >
+                  {/* ICON + NAME + WEBSITE */}
+
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-background-elevated p-2">
+                      <Image
+                        src={productIcons[product.id]}
+                        alt={`${product.name} logo`}
+                        width={32}
+                        height={32}
+                        className="h-full w-full object-contain"
+                      />
+                    </span>
+
+                    <h3 className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-lg font-semibold leading-snug text-text-primary">
+                      <LinkTag
+                        {...linkProps}
+                        className="transition-colors duration-200 hover:text-accent"
+                      >
+                        {product.name}
+                      </LinkTag>
+
+                      {product.website && (
+                        <a
+                          href={product.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-normal text-text-muted transition-colors hover:text-accent"
+                        >
+                          {websiteLabel}
+                          <ExternalLink size={10} className="shrink-0" />
+                        </a>
+                      )}
+                    </h3>
+                  </div>
+
+                  {/* DESCRIPTION */}
+
+                  <p className="mt-4 text-sm leading-6 text-text-secondary">
+                    {product.description}
+                  </p>
+
+                  {/* PRODUCT TAGS */}
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md border border-border bg-background-elevated px-2 py-1 text-[10px] leading-none text-text-muted"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CARD FOOTER */}
+
+                  <div className="mt-auto pt-6">
+                    <LinkTag
+                      {...linkProps}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-all duration-200 hover:gap-2.5"
+                    >
+                      {ctaLabel}
+                      <ArrowUpRight size={13} />
+                    </LinkTag>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-background-secondary">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Have an idea?
-          </h2>
-          <p className="text-xl text-text-secondary mb-10">
-            Let's build something great together.
-          </p>
-          <Button href="/contact" variant="primary">
-            Start a Project
-          </Button>
-        </div>
-      </section>
-    </>
+      {/* =========================================
+          OUR PROJECTS SECTION
+      ========================================= */}
+
+      <ProjectFilter
+        projects={otherProjects}
+        caseStudySlugs={caseStudySlugs}
+      />
+    </main>
   );
 }

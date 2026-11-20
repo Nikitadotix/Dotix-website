@@ -1,7 +1,7 @@
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import {
   AnimatePresence,
   animate,
@@ -117,7 +117,8 @@ function RotatingWord() {
           exit={{ y: '-80%', opacity: 0, filter: 'blur(5px)' }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 text-transparent bg-clip-text
-            bg-gradient-to-r from-orange-300 via-orange-400 to-amber-400"
+            bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500
+            dark:from-orange-300 dark:via-orange-400 dark:to-amber-400"
         >
           {ROTATING_WORDS[i]}
         </motion.span>
@@ -154,8 +155,10 @@ function Float({
 }
 
 const glass =
-  'border border-white/10 bg-[#07110e]/75 backdrop-blur-lg ' +
-  'shadow-[0_12px_35px_-18px_rgba(0,0,0,0.65)]';
+  'border border-orange-200 bg-white/85 backdrop-blur-lg ' +
+  'shadow-[0_12px_35px_-18px_rgba(217,119,40,0.35)] ' +
+  'dark:border-white/10 dark:bg-[#07110e]/75 ' +
+  'dark:shadow-[0_12px_35px_-18px_rgba(0,0,0,0.65)]';
 
 /* ============================================
    LAYER FACES
@@ -167,15 +170,15 @@ function ExperienceFace() {
   return (
     <div className="absolute inset-0 p-3 sm:p-4 flex flex-col gap-2">
       <div className="flex items-center gap-2">
-        <span className="w-4 h-4 rounded-md bg-orange-400/90" />
-        <i className="h-1 w-12 rounded bg-white/50" />
-        <i className="ml-auto h-1 w-7 rounded bg-white/25" />
+        <span className="w-4 h-4 rounded-md bg-orange-500 dark:bg-orange-400/90" />
+        <i className="h-1 w-12 rounded bg-orange-900/40 dark:bg-white/50" />
+        <i className="ml-auto h-1 w-7 rounded bg-orange-900/20 dark:bg-white/25" />
       </div>
 
-      <div className="relative flex-1 rounded-lg overflow-hidden bg-gradient-to-br from-orange-400/65 to-orange-800/65">
+      <div className="relative flex-1 rounded-lg overflow-hidden bg-gradient-to-br from-orange-400/80 to-orange-600/80 dark:from-orange-400/65 dark:to-orange-800/65">
         {!reduced && (
           <motion.span
-            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/30"
             animate={{ x: ['-130%', '420%'] }}
             transition={{
               duration: 4,
@@ -188,7 +191,7 @@ function ExperienceFace() {
 
         <div className="absolute left-3 bottom-3 space-y-1.5">
           <i className="block h-1.5 w-16 rounded bg-white/90" />
-          <i className="block h-1 w-10 rounded bg-white/45" />
+          <i className="block h-1 w-10 rounded bg-white/60 dark:bg-white/45" />
         </div>
       </div>
 
@@ -196,7 +199,7 @@ function ExperienceFace() {
         {[0, 1, 2].map((i) => (
           <motion.span
             key={i}
-            className="h-7 rounded-md bg-white/15"
+            className="h-7 rounded-md bg-orange-500/25 dark:bg-white/15"
             animate={reduced ? undefined : { opacity: [0.45, 0.8, 0.45] }}
             transition={{
               duration: 3,
@@ -207,8 +210,8 @@ function ExperienceFace() {
         ))}
       </div>
 
-      <div className="h-5 rounded-full bg-white/90 flex items-center justify-center">
-        <i className="h-1 w-10 rounded bg-orange-900/60" />
+      <div className="h-5 rounded-full bg-orange-500 dark:bg-white/90 flex items-center justify-center">
+        <i className="h-1 w-10 rounded bg-white/90 dark:bg-orange-900/60" />
       </div>
     </div>
   );
@@ -219,34 +222,34 @@ function ApplicationsFace() {
 
   return (
     <div className="absolute inset-0 p-3 sm:p-4 flex items-center justify-center gap-2.5">
-      <div className="flex-1 h-[80%] rounded-lg border border-white/35 p-2 space-y-1.5">
+      <div className="flex-1 h-[80%] rounded-lg border border-orange-500/50 dark:border-white/35 p-2 space-y-1.5">
         <div className="flex gap-1">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="w-1 h-1 rounded-full bg-white/45"
+              className="w-1 h-1 rounded-full bg-orange-900/40 dark:bg-white/45"
             />
           ))}
         </div>
 
-        <i className="block h-1 w-3/4 rounded bg-white/35" />
-        <i className="block h-7 rounded bg-orange-400/35" />
-        <i className="block h-1 w-1/2 rounded bg-white/25" />
-        <i className="block h-1 w-2/3 rounded bg-white/25" />
+        <i className="block h-1 w-3/4 rounded bg-orange-900/30 dark:bg-white/35" />
+        <i className="block h-7 rounded bg-orange-400/50 dark:bg-orange-400/35" />
+        <i className="block h-1 w-1/2 rounded bg-orange-900/20 dark:bg-white/25" />
+        <i className="block h-1 w-2/3 rounded bg-orange-900/20 dark:bg-white/25" />
       </div>
 
-      <div className="w-[33%] h-[90%] rounded-lg border border-orange-300/65 p-1.5 space-y-1.5">
-        <i className="block mx-auto h-1 w-4 rounded-full bg-white/45" />
+      <div className="w-[33%] h-[90%] rounded-lg border border-orange-500/60 dark:border-orange-300/65 p-1.5 space-y-1.5">
+        <i className="block mx-auto h-1 w-4 rounded-full bg-orange-900/40 dark:bg-white/45" />
 
         <motion.i
-          className="block h-8 rounded-md bg-orange-400/45"
+          className="block h-8 rounded-md bg-orange-500/50 dark:bg-orange-400/45"
           animate={reduced ? undefined : { opacity: [0.45, 0.85, 0.45] }}
           transition={{ duration: 3, repeat: Infinity }}
         />
 
-        <i className="block h-1 rounded bg-white/30" />
-        <i className="block h-1 w-2/3 rounded bg-white/20" />
-        <i className="block h-1 rounded bg-white/30" />
+        <i className="block h-1 rounded bg-orange-900/25 dark:bg-white/30" />
+        <i className="block h-1 w-2/3 rounded bg-orange-900/15 dark:bg-white/20" />
+        <i className="block h-1 rounded bg-orange-900/25 dark:bg-white/30" />
       </div>
     </div>
   );
@@ -277,7 +280,7 @@ function IntelligenceFace() {
             y1="50"
             x2={x}
             y2={y}
-            stroke="rgba(255,255,255,.22)"
+            className="stroke-orange-400/45 dark:stroke-white/20"
             strokeWidth=".7"
           />
 
@@ -286,7 +289,7 @@ function IntelligenceFace() {
             y1="50"
             x2={x}
             y2={y}
-            stroke="#fb923c"
+            className="stroke-orange-500 dark:stroke-orange-400"
             strokeWidth="1.2"
             strokeLinecap="round"
             strokeDasharray="2 14"
@@ -309,7 +312,7 @@ function IntelligenceFace() {
             cy={y}
             r={i === 0 ? 7 : 4}
             fill="none"
-            stroke="#34d399"
+            className="stroke-orange-500 dark:stroke-emerald-400"
             strokeWidth=".8"
             animate={
               reduced
@@ -330,7 +333,11 @@ function IntelligenceFace() {
             cx={x}
             cy={y}
             r={i === 0 ? 4.5 : 2.4}
-            fill={i === 0 ? '#ffffff' : '#34d399'}
+            className={
+              i === 0
+                ? 'fill-orange-600 dark:fill-white'
+                : 'fill-orange-500 dark:fill-emerald-400'
+            }
           />
         </g>
       ))}
@@ -344,26 +351,27 @@ function InfrastructureFace() {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 opacity-50 dark:opacity-40
+          [--dot:rgba(249,115,22,.45)] dark:[--dot:rgba(110,231,183,.4)]"
         style={{
           backgroundImage:
-            'radial-gradient(circle, rgba(110,231,183,.4) 1px, transparent 1.5px)',
+            'radial-gradient(circle, var(--dot) 1px, transparent 1.5px)',
           backgroundSize: '22px 22px',
         }}
       />
 
       {!reduced && (
         <motion.span
-          className="absolute w-16 h-16 rounded-full border border-orange-300/35"
+          className="absolute w-16 h-16 rounded-full border border-orange-500/50 dark:border-orange-300/35"
           animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
           transition={{ duration: 3, repeat: Infinity }}
         />
       )}
 
-      <span className="absolute w-24 h-24 rounded-full border border-white/15" />
+      <span className="absolute w-24 h-24 rounded-full border border-orange-400/40 dark:border-white/15" />
 
-      <div className="relative w-12 h-12 rounded-xl bg-white/95 flex items-center justify-center shadow-[0_0_25px_rgba(249,115,22,.25)]">
-        <ShieldCheck size={23} className="text-orange-700" />
+      <div className="relative w-12 h-12 rounded-xl bg-white border border-orange-300 dark:border-transparent dark:bg-white/95 flex items-center justify-center shadow-[0_0_25px_rgba(249,115,22,.35)] dark:shadow-[0_0_25px_rgba(249,115,22,.25)]">
+        <ShieldCheck size={23} className="text-orange-600 dark:text-orange-700" />
       </div>
     </div>
   );
@@ -387,11 +395,13 @@ function Slab({ index, active, assembled }) {
 
   return (
     <motion.div
-      className={`absolute inset-0 rounded-xl overflow-hidden border transition-[border-color,box-shadow,background] duration-500
+      className={`home-stack-slab absolute inset-0 rounded-xl overflow-hidden border transition-[border-color,box-shadow,background] duration-500
         bg-gradient-to-br ${
           active
-            ? 'from-white/15 to-orange-400/10 border-orange-300/60 shadow-[0_0_35px_rgba(249,115,22,0.25)]'
-            : 'from-white/[0.10] to-orange-400/[0.035] border-white/20 shadow-[0_0_18px_rgba(217,119,40,0.08)]'
+            ? 'home-stack-slab-active from-orange-200/70 to-orange-400/30 border-orange-500/60 shadow-[0_0_35px_rgba(249,115,22,0.30)] ' +
+              'dark:from-white/15 dark:to-orange-400/10 dark:border-orange-300/60 dark:shadow-[0_0_35px_rgba(249,115,22,0.25)]'
+            : 'from-orange-100/80 to-orange-200/40 border-orange-300/70 shadow-[0_8px_24px_rgba(217,119,40,0.15)] ' +
+              'dark:from-white/[0.10] dark:to-orange-400/[0.035] dark:border-white/20 dark:shadow-[0_0_18px_rgba(217,119,40,0.08)]'
         } backdrop-blur-sm`}
       initial={{ z: 320, opacity: 0 }}
       animate={{ z, opacity: 1 }}
@@ -404,7 +414,7 @@ function Slab({ index, active, assembled }) {
     >
       <Face />
 
-      <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
+      <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-orange-400/20 dark:ring-white/10 pointer-events-none" />
     </motion.div>
   );
 }
@@ -484,15 +494,17 @@ function StackScene() {
               setPaused(true);
             }}
             onBlur={() => setPaused(false)}
-            className={`group flex items-center gap-2.5 rounded-lg border px-3 py-2 text-left backdrop-blur-lg transition-all duration-300 ${
+            className={`group flex items-center gap-2 sm:gap-2.5 rounded-lg border px-2.5 sm:px-3 py-1.5 sm:py-2 text-left backdrop-blur-lg transition-all duration-300 min-w-0 ${
               on
-                ? 'border-orange-300/45 bg-orange-400/[0.08] shadow-[0_0_20px_-8px_rgba(249,115,22,.3)]'
-                : 'border-white/10 bg-white/[0.025] hover:border-white/20'
-            } hero-dark-surface`}
+                ? 'border-orange-400/60 bg-orange-100/80 shadow-[0_0_20px_-8px_rgba(249,115,22,.4)] dark:border-orange-300/45 dark:bg-orange-400/[0.08] dark:shadow-[0_0_20px_-8px_rgba(249,115,22,.3)]'
+                : 'border-orange-200 bg-white/70 hover:border-orange-300 dark:border-white/10 dark:bg-white/[0.025] dark:hover:border-white/20'
+            }`}
           >
             <span
               className={`text-[9px] font-bold tabular-nums transition-colors ${
-                on ? 'text-orange-300' : 'text-white/35'
+                on
+                  ? 'text-orange-600 dark:text-orange-300'
+                  : 'text-orange-400 dark:text-white/35'
               }`}
             >
               0{LAYERS.length - l.i}
@@ -501,13 +513,15 @@ function StackScene() {
             <span>
               <span
                 className={`block text-[11px] font-semibold transition-colors ${
-                  on ? 'text-white' : 'text-white/65'
+                  on
+                    ? 'text-orange-950 dark:text-white'
+                    : 'text-orange-900/70 dark:text-white/65'
                 }`}
               >
                 {l.name}
               </span>
 
-              <span className="block text-[9px] text-white/40">
+              <span className="block text-[9px] text-orange-900/50 dark:text-white/40">
                 {l.sub}
               </span>
             </span>
@@ -515,8 +529,8 @@ function StackScene() {
             <span
               className={`ml-auto w-1.5 h-1.5 rounded-full transition-all ${
                 on
-                  ? 'bg-orange-300 shadow-[0_0_7px_#fb923c]'
-                  : 'bg-white/20'
+                  ? 'bg-orange-500 shadow-[0_0_7px_#fb923c] dark:bg-orange-300'
+                  : 'bg-orange-300 dark:bg-white/20'
               }`}
             />
           </button>
@@ -528,7 +542,7 @@ function StackScene() {
   return (
     <div>
       <div
-        className="relative mx-auto w-full max-w-[540px] h-[330px] sm:h-[440px]"
+        className="relative mx-auto w-full max-w-[540px] h-[310px] sm:h-[440px] overflow-hidden sm:overflow-visible"
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         style={{ perspective: 1500 }}
@@ -541,7 +555,7 @@ function StackScene() {
           <div className="relative w-[175px] h-[175px] sm:w-[220px] sm:h-[220px]">
 
             {/* Ground glow */}
-            <div className="absolute left-1/2 top-[88%] -translate-x-1/2 w-[250px] h-[60px] rounded-full bg-orange-400/12 blur-2xl pointer-events-none" />
+            <div className="absolute left-1/2 top-[88%] -translate-x-1/2 w-[250px] h-[60px] rounded-full bg-orange-400/25 dark:bg-orange-400/12 blur-2xl pointer-events-none" />
 
             {/* 3D stage */}
             <motion.div
@@ -557,8 +571,10 @@ function StackScene() {
                 <motion.div
                   key={size}
                   className={`absolute left-1/2 top-1/2 rounded-full border border-dashed ${
-                    i ? 'border-white/10' : 'border-orange-300/20'
-                  }`}
+                    i
+                      ? 'border-orange-300/40 dark:border-white/10'
+                      : 'border-orange-400/40 dark:border-orange-300/20'
+                  } ${i ? 'home-stack-orbit' : ''}`}
                   style={{
                     width: size,
                     height: size,
@@ -574,16 +590,16 @@ function StackScene() {
                   }}
                 >
                   <span
-                    className="absolute -top-1 left-1/2 w-1.5 h-1.5 rounded-full bg-orange-300/80"
+                    className="absolute -top-1 left-1/2 w-1.5 h-1.5 rounded-full bg-orange-500 dark:bg-orange-300/80"
                     style={{
                       boxShadow: '0 0 9px 2px rgba(249,115,22,.4)',
                     }}
                   />
 
                   <span
-                    className="absolute bottom-8 -left-1 w-1.5 h-1.5 rounded-full bg-white/80"
+                    className="absolute bottom-8 -left-1 w-1.5 h-1.5 rounded-full bg-orange-400 dark:bg-accent/80"
                     style={{
-                      boxShadow: '0 0 8px 2px rgba(255,255,255,.35)',
+                      boxShadow: '0 0 8px 2px rgba(249,115,22,.4)',
                     }}
                   />
                 </motion.div>
@@ -601,15 +617,15 @@ function StackScene() {
 
             {/* Energy beam */}
             <div className="absolute left-1/2 -translate-x-1/2 -top-[25%] h-[125%] w-px pointer-events-none">
-              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-orange-300/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-orange-400/50 to-transparent dark:via-orange-300/40" />
 
               {!reduced &&
                 [0, 1, 2].map((i) => (
                   <motion.span
                     key={i}
-                    className="absolute left-1/2 -ml-[2px] bottom-0 w-1 h-1 rounded-full bg-white/90"
+                    className="absolute left-1/2 -ml-[2px] bottom-0 w-1 h-1 rounded-full bg-orange-500 dark:bg-accent"
                     style={{
-                      boxShadow: '0 0 8px 2px rgba(110,231,183,.5)',
+                      boxShadow: '0 0 8px 2px rgba(249,115,22,.45)',
                     }}
                     animate={{
                       y: [0, -260],
@@ -634,9 +650,9 @@ function StackScene() {
           y={7}
           className="absolute z-20 top-[6%] left-[2%]"
         >
-          <div className={`hero-dark-surface flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
-            <Globe size={12} className="text-orange-300/80" />
-            <span className="text-[9px] font-semibold text-white/80">
+          <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
+            <Globe size={12} className="text-orange-500 dark:text-orange-300/80" />
+            <span className="text-[9px] font-semibold text-orange-800 dark:text-white/80">
               Web Apps
             </span>
           </div>
@@ -648,9 +664,9 @@ function StackScene() {
           y={8}
           className="absolute z-20 bottom-[10%] left-[0%]"
         >
-          <div className={`hero-dark-surface flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
-            <Smartphone size={12} className="text-orange-300/80" />
-            <span className="text-[9px] font-semibold text-white/80">
+          <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
+            <Smartphone size={12} className="text-orange-500 dark:text-orange-300/80" />
+            <span className="text-[9px] font-semibold text-orange-800 dark:text-white/80">
               iOS · Android
             </span>
           </div>
@@ -662,9 +678,9 @@ function StackScene() {
           y={6}
           className="absolute z-20 top-[4%] left-[44%] sm:left-[38%]"
         >
-          <div className={`hero-dark-surface flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
-            <Sparkles size={12} className="text-white/80" />
-            <span className="text-[9px] font-semibold text-white/80">
+          <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
+            <Sparkles size={12} className="text-orange-500 dark:text-white/80" />
+            <span className="text-[9px] font-semibold text-orange-800 dark:text-white/80">
               AI Ready
             </span>
           </div>
@@ -676,9 +692,9 @@ function StackScene() {
           y={7}
           className="hidden sm:block absolute z-20 bottom-[6%] left-[42%]"
         >
-          <div className={`hero-dark-surface flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
-            <Cloud size={12} className="text-orange-300/80" />
-            <span className="text-[9px] font-semibold text-white/80">
+          <div className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${glass}`}>
+            <Cloud size={12} className="text-orange-500 dark:text-orange-300/80" />
+            <span className="text-[9px] font-semibold text-orange-800 dark:text-white/80">
               Scales on cloud
             </span>
           </div>
@@ -691,7 +707,7 @@ function StackScene() {
       </div>
 
       {/* Layer legend mobile */}
-      <div className="sm:hidden grid grid-cols-2 gap-2 mt-1">
+      <div className="sm:hidden grid grid-cols-2 gap-1.5 mt-2">
         {LabelList}
       </div>
     </div>
@@ -868,7 +884,7 @@ export function Hero() {
           Array.from({ length: 10 }).map((_, i) => (
             <motion.span
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-orange-300/60"
+              className="absolute w-1 h-1 rounded-full bg-orange-400/70 dark:bg-orange-300/60"
               style={{
                 left: `${6 + ((i * 41) % 88)}%`,
                 bottom: `${(i * 17) % 40}%`,
@@ -902,7 +918,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-3 items-center min-h-[70vh] pt-30 lg:pt-30">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-3 items-center min-h-0 lg:min-h-[70vh] pt-8 sm:pt-14 lg:pt-24 pb-8 lg:pb-12">
 
           {/* LEFT CONTENT */}
 
@@ -912,7 +928,7 @@ export function Hero() {
           >
             <motion.h1
               {...fade(0.08)}
-              className="home-hero-title text-[clamp(2.1rem,3.8vw,3.65rem)] font-medium tracking-[-0.045em] text-text-primary mb-4 leading-[1.08] [font-family:var(--font-manrope)]"
+              className="home-hero-title text-[clamp(1.9rem,4vw,3.65rem)] font-medium tracking-[-0.045em] text-text-primary mb-4 leading-[1.08] [font-family:var(--font-manrope)]"
             >
               We Architect &amp; Build
 
@@ -945,7 +961,7 @@ export function Hero() {
                 Start Your Project
               </Button>
 
-              <a
+              <Link
                 href="/projects"
                 className="group inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-text-primary/80 hover:text-text-primary transition-colors"
               >
@@ -957,19 +973,19 @@ export function Hero() {
                     className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </span>
-              </a>
+              </Link>
             </motion.div>
 
             {/* METRICS */}
 
             <motion.div
               {...fade(0.32)}
-              className="pt-5 border-t border-border/60 grid grid-cols-3 gap-3 sm:gap-5 max-w-xl"
+              className="pt-5 border-t border-border/60 grid grid-cols-3 gap-2 sm:gap-5 max-w-xl"
             >
               <div>
-                <div className="text-lg sm:text-xl font-bold text-text-primary">
+                <div className="text-base sm:text-xl font-bold text-text-primary">
                   <CountUp to={90} prefix="< " />{' '}
-                  <span className="text-[10px] text-orange-400/80">
+                  <span className="text-[10px] text-orange-500 dark:text-orange-400/80">
                     Days
                   </span>
                 </div>
@@ -979,8 +995,8 @@ export function Hero() {
                 </p>
               </div>
 
-              <div className="border-l border-border/60 pl-3 sm:pl-5">
-                <div className="text-lg sm:text-xl font-bold text-text-primary">
+              <div className="border-l border-border/60 pl-2 sm:pl-5">
+                <div className="text-base sm:text-xl font-bold text-text-primary">
                   <CountUp to={10000} format suffix="+" />
                 </div>
 
@@ -989,8 +1005,8 @@ export function Hero() {
                 </p>
               </div>
 
-              <div className="border-l border-border/60 pl-3 sm:pl-5">
-                <div className="text-lg sm:text-xl font-bold text-orange-400/90">
+              <div className="border-l border-border/60 pl-2 sm:pl-5">
+                <div className="text-base sm:text-xl font-bold text-orange-500 dark:text-orange-400/90">
                   <CountUp to={100} suffix="%" />
                 </div>
 
@@ -1029,9 +1045,7 @@ export function Hero() {
             TECH STACK STRIP
         ======================================== */}
 
-      
-
-         
+        {/* <TechMarquee /> */}
       </div>
     </section>
   );

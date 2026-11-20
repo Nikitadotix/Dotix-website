@@ -7,15 +7,18 @@ export function Stars() {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    const starData = [...Array(100)].map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      duration: 2 + Math.random() * 3,
-      delay: Math.random() * 2,
-    }));
-    setStars(starData);
+    const timer = setTimeout(() => {
+      const starData = [...Array(100)].map((_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        duration: 2 + Math.random() * 3,
+        delay: Math.random() * 2,
+      }));
+      setStars(starData);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

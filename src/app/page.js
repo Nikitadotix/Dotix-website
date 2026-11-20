@@ -8,16 +8,19 @@ import { TechStack } from '../components/home/TechStack.js';
 import { Testimonials } from '../components/home/Testimonials.js';
 import { FAQ } from '../components/home/FAQ.js';
 import { FinalCTA } from '../components/home/FinalCTA.js';
+import { getCaseStudies } from '../lib/case-studies.js';
 
 export default function Home() {
+  const caseStudySlugs = getCaseStudies().map(({ slug }) => slug);
+
   return (
     <>
       <Hero />
       <Process />
       <Services />
       <WhyDotix />
-      <FeaturedProducts />
-      <ProjectsPreview />
+      <FeaturedProducts caseStudySlugs={caseStudySlugs} />
+      <ProjectsPreview caseStudySlugs={caseStudySlugs} />
       <TechStack />
       <Testimonials />
       <FAQ />
