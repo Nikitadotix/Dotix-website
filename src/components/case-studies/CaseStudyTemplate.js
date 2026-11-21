@@ -138,7 +138,7 @@ export function CaseStudyTemplate({ caseStudy }) {
             className="mx-auto mb-5 sm:mb-7 h-[54px] w-[58px] sm:h-[68px] sm:w-[72px] object-contain"
           />
 
-          <h1 className="mx-auto max-w-5xl text-2xl font-semibold leading-[1.18] tracking-tight text-white sm:text-4xl md:text-5xl">
+         <h1 className="case-study-hero-title mx-auto max-w-5xl text-2xl font-semibold leading-[1.18] tracking-tight sm:text-4xl md:text-5xl">
             {caseStudy.title}
           </h1>
 
@@ -151,13 +151,13 @@ export function CaseStudyTemplate({ caseStudy }) {
               const Icon = tagIcons[tag] || Sparkles;
 
               return (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 border border-dashed border-white/35 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white"
-                >
-                  <Icon size={14} className="sm:w-4 sm:h-4" strokeWidth={1.8} />
-                  {tag}
-                </span>
+              <span
+  key={tag}
+  className="case-study-tag inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white transition-all duration-300 hover:bg-accent-hover"
+>
+  <Icon size={12} className="sm:w-4 sm:h-4" strokeWidth={1.8} />
+  {tag}
+</span>
               );
             })}
           </div>
@@ -175,7 +175,7 @@ export function CaseStudyTemplate({ caseStudy }) {
       </header>
 
       <section className="case-study-body hero-dark-surface">
-        <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
+        <div className="mx-auto w-full max-w-6xl px-5 py-12 sm:px-8 lg:px-10 lg:py-16">
           <div className="case-study-markdown">
             <ReactMarkdown components={markdownComponents}>
               {caseStudy.content}

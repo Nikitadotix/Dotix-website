@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useSyncExternalStore } from 'react';
@@ -56,6 +55,7 @@ function getServerThemeSnapshot() {
 ============================================ */
 
 const projectRoutes = {
+  buzzer: '/case-studies/buzzr',
   buzzr: '/case-studies/buzzr',
   madjoy: '/case-studies/madjoy',
   inloopmedia: '/case-studies/inloopmedia',
@@ -101,39 +101,40 @@ const navLinks = [
       {
         label: 'Duddy',
         description: 'AI enabled native app builder',
-        href: 'https://duddy.io',
+        href: '/case-studies/buzzr',
         logo: '/images/projects/duddy-icon.svg',
         mark: 'd.',
-        markClass: 'text-[25px] font-bold tracking-tighter text-white/40',
+        markClass:
+          'text-[25px] font-bold tracking-tighter text-accent dark:text-white/40',
       },
       {
         label: 'Omnibase',
         description: 'A complete backend-as-a-service',
-        href: 'https://omnibase.in',
+        href: '/case-studies/omnibase',
         logo: '/images/projects/omnibase-icon.svg',
         icon: Database,
       },
       {
         label: 'RewardHub',
         description: 'Reward & monetization platform',
-        href: 'https://rewardhub.apploft.in',
+        href: '/case-studies/rewardhub',
         logo: '/images/projects/rewardhub-icon.svg',
         mark: 'R',
         markClass:
-          'flex h-6 w-6 items-center justify-center rounded bg-white/20 text-sm font-bold text-white',
+          'flex h-6 w-6 items-center justify-center rounded bg-accent text-sm font-bold text-white dark:bg-white/20',
       },
       {
         label: 'Apploft',
         description: 'Our premium app inventory',
-        href: 'https://apploft.in',
+        href: '/case-studies/apploft',
         logo: '/images/projects/apploft-icon.svg',
         mark: '△',
-        markClass: 'text-2xl font-bold text-white/50',
+        markClass: 'text-2xl font-bold text-accent dark:text-white/50',
       },
       {
         label: 'Notix',
         description: 'Smart notification infrastructure',
-        href: '/projects/notix',
+        href: '/case-studies/notix',
         logo: '/images/projects/notix-icon.png',
         icon: Gift,
       },
@@ -156,7 +157,7 @@ const navLinks = [
 
     items: [
       {
-        label: 'BuzZr',
+        label: 'Buzzer',
         description: 'A platform for the Influencers',
         href: '/case-studies/buzzr',
         logo: '/images/projects/buzzr-icon.svg',
@@ -168,7 +169,7 @@ const navLinks = [
         href: '/case-studies/madjoy',
         logo: '/images/projects/madjoy-icon.svg',
         mark: 'M',
-        markClass: 'text-2xl font-black text-white/65',
+        markClass: 'text-2xl font-black text-accent dark:text-white/65',
       },
       {
         label: 'Inloop Media',
@@ -297,28 +298,28 @@ function PromoArtwork({ type }) {
         <>
           <div className="absolute left-1/2 top-[37%] h-32 w-40 -translate-x-1/2 -translate-y-1/2 rotate-[-13deg]">
 
-            <div className="absolute left-3 top-10 h-24 w-36 rotate-[13deg] rounded-md border border-white/10 bg-white/[0.07]" />
+            <div className="absolute left-3 top-10 h-24 w-36 rotate-[13deg] rounded-md border border-accent/30 bg-accent/15 dark:border-white/10 dark:bg-white/[0.07]" />
 
-            <div className="absolute left-0 top-4 h-24 w-36 rotate-[13deg] rounded-md border border-white/15 bg-gradient-to-br from-white/30 to-white/[0.03] shadow-xl">
+            <div className="absolute left-0 top-4 h-24 w-36 rotate-[13deg] rounded-md border border-accent/45 bg-gradient-to-br from-accent/45 to-accent/10 shadow-xl dark:border-white/15 dark:from-white/30 dark:to-white/[0.03]">
 
-              <div className="absolute left-4 top-4 h-1.5 w-10 rounded-full bg-white/40" />
-              <div className="absolute left-4 top-8 h-1 w-16 rounded-full bg-white/20" />
+              <div className="absolute left-4 top-4 h-1.5 w-10 rounded-full bg-accent/70 dark:bg-white/40" />
+              <div className="absolute left-4 top-8 h-1 w-16 rounded-full bg-accent/45 dark:bg-white/20" />
 
-              <div className="absolute right-4 top-4 h-7 w-7 rounded-full border-[4px] border-white/30" />
+              <div className="absolute right-4 top-4 h-7 w-7 rounded-full border-[4px] border-accent/60 dark:border-white/30" />
 
               <div className="absolute bottom-4 left-4 flex gap-1.5">
-                <span className="h-4 w-8 rounded-sm bg-white/20" />
-                <span className="h-4 w-6 rounded-sm bg-white/15" />
-                <span className="h-4 w-4 rounded-sm bg-white/20" />
+                <span className="h-4 w-8 rounded-sm bg-accent/45 dark:bg-white/20" />
+                <span className="h-4 w-6 rounded-sm bg-accent/35 dark:bg-white/15" />
+                <span className="h-4 w-4 rounded-sm bg-accent/45 dark:bg-white/20" />
               </div>
 
             </div>
 
-            <div className="absolute -right-3 top-14 h-12 w-12 rotate-[13deg] rounded-md border border-white/10 bg-white/[0.06]" />
+            <div className="absolute -right-3 top-14 h-12 w-12 rotate-[13deg] rounded-md border border-accent/30 bg-accent/15 dark:border-white/10 dark:bg-white/[0.06]" />
 
           </div>
 
-          <div className="absolute bottom-8 left-1/2 h-20 w-36 -translate-x-1/2 rounded-full bg-white/[0.04] blur-2xl" />
+          <div className="absolute bottom-8 left-1/2 h-20 w-36 -translate-x-1/2 rounded-full bg-accent/25 blur-2xl dark:bg-white/[0.04]" />
         </>
       )}
 
@@ -327,48 +328,48 @@ function PromoArtwork({ type }) {
         <>
           <div className="absolute left-1/2 top-[34%] h-32 w-40 -translate-x-1/2 -translate-y-1/2">
 
-            <div className="absolute inset-0 rounded-lg border border-white/15 bg-white/[0.05] shadow-2xl">
+            <div className="absolute inset-0 rounded-lg border border-accent/40 bg-background-card/80 shadow-2xl dark:border-white/15 dark:bg-white/[0.05]">
 
-              <div className="flex h-6 items-center gap-1 border-b border-white/10 px-2.5">
-                <span className="h-1 w-1 rounded-full bg-white/30" />
-                <span className="h-1 w-1 rounded-full bg-white/30" />
-                <span className="h-1 w-1 rounded-full bg-white/30" />
+              <div className="flex h-6 items-center gap-1 border-b border-accent/25 px-2.5 dark:border-white/10">
+                <span className="h-1 w-1 rounded-full bg-accent/60 dark:bg-white/30" />
+                <span className="h-1 w-1 rounded-full bg-accent/60 dark:bg-white/30" />
+                <span className="h-1 w-1 rounded-full bg-accent/60 dark:bg-white/30" />
               </div>
 
               <div className="grid grid-cols-3 gap-1.5 p-2.5">
 
                 <div className="col-span-2 space-y-1.5">
-                  <div className="h-1.5 w-14 rounded-full bg-white/30" />
+                  <div className="h-1.5 w-14 rounded-full bg-accent/60 dark:bg-white/30" />
 
                   <div className="flex h-10 items-end gap-1">
-                    <span className="h-4 flex-1 rounded-t-sm bg-white/15" />
-                    <span className="h-7 flex-1 rounded-t-sm bg-white/30" />
-                    <span className="h-5 flex-1 rounded-t-sm bg-white/20" />
-                    <span className="h-9 flex-1 rounded-t-sm bg-white/35" />
+                    <span className="h-4 flex-1 rounded-t-sm bg-accent/30 dark:bg-white/15" />
+                    <span className="h-7 flex-1 rounded-t-sm bg-accent/55 dark:bg-white/30" />
+                    <span className="h-5 flex-1 rounded-t-sm bg-accent/40 dark:bg-white/20" />
+                    <span className="h-9 flex-1 rounded-t-sm bg-accent/70 dark:bg-white/35" />
                   </div>
                 </div>
 
-                <div className="rounded border border-white/10 bg-white/[0.06] p-1.5">
-                  <ChartNoAxesCombined className="h-7 w-7 text-white/40" />
+                <div className="rounded border border-accent/25 bg-accent/10 p-1.5 dark:border-white/10 dark:bg-white/[0.06]">
+                  <ChartNoAxesCombined className="h-7 w-7 text-accent/80 dark:text-white/40" />
                 </div>
 
-                <div className="col-span-3 h-2 rounded-sm bg-white/[0.09]" />
-                <div className="col-span-2 h-2 rounded-sm bg-white/[0.09]" />
+                <div className="col-span-3 h-2 rounded-sm bg-accent/20 dark:bg-white/[0.09]" />
+                <div className="col-span-2 h-2 rounded-sm bg-accent/20 dark:bg-white/[0.09]" />
 
               </div>
             </div>
 
-            <div className="absolute -left-7 top-14 flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-[#202020]">
-              <Code2 className="h-4 w-4 text-white/50" />
+            <div className="absolute -left-7 top-14 flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-background-card dark:border-white/10 dark:bg-[#202020]">
+              <Code2 className="h-4 w-4 text-accent dark:text-white/50" />
             </div>
 
-            <div className="absolute -right-7 top-16 flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-[#202020]">
-              <Database className="h-4 w-4 text-white/50" />
+            <div className="absolute -right-7 top-16 flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-background-card dark:border-white/10 dark:bg-[#202020]">
+              <Database className="h-4 w-4 text-accent dark:text-white/50" />
             </div>
 
           </div>
 
-          <div className="absolute left-1/2 top-[34%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/15" />
+          <div className="absolute left-1/2 top-[34%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/40 dark:border-white/15" />
         </>
       )}
 
@@ -377,23 +378,23 @@ function PromoArtwork({ type }) {
         <>
           <div className="absolute left-1/2 top-[36%] flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
 
-            <div className="absolute inset-0 rotate-45 rounded-xl border border-white/20 bg-white/[0.08]" />
+            <div className="absolute inset-0 rotate-45 rounded-xl border border-accent/45 bg-accent/15 dark:border-white/20 dark:bg-white/[0.08]" />
 
-            <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-lg border border-white/20 bg-white/[0.08]">
-              <Layers3 className="h-10 w-10 text-white/55" />
+            <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-lg border border-accent/45 bg-background-card/80 dark:border-white/20 dark:bg-white/[0.08]">
+              <Layers3 className="h-10 w-10 text-accent dark:text-white/55" />
             </div>
 
-            <div className="absolute -left-7 top-4 flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#202020]">
-              <Code2 className="h-4 w-4 text-white/50" />
+            <div className="absolute -left-7 top-4 flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-background-card dark:border-white/15 dark:bg-[#202020]">
+              <Code2 className="h-4 w-4 text-accent dark:text-white/50" />
             </div>
 
-            <div className="absolute -right-7 bottom-3 flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#202020]">
-              <Database className="h-4 w-4 text-white/50" />
+            <div className="absolute -right-7 bottom-3 flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-background-card dark:border-white/15 dark:bg-[#202020]">
+              <Database className="h-4 w-4 text-accent dark:text-white/50" />
             </div>
 
           </div>
 
-          <div className="absolute left-1/2 top-[36%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/15" />
+          <div className="absolute left-1/2 top-[36%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/40 dark:border-white/15" />
         </>
       )}
 
@@ -431,17 +432,14 @@ function MegaMenu({ link, onClose }) {
 
       <div className="overflow-hidden rounded-xl border border-border/80 bg-background-card/95 p-3 shadow-2xl shadow-black/30 backdrop-blur-2xl">
 
-        {/* Heading */}
         <div className="mb-2 border-b border-border/80 pb-2">
-          <h3 className="text-[12px] font-semibold tracking-tight text-text-primary">
+          <h3 className="text-[14px] font-semibold tracking-tight text-text-primary">
             {link.heading}
           </h3>
         </div>
 
-        {/* Two Columns */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1.08fr_0.92fr]">
 
-          {/* Left: Links */}
           <div className="flex flex-col justify-between gap-0.5">
 
             {items.map((item) => {
@@ -449,10 +447,7 @@ function MegaMenu({ link, onClose }) {
               const itemHref = getItemHref(item, link.type);
 
               return (
-                <motion.div
-                  key={item.label}
-                  variants={itemVariants}
-                >
+                <motion.div key={item.label} variants={itemVariants}>
                   <Link
                     href={itemHref}
                     target={
@@ -471,9 +466,7 @@ function MegaMenu({ link, onClose }) {
                     className="group flex min-h-[46px] items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors duration-200 hover:bg-background-elevated"
                   >
 
-                    {/* Icon */}
                     <div className="flex h-7 w-7 shrink-0 items-center justify-center">
-
                       {item.logo ? (
                         <Image
                           src={item.logo}
@@ -492,20 +485,16 @@ function MegaMenu({ link, onClose }) {
                           {item.mark}
                         </span>
                       )}
-
                     </div>
 
-                    {/* Text */}
                     <div className="min-w-0 flex-1">
-
-                      <h4 className="text-[12px] font-semibold leading-tight tracking-tight text-text-primary transition-colors group-hover:text-accent">
+                      <h4 className="text-[14px] font-semibold leading-tight tracking-tight text-text-primary transition-colors group-hover:text-accent">
                         {item.label}
                       </h4>
 
-                      <p className="mt-0.5 max-w-[220px] text-[9px] leading-[1.4] text-text-secondary">
+                      <p className="mt-0.5 max-w-[240px] text-[11px] leading-[1.35] text-text-secondary">
                         {item.description}
                       </p>
-
                     </div>
 
                     <ArrowUpRight className="h-3 w-3 shrink-0 text-text-secondary opacity-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:opacity-100" />
@@ -517,38 +506,33 @@ function MegaMenu({ link, onClose }) {
 
           </div>
 
-          {/* Right: Promotional Card */}
           <div className="relative flex min-h-[195px] flex-col justify-end overflow-hidden rounded-lg border border-border bg-background-elevated p-3">
 
             <PromoArtwork type={link.type} />
 
             <div className="relative z-10">
-
-              <p className="mb-1.5 text-[10px] font-semibold text-text-primary">
+              <p className="mb-1.5 text-[11px] font-semibold text-text-primary">
                 {link.promo?.eyebrow}
               </p>
 
-              <h4 className="max-w-[190px] text-[15px] font-medium leading-snug tracking-tight text-text-primary">
+              <h4 className="max-w-[200px] text-[16px] font-medium leading-snug tracking-tight text-text-primary">
                 {link.promo?.title}
               </h4>
 
               <Link
                 href={promoHref}
                 onClick={onClose}
-                className="mt-3 inline-flex items-center gap-2 text-[11px] font-medium text-accent transition-all duration-200 hover:gap-3"
+                className="mt-3 inline-flex items-center gap-2 text-[12px] font-medium text-accent transition-all duration-200 hover:gap-3"
               >
                 {link.promo?.link}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
-
             </div>
 
           </div>
 
         </div>
-
       </div>
-
     </motion.div>
   );
 }
@@ -589,6 +573,19 @@ export function Navbar() {
     window.addEventListener('keydown', closeOnEscape);
 
     return () => window.removeEventListener('keydown', closeOnEscape);
+  }, []);
+
+  /* Close mobile menu when resizing to desktop */
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   /* Theme Toggle */
@@ -632,9 +629,9 @@ export function Navbar() {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background/75 backdrop-blur-2xl">
+    <nav className="sticky top-0 z-[100] relative w-full bg-background/75 backdrop-blur-2xl">
 
-      <div className="w-full">
+      <div className="relative w-full">
 
         {/* =====================================
             DESKTOP NAVBAR
@@ -659,7 +656,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex xl:items-center xl:gap-6 2xl:gap-8">
+        <div className="hidden xl:flex xl:items-center xl:gap-4 2xl:gap-5">
 
             {navLinks.map((link) => {
               const isOpen = openDropdown === link.label;
@@ -687,7 +684,7 @@ export function Navbar() {
                       onFocus={() => setOpenDropdown(link.label)}
                       aria-expanded={isOpen}
                       aria-haspopup="true"
-                      className={`group flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+                     className={`group flex items-center gap-2 rounded-full px-2.5 py-2.5 text-sm font-medium transition-all duration-200 ${
                         isOpen
                           ? 'bg-background-elevated text-text-primary'
                           : 'text-text-secondary hover:bg-background-elevated hover:text-text-primary'
@@ -708,13 +705,14 @@ export function Navbar() {
                           ? link.href
                           : '/'
                       }
-                      className="text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
+                      className={`text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary ${
+  link.label === 'About' ? 'ml-4' : ''
+}`}
                     >
                       {link.label}
                     </Link>
                   )}
 
-                  {/* Mega Menu */}
                   <AnimatePresence>
                     {link.hasDropdown && isOpen && (
                       <MegaMenu
@@ -728,10 +726,8 @@ export function Navbar() {
               );
             })}
 
-            {/* Theme Toggle */}
             {renderThemeToggle()}
 
-            {/* CTA */}
             <Button
               href="/contact"
               variant="primary"
@@ -749,10 +745,14 @@ export function Navbar() {
 
             <button
               type="button"
-              onClick={() => setIsMenuOpen((prev) => !prev)}
+              onClick={() => {
+                setIsMenuOpen((prev) => !prev);
+                setOpenDropdown(null);
+              }}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-primary transition-colors hover:bg-background-elevated"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -776,19 +776,23 @@ export function Navbar() {
         </div>
 
         {/* =====================================
-            MOBILE MENU
+            MOBILE MENU OVERLAY
+            Absolute positioning prevents
+            page content from being pushed down.
         ===================================== */}
 
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0, y: -8 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -8 }}
-              transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="overflow-hidden xl:hidden"
+              id="mobile-navigation"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: 'easeInOut' }}
+              className="absolute left-0 right-0 top-full z-[110] w-full px-3 sm:px-4 xl:hidden"
             >
-              <div className="mx-3 sm:mx-4 mt-2 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-border/80 bg-background-card/95 p-3.5 sm:p-4 shadow-xl backdrop-blur-2xl">
+
+              <div className="mx-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain rounded-2xl border border-border/80 bg-background-card/95 p-3.5 shadow-2xl shadow-black/20 backdrop-blur-2xl sm:p-4">
 
                 <div className="space-y-2">
 
@@ -837,6 +841,7 @@ export function Navbar() {
                                           item,
                                           link.type
                                         );
+
                                         const ItemIcon = item.icon;
 
                                         return (
@@ -858,7 +863,9 @@ export function Navbar() {
                                             onClick={closeMenus}
                                             className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-background-elevated"
                                           >
+
                                             <span className="flex h-8 w-8 shrink-0 items-center justify-center">
+
                                               {item.logo ? (
                                                 <Image
                                                   src={item.logo}
@@ -874,16 +881,19 @@ export function Navbar() {
                                                   {item.mark}
                                                 </span>
                                               )}
+
                                             </span>
 
                                             <span className="min-w-0">
                                               <span className="block text-xs font-medium text-text-primary">
                                                 {item.label}
                                               </span>
+
                                               <span className="mt-0.5 block text-[10px] text-text-secondary">
                                                 {item.description}
                                               </span>
                                             </span>
+
                                           </Link>
                                         );
                                       })}

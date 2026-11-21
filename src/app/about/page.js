@@ -306,10 +306,10 @@ function PhotoFrame({
 function Caption({ title, text, className = '' }) {
   return (
     <div
-      className={`absolute z-10 max-w-[230px] rounded-xl border border-white/10 bg-[#191a1d]/95 px-4 py-3 shadow-xl backdrop-blur-xl ${className}`}
+      className={`about-caption absolute z-10 max-w-[230px] rounded-xl border border-white/10 bg-[#191a1d]/95 px-4 py-3 shadow-xl backdrop-blur-xl ${className}`}
     >
-      <p className="text-xs font-semibold text-white">{title}</p>
-      <p className="mt-1 text-[11px] leading-5 text-white/50">
+      <p className="text-xs font-semibold text-[#ffffff]">{title}</p>
+      <p className="mt-1 text-[11px] leading-5 text-[rgb(255_255_255/0.65)]">
         {text}
       </p>
     </div>
@@ -324,7 +324,7 @@ function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="about-hero relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-border/60 bg-background-primary py-24 sm:min-h-[680px] sm:py-28 lg:min-h-[740px]">
+   <section className="about-hero relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-border/60 bg-background-primary py-20 sm:min-h-[680px] sm:py-24 lg:min-h-[740px]">
       <motion.div
         initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -356,7 +356,7 @@ function Hero() {
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mx-auto max-w-4xl text-center"
+         className="mx-auto max-w-4xl -translate-y-16 text-center sm:-translate-y-20 lg:-translate-y-24"
         >
           <p className="mb-6 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             About Dotix, since 2023
@@ -886,23 +886,25 @@ function ValuesTimeline() {
 /* =========================================================
    WHO / WHAT / WHY
 ========================================================= */
-
 function WhoWhatWhy() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className={`relative overflow-hidden bg-[#151515] text-white ${sectionSpace}`}>
+    <section
+      className={`relative overflow-hidden bg-background-secondary text-text-primary ${sectionSpace}`}
+    >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.06] blur-[150px]" />
       </div>
 
-      <div className={`relative ${container}`}>
+      <div className={`relative z-10 ${container}`}>
         <Reveal>
           <SectionHeading
             eyebrow="The Dotix perspective"
             title="Who we are. What we do. Why it matters."
             align="center"
             spacingClassName="mb-0"
+            titleClassName="text-text-primary"
           />
         </Reveal>
 
@@ -910,11 +912,7 @@ function WhoWhatWhy() {
           {circles.map((circle, index) => (
             <motion.div
               key={circle.title}
-              initial={
-                reduceMotion
-                  ? false
-                  : { opacity: 0, scale: 0.85 }
-              }
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{
@@ -925,17 +923,17 @@ function WhoWhatWhy() {
               whileHover={
                 reduceMotion
                   ? {}
-                  : { backgroundColor: 'rgba(255,255,255,0.035)' }
+                  : { backgroundColor: 'rgba(240,154,85,0.08)' }
               }
-              className={`relative flex aspect-square w-full max-w-[280px] xs:max-w-[320px] shrink-0 flex-col items-center justify-center rounded-full border border-accent/70 p-6 sm:p-10 text-center transition-colors duration-300 sm:max-w-[340px] lg:max-w-[350px] ${
+              className={`relative flex aspect-square w-full max-w-[280px] shrink-0 flex-col items-center justify-center rounded-full border border-accent/60 bg-background-card p-6 text-center shadow-sm transition-colors duration-300 sm:max-w-[340px] sm:p-10 lg:max-w-[350px] dark:shadow-[0_0_48px_-12px_rgba(240,154,85,0.28)] ${
                 index !== 0 ? 'lg:-ml-8' : ''
               }`}
             >
-              <span className="mb-4 block text-3xl font-semibold tracking-tight sm:text-4xl">
+              <span className="mb-4 block text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
                 {circle.title}
               </span>
 
-              <p className="max-w-[240px] text-sm leading-[1.75] text-neutral-300 sm:text-[15px]">
+              <p className="max-w-[240px] text-sm leading-[1.75] text-text-secondary sm:text-[15px]">
                 {circle.description}
               </p>
             </motion.div>
@@ -1381,22 +1379,8 @@ function Glance() {
           })}
         </div>
 
-        <div className="mt-12 flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-12">
-          <p className="shrink-0 text-sm font-medium text-white">
-            The tools behind the work
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {stack.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-border bg-background-card px-4 py-2 text-xs text-text-secondary transition-colors hover:border-accent/50 hover:text-white"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
+       
+       
       </div>
     </section>
   );

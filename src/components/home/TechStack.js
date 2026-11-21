@@ -109,7 +109,7 @@ export function TechStack() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.04] via-transparent to-transparent" />
 
             {/* Vertical scrolling columns */}
-            <div className="relative grid h-[400px] grid-cols-4 gap-1 overflow-hidden sm:h-[420px] sm:gap-2.5 lg:h-[430px]">
+           <div className="relative grid h-[400px] grid-cols-4 gap-0 overflow-hidden sm:h-[420px] sm:gap-1 lg:h-[430px]">
 
               {columns.map((column, columnIndex) => {
                 const reverse = columnIndex % 2 !== 0;
@@ -120,7 +120,7 @@ export function TechStack() {
                     className="relative h-full overflow-hidden"
                   >
                     <motion.div
-                      className="flex flex-col gap-2.5 sm:gap-3"
+                      className="flex flex-col gap-2 sm:gap-3"
                       initial={false}
                       animate={
                         shouldReduceMotion
@@ -141,7 +141,7 @@ export function TechStack() {
                       {[0, 1].map((copy) => (
                         <div
                           key={copy}
-                          className="flex shrink-0 flex-col gap-2.5 sm:gap-3"
+                         className="flex shrink-0 flex-col gap-2 sm:gap-2.5"
                           aria-hidden={copy === 1}
                         >
                           {column.map((technology) => {

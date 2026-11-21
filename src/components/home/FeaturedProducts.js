@@ -214,18 +214,21 @@ function ProductShowcase({ product, index, caseStudySlugs }) {
 
         <div className="mb-3 flex items-center gap-3">
 
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-background-card p-2">
-            <Image
-              src={product.logo}
-              alt={`${product.name} logo`}
-              width={32}
-              height={32}
-              className="h-full w-full object-contain"
-            />
-          </div>
+          {/* LOGO - NO BACKGROUND OR BORDER */}
 
-          <div className="flex min-w-0 flex-col gap-1">
+         <div className="flex h-7 w-7 shrink-0 items-center justify-center">
+  <Image
+    src={product.logo}
+    alt={`${product.name} logo`}
+    width={24}
+    height={24}
+    className="h-full w-full object-contain"
+  />
+</div>
 
+          {/* PRODUCT NAME */}
+
+          <div className="flex min-w-0 flex-col">
             <h3 className="text-xl font-semibold tracking-tight text-text-primary transition-colors duration-300 group-hover:text-accent sm:text-2xl">
               <CaseStudyLink
                 href={caseStudyHref}
@@ -235,11 +238,6 @@ function ProductShowcase({ product, index, caseStudySlugs }) {
                 {product.name}
               </CaseStudyLink>
             </h3>
-
-            <span className="text-xs font-medium tracking-wide text-text-muted">
-              {product.category}
-            </span>
-
           </div>
 
           <span className="ml-auto shrink-0 font-mono text-[10px] tracking-widest text-text-muted">

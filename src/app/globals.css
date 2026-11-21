@@ -5,6 +5,7 @@
 
 :root {
   color-scheme: light;
+  --contact-card: #f4f1ee;
   --background-primary: #FFFCF8;
   --background-secondary: rgb(255 247 237 / 88%);
   --background-card: #FFFFFF;
@@ -35,6 +36,7 @@ html[data-theme="dark"] {
   --grid-lines: #1B1F24;
   --white-button-bg: #F5F5F5;
   --white-button-text: #08090B;
+  --contact-card: #160d0b;
 }
 
 @theme inline {
@@ -88,12 +90,16 @@ svg {
   display: block;
 }
 
-html:not([data-theme="light"]) .site-navbar__logo {
+/* Logos are only turned white in dark mode; light mode keeps original colours */
+html[data-theme="dark"] .site-navbar__logo,
+html[data-theme="dark"] .about-hero__logo {
   filter: brightness(0) invert(1);
 }
 
-html:not([data-theme="light"]) .about-hero__logo {
-  filter: brightness(0) invert(1);
+html[data-theme="light"] .site-navbar__logo,
+html[data-theme="light"] .about-hero__logo,
+html[data-theme="light"] .site-navbar img {
+  filter: none !important;
 }
 
 h1,
@@ -196,7 +202,7 @@ html[data-theme="light"] .home-stack-slab {
     color-mix(in srgb, var(--accent) 20%, white),
     color-mix(in srgb, var(--accent) 8%, white)
   );
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent) !important;
+  border-color: transparent !important;
 }
 
 html[data-theme="light"] .home-stack-slab-active {
@@ -205,7 +211,7 @@ html[data-theme="light"] .home-stack-slab-active {
     color-mix(in srgb, var(--accent) 30%, white),
     color-mix(in srgb, var(--accent) 14%, white)
   );
-  border-color: color-mix(in srgb, var(--accent) 70%, transparent) !important;
+  border-color: transparent !important;
   box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 35%, transparent) !important;
 }
 
@@ -285,7 +291,7 @@ html[data-theme="light"] .home-stack-orbit {
 }
 
 .mobile-app-page .ma-cta-kicker {
-  margin: 0 0 8px !important;
+  margin: 0 auto 8px !important;
   color: var(--accent) !important;
   font-size: 11px !important;
   font-weight: 700;
@@ -634,4 +640,207 @@ html[data-theme="light"] .case-study-body aside {
       opacity: 1 !important;
     }
   }
+
+/* ==========================================
+   CASE STUDY HERO — THEME SUPPORT
+========================================== */
+/* ==========================================
+   CASE STUDY HERO — LIGHT THEME TEXT FIX
+========================================== */
+
+/* ==========================================
+   CASE STUDY — LIGHT THEME FIX
+========================================== */
+
+html[data-theme="light"] .case-study-hero,
+html[data-theme="light"] .case-study-body {
+  background: var(--background-primary);
+  color: #171717;
+}
+
+/* Main headings */
+html[data-theme="light"] .case-study-hero h1,
+html[data-theme="light"] .case-study-hero h2,
+html[data-theme="light"] .case-study-hero h3,
+html[data-theme="light"] .case-study-body h1,
+html[data-theme="light"] .case-study-body h2,
+html[data-theme="light"] .case-study-body h3,
+html[data-theme="light"] .case-study-markdown__heading {
+  color: #171717 !important;
+}
+
+/* All heading children and icons */
+html[data-theme="light"] .case-study-hero h1 *,
+html[data-theme="light"] .case-study-body h1 *,
+html[data-theme="light"] .case-study-markdown__heading svg {
+  color: #171717 !important;
+}
+
+/* Paragraphs and descriptions */
+html[data-theme="light"] .case-study-hero p,
+html[data-theme="light"] .case-study-body p,
+html[data-theme="light"] .case-study-body li,
+html[data-theme="light"] .case-study-markdown {
+  color: #404040;
+}
+
+/* Override Tailwind white text utilities */
+html[data-theme="light"] .case-study-hero [class*="text-white"],
+html[data-theme="light"] .case-study-body [class*="text-white"] {
+  color: #404040 !important;
+}
+
+/* Keep the tags visually prominent */
+html[data-theme="light"] .case-study-hero .bg-accent {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .case-study-hero .bg-accent svg {
+  color: #ffffff !important;
+}
+
+/* Visit website button */
+html[data-theme="light"] .case-study-hero a.bg-white {
+  background: #171717 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .case-study-hero a.bg-white svg {
+  color: #ffffff !important;
+}
+
+/* Links */
+html[data-theme="light"] .case-study-body a {
+  color: var(--accent);
+}
+
+/* Lists */
+html[data-theme="light"] .case-study-body li {
+  color: #404040 !important;
+}
+
+html[data-theme="light"] .case-study-body li span {
+  color: #404040;
+}
+
+/* Diamond markers */
+html[data-theme="light"] .case-study-body li span span {
+  background: #737373;
+}
+
+/* Horizontal divider */
+html[data-theme="light"] .case-study-body hr {
+  border-color: #e5e5e5 !important;
+}
+
+/* Hero grid */
+html[data-theme="light"] .case-study-hero__grid {
+  opacity: 0.35;
+}
+
+/* Hero border */
+html[data-theme="light"] .case-study-hero {
+  border-color: #e5e5e5;
+}
+
+/* FORCE CASE STUDY HEADINGS BLACK IN LIGHT MODE */
+
+html[data-theme="light"] .case-study-hero h1,
+html[data-theme="light"] .case-study-hero h1.text-white,
+html[data-theme="light"] .case-study-hero h1[class],
+html[data-theme="light"] .case-study-hero h1 span,
+html[data-theme="light"] .case-study-hero h1 * {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Markdown headings */
+html[data-theme="light"] .case-study-markdown h1,
+html[data-theme="light"] .case-study-markdown h2,
+html[data-theme="light"] .case-study-markdown h3,
+html[data-theme="light"] .case-study-markdown__heading,
+html[data-theme="light"] .case-study-markdown__heading span {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* ==========================================
+   ABOUT PAGE — LIGHT THEME TEXT FIX
+========================================== */
+
+html[data-theme="light"] .about-page {
+  color: #1f2937;
+}
+
+/* Main headings */
+html[data-theme="light"] .about-page h1,
+html[data-theme="light"] .about-page h2,
+html[data-theme="light"] .about-page h3 {
+  color: #111827 !important;
+}
+
+/* Override hardcoded white text */
+html[data-theme="light"] .about-page .text-white {
+  color: #1f2937 !important;
+}
+
+/* Secondary descriptions */
+html[data-theme="light"] .about-page .text-text-secondary {
+  color: #596273 !important;
+}
+
+/* Muted labels and supporting text */
+html[data-theme="light"] .about-page .text-text-muted {
+  color: #737d8d !important;
+}
+
+/* Keep accent text unchanged */
+html[data-theme="light"] .about-page .text-accent {
+  color: var(--accent) !important;
+}
+
+/* Primary CTA buttons must retain white text */
+html[data-theme="light"] .about-page a.bg-accent,
+html[data-theme="light"] .about-page a.bg-accent * {
+  color: #ffffff !important;
+}
+
+/* Dark image captions must retain white text */
+html[data-theme="light"] .about-page .bg-\[\#191a1d\] {
+  color: #ffffff;
+}
+
+html[data-theme="light"] .about-page .bg-\[\#191a1d\] p {
+  color: #ffffff !important;
+}
+
+/* Service image icon overlays */
+html[data-theme="light"] .about-page .bg-black\/45 {
+  color: #ffffff !important;
+}
+/* Dark theme — Hero section buttons */
+/* Dark theme — Hero section buttons */
+html[data-theme="dark"] .case-study-hero button,
+html[data-theme="dark"] .case-study-hero a:not([href]) {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .case-study-hero button:hover {
+  background-color: var(--accent-hover);
+}
+/* Case study hero tags: accent colour in dark mode */
+html[data-theme="dark"] .case-study-hero .case-study-tag {
+  background-color: var(--accent);
+  color: #08090b;
+}
+
+html[data-theme="dark"] .case-study-hero .case-study-tag svg {
+  color: #08090b;
+}
+
+html[data-theme="dark"] .case-study-hero .case-study-tag:hover {
+  background-color: var(--accent-hover);
+}
 }

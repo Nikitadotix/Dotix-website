@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from '../../../components/common/Button.js';
 import { FAQAccordion } from '../../../components/common/FAQAccordion.js';
 import { SectionHeading as SharedSectionHeading } from '../../../components/common/SectionHeading.js';
+import { Globe2, Smartphone, Monitor } from 'lucide-react';
 
 /* NOTE: `export const metadata` cannot live in a 'use client' file.
    Put it in a sibling layout.js. document.title below is a fallback. */
@@ -610,32 +611,45 @@ export default function MobileAppDevelopmentPage() {
       <style>{CSS}</style>
 
       {/* HERO */}
-      <section className="ma-hero">
-        <div className="ma-container ma-hero-grid">
-          <div className="ma-hero-copy">
-            <h1 className="ma-in" style={{ animationDelay: '80ms' }}>
-              One product.
-              <span>Every platform</span>
-            </h1>
-            <p className="ma-lead ma-in" style={{ animationDelay: '160ms' }}>
-              We design and build web, iOS and Android apps, from first prototype to store release and beyond.
-            </p>
+     {/* HERO */}
+<section className="ma-hero">
+  <div className="ma-container ma-hero-grid">
+    <div className="ma-hero-copy">
+      <h1 className="ma-in" style={{ animationDelay: '80ms' }}>
+        We turn bold ideas into
+        <span>powerful mobile experiences</span>
+      </h1>
 
-            <div className="ma-actions ma-in" style={{ animationDelay: '220ms' }}>
-              <Button href="/contact" variant="primary">
-                Start your project
-              </Button>
-              <a href="#planner" className="ma-link">
-                Plan your app &rarr;
-              </a>
-            </div>
-          </div>
+      <p className="ma-lead ma-in" style={{ animationDelay: '160ms' }}>
+        We design and build web, iOS and Android apps, from first prototype
+        to store release and beyond.
+      </p>
 
-          <div className="ma-hero-art" aria-hidden="true">
-            <HeroDiagram />
-          </div>
-        </div>
-      </section>
+      {/* Platform Icons */}
+      <div
+        className="ma-platforms ma-in"
+        style={{ animationDelay: '190ms' }}
+      >
+        <span><Smartphone size={16} /> Android</span>
+        <span><Smartphone size={16} /> iOS</span>
+        <span><Globe2 size={16} /> Web</span>
+      </div>
+
+      <div className="ma-actions ma-in" style={{ animationDelay: '220ms' }}>
+        <Button href="/contact" variant="primary">
+          Start your project
+        </Button>
+        <a href="#planner" className="ma-link">
+          Plan your app &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div className="ma-hero-art" aria-hidden="true">
+      <HeroDiagram />
+    </div>
+  </div>
+</section>
 
       {/* MOVING TECH STRIP */}
       {/* <div className="ma-marquee" aria-label="Technologies we work with">
@@ -650,29 +664,63 @@ export default function MobileAppDevelopmentPage() {
 
       {/* PLATFORMS */}
       <section className="ma-section">
-        <div className="ma-container">
-          <SectionHead
-            label="Every screen"
-            title="Built for the platform in people’s hands."
-            intro="Each version feels native to its platform."
-          />
-          <Reveal delay={80}>
-            <Platforms />
-          </Reveal>
-        </div>
-      </section>
+  <div className="ma-container">
+    <SectionHead
+      label="Every screen"
+      title="Built for the platform in people’s hands."
+      intro="Each version feels native to its platform."
+    />
+    <Reveal delay={80}>
+      <Platforms />
+    </Reveal>
+  </div>
+</section>
 
-      {/* FLOW */}
-      <section className="ma-section ma-alt">
-        <div className="ma-container">
-          <SectionHead
-            label="How it fits together"
-            title="What happens behind every tap."
-            intro="How a typical product connects your app, data and services."
-          />
-          <FlowDiagram />
-        </div>
-      </section>
+{/*Flow*/}
+<section className="ma-section ma-alt">
+  <div className="ma-container">
+    <SectionHead
+      label="How it fits together"
+      title="What happens behind every tap."
+      intro="How a typical product connects your app, data and services."
+    />
+    <FlowDiagram />
+  </div>
+</section>
+
+
+
+
+
+
+    {/* HERO */}
+<section className="ma-hero">
+  <div className="ma-container ma-hero-grid">
+    <div className="ma-hero-copy">
+      <h1 className="ma-in" style={{ animationDelay: '80ms' }}>
+        We turn bold ideas into
+        <span>powerful mobile experiences</span>
+      </h1>
+
+      <p className="ma-lead ma-in" style={{ animationDelay: '160ms' }}>
+        We design and build web, iOS and Android apps, from first prototype to store release and beyond.
+      </p>
+
+      <div className="ma-actions ma-in" style={{ animationDelay: '220ms' }}>
+        <Button href="/contact" variant="primary">
+          Start your project
+        </Button>
+        <a href="#planner" className="ma-link">
+          Plan your app &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div className="ma-hero-art" aria-hidden="true">
+      <HeroDiagram />
+    </div>
+  </div>
+</section>
 
       {/* PLANNER */}
       {/* <section className="ma-section" id="planner">
@@ -803,35 +851,37 @@ export default function MobileAppDevelopmentPage() {
 
       {/* CTA */}
       <section className="ma-cta">
-        <div className="ma-container ma-narrow">
-          <Reveal>
-            <SharedSectionHeading
-              eyebrow="Start a mobile project"
-              title="Have an app in mind? Tell us about it."
-              description="Tell us what you are planning. We will reply with honest feedback."
-              spacingClassName="mb-6"
-            />
-            <div className="ma-cta-box">
-              <div className="ma-cta-box-art" aria-hidden="true">
-                <span className="ma-cta-orbit ma-cta-orbit-one" />
-                <span className="ma-cta-orbit ma-cta-orbit-two" />
-                <span className="ma-cta-spark ma-cta-spark-one" />
-                <span className="ma-cta-spark ma-cta-spark-two" />
-              </div>
-              <div className="ma-cta-box-content">
-                <p className="ma-cta-kicker">Your next app starts here</p>
-                <p className="ma-cta-box-copy">
-                  Share your idea and we’ll help turn it into a clear, buildable plan.
-                </p>
-                <Button href="/contact" variant="primary">
-                  Start your project
-                </Button>
-              </div>
-            </div>
-          </Reveal>
+  <div className="ma-container ma-narrow">
+    <Reveal>
+      <SharedSectionHeading
+        eyebrow="Start a mobile project"
+        title="Have an app in mind? Tell us about it."
+        description="Tell us what you are planning. We will reply with honest feedback."
+        align="center"
+        spacingClassName="mb-0"
+        descriptionClassName="ma-cta-desc"
+      />
+      <div className="ma-cta-box">
+        <div className="ma-cta-box-art" aria-hidden="true">
+          <span className="ma-cta-orbit ma-cta-orbit-one" />
+          <span className="ma-cta-orbit ma-cta-orbit-two" />
+          <span className="ma-cta-spark ma-cta-spark-one" />
+          <span className="ma-cta-spark ma-cta-spark-two" />
         </div>
-      </section>
-    </main>
+        <div className="ma-cta-box-content">
+          <p className="ma-cta-kicker">Your next app starts here</p>
+          <p className="ma-cta-box-copy">
+            Share your idea and we’ll help turn it into a clear, buildable plan.
+          </p>
+          <Button href="/contact" variant="primary">
+            Start your project
+          </Button>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>
+  </main>
   );
 }
 
@@ -848,6 +898,7 @@ const CSS = `
   --ma-line:var(--border,rgba(255,255,255,.1));
   --ma-text:var(--text-secondary,#b0b2c3);
   --ma-muted:var(--text-muted,#82859a);
+  
   background:var(--ma-bg);
   color:#f2f2f7;
   overflow:hidden
@@ -969,8 +1020,9 @@ html[data-theme="dark"] .ma-hero h1 span{
   background-image:linear-gradient(90deg,#fdba74,#fb923c,#fbbf24)
 }
 
-.ma-lead {
-  margin: 8px 0 0;
+.mobile-app-page .ma-hero-copy .ma-lead {
+  margin: 0 !important;
+  padding-top: 24px !important;
   max-width: 460px;
   font-size: 15px;
   line-height: 1.75;
@@ -1791,7 +1843,7 @@ html[data-theme="dark"] .ma-hero h1 span{
 @media(max-width:1000px){
   .ma-hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}
   .ma-hero-copy{max-width:none;margin:0 auto}
-  .ma-lead{margin-left:auto;margin-right:auto}
+ .mobile-app-page .ma-hero-copy .ma-lead{margin-left:auto !important;margin-right:auto !important}
   .ma-actions{justify-content:center}
   .ma-hero-art{--k:.6;justify-self:center}
 
@@ -1877,4 +1929,228 @@ html[data-theme="dark"] .ma-hero h1 span{
   .ma-reveal,.ma-in{opacity:1;transform:none}
   .ma-step-line span,.ma-steps-line span{width:100%;height:100%}
 }
+
+/* ==========================================
+   MOBILE APP PAGE — LIGHT THEME TEXT FIX
+========================================== */
+
+html[data-theme="light"] .mobile-app-page {
+  color: #181824;
+}
+
+/* Main headings */
+html[data-theme="light"] .mobile-app-page h1,
+html[data-theme="light"] .mobile-app-page h2,
+html[data-theme="light"] .mobile-app-page h3 {
+  color: #171721;
+}
+
+/* Hero heading */
+html[data-theme="light"] .mobile-app-page .ma-hero h1 {
+  color: #171721;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-hero h1 span {
+  background-image: linear-gradient(
+    90deg,
+    #ea580c,
+    #c2410c,
+    #d97706
+  );
+}
+
+/* Hero description and section descriptions */
+html[data-theme="light"] .mobile-app-page .ma-lead,
+html[data-theme="light"] .mobile-app-page .ma-intro,
+html[data-theme="light"] .mobile-app-page .ma-body {
+  color: #555566;
+}
+
+/* Hero secondary link */
+html[data-theme="light"] .mobile-app-page .ma-link {
+  color: #252535;
+}
+
+/* Platform list */
+html[data-theme="light"] .mobile-app-page .ma-plat-col li {
+  color: #454556;
+}
+
+/* Flow diagram */
+html[data-theme="light"] .mobile-app-page .ma-flow-col {
+  background: #ffffff;
+  border-color: #e5e5ed;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-flow-step,
+html[data-theme="light"] .mobile-app-page .ma-flow-cap {
+  color: #666678;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-flow-col li {
+  background: #f2f2f7;
+  color: #383849;
+}
+
+/* Process section */
+html[data-theme="light"] .mobile-app-page .ma-step-time {
+  color: #777787;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-step-dot {
+  background: #ffffff;
+  color: #666678;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-step h3 {
+  color: #171721;
+}
+
+/* App showcase cards */
+html[data-theme="light"] .mobile-app-page .ma-app-body h3 {
+  color: #171721;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-app-tags span {
+  color: #555566;
+  border-color: #dedee8;
+}
+
+/* App image placeholders */
+html[data-theme="light"] .mobile-app-page .ma-app-ph {
+  background: linear-gradient(135deg, #eeeeF5, #ffffff);
+}
+
+html[data-theme="light"] .mobile-app-page .ma-app-ph span {
+  color: #343447;
+}
+
+/* CTA */
+html[data-theme="light"] .mobile-app-page .ma-cta h2 {
+  color: #171721;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-cta p {
+  color: #555566;
+}
+
+/* ==========================================
+   PHONE MOCKUP — KEEP TEXT READABLE
+========================================== */
+
+/* The phone screens intentionally retain their
+   light interface in both website themes. */
+
+.mobile-app-page .hd-screen {
+  color: #15151f;
+  background: #f4f4f8;
+}
+
+.mobile-app-page .hd-status {
+  color: #252535;
+}
+
+.mobile-app-page .hd-url {
+  color: #454553;
+}
+
+.mobile-app-page .hd-head h4 {
+  color: #15151f !important;
+}
+
+.mobile-app-page .hd-stats small {
+  color: #656575;
+}
+
+.mobile-app-page .hd-stats strong {
+  color: #171721;
+}
+
+.mobile-app-page .hd-row b {
+  color: #171721;
+}
+
+.mobile-app-page .hd-row small {
+  color: #656575;
+}
+
+.mobile-app-page .hd-sheet b {
+  color: #171721;
+}
+
+.mobile-app-page .hd-sheet small {
+  color: #656575;
+}
+
+/* Connected service cards around the phones */
+html[data-theme="light"] .mobile-app-page .hd-node {
+  background: #ffffff;
+  border-color: #e3e3ed;
+  box-shadow: 0 15px 35px -22px rgba(0,0,0,.22);
+}
+
+html[data-theme="light"] .mobile-app-page .hd-node b {
+  color: #242434;
+}
+
+html[data-theme="light"] .mobile-app-page .hd-node small {
+  color: #686879;
+}
+
+/* Planner, if enabled later */
+html[data-theme="light"] .mobile-app-page .ma-planner legend,
+html[data-theme="light"] .mobile-app-page .ma-opt strong,
+html[data-theme="light"] .mobile-app-page .ma-weeks,
+html[data-theme="light"] .mobile-app-page .ma-break-row b {
+  color: #171721;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-opt {
+  color: #555566;
+}
+
+html[data-theme="light"] .mobile-app-page .ma-chip {
+  color: #454556;
+}
+  /* Keep image caption text white in light mode */
+html[data-theme="light"] .about-page .about-caption p {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .about-page .about-caption p:last-child {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.ma-platforms {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  margin-bottom: 28px;
+}
+
+.ma-platforms span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.ma-platforms span svg {
+  color: var(--accent);
+}
+
+.ma-platforms span:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+  .ma-hero h1 span{margin-left:auto;margin-right:auto}
+.ma-platforms{justify-content:center}
 `;

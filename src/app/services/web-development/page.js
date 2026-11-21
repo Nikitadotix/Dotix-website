@@ -332,10 +332,10 @@ function ProjectMarquee({ items, speed = 0.7 }) {
                     0{(i % items.length) + 1}
                   </span>
                 </div>
-                <h3 className="mt-5 text-2xl sm:text-3xl font-bold text-white tracking-[-0.03em]">
+                <h3 className="mt-5 text-2xl sm:text-3xl font-bold text-text-primary tracking-[-0.03em]">
                   {project.name}
                 </h3>
-                <p className="mt-3 text-sm text-white/70 leading-relaxed">
+                <p className="mt-3 text-sm text-text-secondary leading-relaxed">
                   {project.description}
                 </p>
                 {url && (
@@ -344,7 +344,7 @@ function ProjectMarquee({ items, speed = 0.7 }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     draggable={false}
-                    className="mt-auto pt-6 text-sm font-semibold text-accent"
+                    className="mt-auto pt-6 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
                   >
                     Visit website ↗
                   </a>
@@ -360,7 +360,7 @@ function ProjectMarquee({ items, speed = 0.7 }) {
           type="button"
           aria-label="Previous projects"
           onClick={() => scrollByCard(-1)}
-          className="w-11 h-11 rounded-full border border-white/20 text-white text-lg flex items-center justify-center"
+          className="w-11 h-11 rounded-full border border-border text-text-primary text-lg flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
         >
           ←
         </button>
@@ -368,7 +368,7 @@ function ProjectMarquee({ items, speed = 0.7 }) {
           type="button"
           aria-label="Next projects"
           onClick={() => scrollByCard(1)}
-          className="w-11 h-11 rounded-full border border-white/20 text-white text-lg flex items-center justify-center"
+          className="w-11 h-11 rounded-full border border-border text-text-primary text-lg flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
         >
           →
         </button>
@@ -397,7 +397,7 @@ function RotatingWord() {
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={index}
-          className="block text-transparent bg-clip-text bg-gradient-to-r from-accent via-orange-300 to-amber-300"
+          className="block text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover"
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: '0%', opacity: 1 }}
           exit={{ y: '-100%', opacity: 0 }}
@@ -468,7 +468,7 @@ function ScoreRing({ label, delay }) {
             transition={{ delay, duration: 1.8, ease: EASE }}
           />
         </svg>
-        <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white">
+        <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-text-primary">
           <CountUp to={100} delay={delay} />
         </span>
       </div>
@@ -499,13 +499,13 @@ export default function WebDevelopmentPage() {
   return (
     <main className="overflow-x-clip">
 
-      {/* HERO (same as the original) */}
+      {/* HERO */}
       <section className="relative bg-background-primary pt-20 sm:pt-32 pb-12 sm:pb-16 lg:pt-44 lg:pb-20">
         <Aurora />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="-mt-2 sm:-mt-6 lg:-mt-8 text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-[-0.05em] leading-[1.08]"
+            className="-mt-2 sm:-mt-6 lg:-mt-8 text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-text-primary tracking-[-0.05em] leading-[1.08]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
@@ -533,7 +533,7 @@ export default function WebDevelopmentPage() {
             <Button
               href="/contact"
               variant="primary"
-              className="bg-white/90 text-black text-xs sm:text-sm font-semibold px-6 sm:px-7 py-3 sm:py-3.5 shadow-lg shadow-white/10 hover:bg-white transition-all duration-300"
+              className="bg-white-button-bg text-white-button-text text-xs sm:text-sm font-semibold px-6 sm:px-7 py-3 sm:py-3.5 shadow-lg shadow-accent/20 hover:opacity-90 transition-all duration-300"
             >
               Start your website
             </Button>
@@ -574,28 +574,28 @@ export default function WebDevelopmentPage() {
                   }
                   description="Whether you want to establish your brand, generate leads, publish content, or sell products, we build around what you want to achieve."
                   spacingClassName="mb-0"
-                  titleClassName="text-white sm:text-5xl"
-                  descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+                  titleClassName="text-text-primary sm:text-5xl"
+                  descriptionClassName="max-w-md text-sm text-text-secondary sm:text-base"
                 />
               </Reveal>
             </div>
           </div>
 
-          <div className="lg:col-span-7 border-t border-white/10">
+          <div className="lg:col-span-7 border-t border-border">
             {serviceCards.map((card, index) => (
               <Reveal key={card.label}>
-                <article className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4.5rem_1fr] gap-2 py-10 border-b border-white/10">
+                <article className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4.5rem_1fr] gap-2 py-10 border-b border-border">
                   <span className="text-sm font-medium text-accent tabular-nums pt-1.5">
                     0{index + 1}
                   </span>
                   <div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-white/50">
+                    <p className="text-xs uppercase tracking-[0.18em] text-text-muted">
                       {card.label}
                     </p>
-                    <h3 className="mt-3 text-2xl sm:text-3xl font-bold text-white tracking-[-0.03em] leading-snug">
+                    <h3 className="mt-3 text-2xl sm:text-3xl font-bold text-text-primary tracking-[-0.03em] leading-snug">
                       {card.title}
                     </h3>
-                    <p className="mt-4 text-sm sm:text-base text-white/70 leading-relaxed max-w-lg">
+                    <p className="mt-4 text-sm sm:text-base text-text-secondary leading-relaxed max-w-lg">
                       {card.description}
                     </p>
                   </div>
@@ -620,19 +620,19 @@ export default function WebDevelopmentPage() {
               }
               description="We build reliable, scalable software that delivers lasting value as your business grows."
               spacingClassName="mb-0"
-              titleClassName="max-w-3xl text-white sm:text-5xl"
-              descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+              titleClassName="max-w-3xl text-text-primary sm:text-5xl"
+              descriptionClassName="max-w-md text-sm text-text-secondary sm:text-base"
             />
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 border-t border-l border-white/10">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 border-t border-l border-border">
             {strengths.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.06}>
-                <div className="h-full p-8 sm:p-10 border-r border-b border-white/10">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-[-0.03em]">
+                <div className="h-full p-8 sm:p-10 border-r border-b border-border">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-[-0.03em]">
                     {item.title}
                   </h3>
-                  <p className="mt-4 text-sm sm:text-base text-white/70 leading-relaxed max-w-sm">
+                  <p className="mt-4 text-sm sm:text-base text-text-secondary leading-relaxed max-w-sm">
                     {item.text}
                   </p>
                 </div>
@@ -655,8 +655,8 @@ export default function WebDevelopmentPage() {
               }
               description="A few of the digital products and websites we’ve brought to life."
               spacingClassName="mb-0"
-              titleClassName="text-white sm:text-5xl"
-              descriptionClassName="text-sm text-white/70 sm:text-base"
+              titleClassName="text-text-primary sm:text-5xl"
+              descriptionClassName="text-sm text-text-secondary sm:text-base"
             />
           </Reveal>
         </div>
@@ -680,8 +680,8 @@ export default function WebDevelopmentPage() {
               }
               description="We turn your ideas into polished, responsive websites built for performance, usability, and growth."
               spacingClassName="mb-0"
-              titleClassName="max-w-3xl text-white sm:text-5xl"
-              descriptionClassName="max-w-md text-sm text-white/70 sm:text-base"
+              titleClassName="max-w-3xl text-text-primary sm:text-5xl"
+              descriptionClassName="max-w-md text-sm text-text-secondary sm:text-base"
             />
           </Reveal>
 
@@ -693,10 +693,10 @@ export default function WebDevelopmentPage() {
                   <span className="mt-6 block text-2xl sm:text-3xl font-bold leading-none tracking-[-0.05em] text-accent">
                     0{i + 1}
                   </span>
-                  <h3 className="mt-6 text-xl sm:text-2xl font-bold text-white leading-snug">
+                  <h3 className="mt-6 text-xl sm:text-2xl font-bold text-text-primary leading-snug">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm sm:text-base text-white/70 leading-relaxed">
+                  <p className="mt-3 text-sm sm:text-base text-text-secondary leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -720,8 +720,8 @@ export default function WebDevelopmentPage() {
                 }
                 description="Answers on SEO, timelines, redesigns, and maintenance."
                 spacingClassName="mb-0"
-                titleClassName="text-white sm:text-5xl"
-                descriptionClassName="text-sm text-white/70 sm:text-base"
+                titleClassName="text-text-primary sm:text-5xl"
+                descriptionClassName="text-sm text-text-secondary sm:text-base"
               />
             </Reveal>
           </div>
@@ -751,8 +751,8 @@ export default function WebDevelopmentPage() {
                   description="Tell us what you’re building and we’ll help you launch a fast, engaging site that moves your business forward."
                   className="lg:col-span-8"
                   spacingClassName="mb-0"
-                  titleClassName="text-4xl text-white sm:text-6xl"
-                  descriptionClassName="max-w-xl text-sm text-white/70 sm:text-base"
+                  titleClassName="text-4xl text-text-primary sm:text-6xl"
+                  descriptionClassName="max-w-xl text-sm text-text-secondary sm:text-base"
                 />
 
                 <div className="lg:col-span-4 lg:flex lg:justify-end">

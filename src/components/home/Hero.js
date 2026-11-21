@@ -548,7 +548,7 @@ function StackScene() {
         style={{ perspective: 1500 }}
       >
         {/* Ambient light */}
-        <div className="absolute left-[8%] sm:left-[2%] top-[12%] w-[280px] h-[280px] rounded-full bg-accent/25 dark:bg-orange-500/10 blur-[100px] pointer-events-none" />
+        <div className="absolute left-[8%] sm:left-[2%] top-[12%] w-[280px] h-[280px] rounded-full  blur-[100px] pointer-events-none" />
 
         {/* Scene centre */}
         <div className="absolute left-1/2 sm:left-[37%] top-[47%] -translate-x-1/2 -translate-y-1/2">
@@ -926,16 +926,16 @@ export function Hero() {
             style={{ y: contentY }}
             className="lg:col-span-5 relative z-20"
           >
-            <motion.h1
-              {...fade(0.08)}
-              className="home-hero-title text-[clamp(1.9rem,4vw,3.65rem)] font-medium tracking-[-0.045em] text-text-primary mb-4 leading-[1.08] [font-family:var(--font-manrope)]"
-            >
-              We Architect &amp; Build
+           <motion.h1
+  {...fade(0.08)}
+  className="home-hero-title text-[clamp(1.9rem,4vw,3.65rem)] font-medium tracking-[-0.045em] text-text-primary mb-4 leading-[1.8] [font-family:var(--font-manrope)]"
+>
+  We Architect &amp; Build
 
-              <RotatingWord />
+  <RotatingWord />
 
-              That Scale Into Market Leaders.
-            </motion.h1>
+  That Scale Into Market Leaders.
+</motion.h1>
 
             <motion.p
               {...fade(0.16)}
